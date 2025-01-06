@@ -71,9 +71,11 @@
 
     <!-- Theme Config Js -->
     <script src="{{ asset('backend') }}/assets/js/config.js"></script>
+
 </head>
 
 <body>
+
     <div class="auth-bg d-flex min-vh-100 justify-content-center align-items-center">
         <div class="row g-0 justify-content-center w-100 m-xxl-5 px-xxl-4 m-3">
             <div class="col-xl-3 col-lg-4 col-md-6">
@@ -123,10 +125,6 @@
                             <button class="btn btn-primary fw-semibold" type="submit"> {{ __('Log in') }}</button>
                         </div>
                     </form>
-
-
-                    {{-- <p class="text-muted fs-14 mb-0">Don't have an account?
-                        <a href="auth-register.html" class="fw-semibold text-danger ms-1">Sign Up !</a> --}}
                     </p>
                 </div>
 
@@ -145,6 +143,8 @@
 
     <!-- App js -->
     <script src="{{ asset('backend') }}/assets/js/app.js"></script>
+
+
 
 </body>
 
