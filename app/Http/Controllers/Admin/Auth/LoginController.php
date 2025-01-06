@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\AdminLoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class LoginController extends Controller
@@ -28,8 +29,11 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
+
+
         return redirect()->intended(route('admin.dashboard', absolute: false));
     }
+
 
     /**
      * Destroy an authenticated session.

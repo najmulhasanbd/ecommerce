@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
+use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware('guest:admin')->group(function () {
@@ -24,4 +25,13 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
     Route::post('logout', [LoginController::class, 'destroy'])
         ->name('admin.logout');
+
+
+    //category
+    Route::prefix('category')->controller(CategoryController::class)->name('category.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::delete('/delete/{category}', 'destroy')->name('delete');
+    });
 });
