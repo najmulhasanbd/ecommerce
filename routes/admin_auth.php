@@ -32,6 +32,8 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
-        Route::delete('/delete/{category}', 'destroy')->name('delete');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::put('/update/{id}', 'update')->name('update');
+        Route::get('/delete/{id}', 'destroy')->name('delete');  // Fixed this line
     });
 });

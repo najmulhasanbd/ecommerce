@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Dashboard | Abstack - Responsive Bootstrap 5 Admin Dashboard</title>
+    <title>Admin Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Tripli" name="author" />
@@ -11,19 +11,21 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('backend') }}/assets/images/favicon.ico">
 
-        <!-- Datatables css -->
-        <link href="{{ asset('backend') }}/assets/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('backend') }}/assets/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet"
-            type="text/css" />
-        <link href="{{ asset('backend') }}/assets/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet"
-            type="text/css" />
-        <link href="{{ asset('backend') }}/assets/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" rel="stylesheet"
-            type="text/css" />
-        <link href="{{ asset('backend') }}/assets/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet"
-            type="text/css" />
-        <link href="{{ asset('backend') }}/assets/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" rel="stylesheet"
-            type="text/css" />
-    
+    <!-- Datatables css -->
+    <link href="{{ asset('backend') }}/assets/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css"
+        rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend') }}/assets/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css"
+        rel="stylesheet" type="text/css" />
+    <link
+        href="{{ asset('backend') }}/assets/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css"
+        rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend') }}/assets/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css"
+        rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend') }}/assets/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css"
+        rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend') }}/assets/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css"
+        rel="stylesheet" type="text/css" />
+
 
     <!-- Vendor css -->
     <link href="{{ asset('backend') }}/assets/css/vendor.min.css" rel="stylesheet" type="text/css" />
@@ -36,6 +38,11 @@
 
     <!-- Theme Config Js -->
     <script src="{{ asset('backend') }}/assets/js/config.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.9.0/sweetalert2.min.css">
+
+
 </head>
 
 <body>
@@ -490,21 +497,24 @@
     <!-- App js -->
     <script src="{{ asset('backend') }}/assets/js/app.js"></script>
 
-       <!-- Datatables js -->
-       <script src="{{ asset('backend') }}/assets/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
-       <script src="{{ asset('backend') }}/assets/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-       <script src="{{ asset('backend') }}/assets/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-       <script src="{{ asset('backend') }}/assets/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
-       <script src="{{ asset('backend') }}/assets/vendor/datatables.net-fixedcolumns-bs5/js/fixedColumns.bootstrap5.min.js"></script>
-       <script src="{{ asset('backend') }}/assets/vendor/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-       <script src="{{ asset('backend') }}/assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-       <script src="{{ asset('backend') }}/assets/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
-       <script src="{{ asset('backend') }}/assets/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
-       <script src="{{ asset('backend') }}/assets/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
-       <script src="{{ asset('backend') }}/assets/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
-       <script src="{{ asset('backend') }}/assets/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-       <script src="{{ asset('backend') }}/assets/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
-           <!-- Datatable Demo js -->
+    <!-- Datatables js -->
+    <script src="{{ asset('backend') }}/assets/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('backend') }}/assets/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="{{ asset('backend') }}/assets/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="{{ asset('backend') }}/assets/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js">
+    </script>
+    <script src="{{ asset('backend') }}/assets/vendor/datatables.net-fixedcolumns-bs5/js/fixedColumns.bootstrap5.min.js">
+    </script>
+    <script src="{{ asset('backend') }}/assets/vendor/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js">
+    </script>
+    <script src="{{ asset('backend') }}/assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="{{ asset('backend') }}/assets/vendor/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+    <script src="{{ asset('backend') }}/assets/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="{{ asset('backend') }}/assets/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="{{ asset('backend') }}/assets/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="{{ asset('backend') }}/assets/vendor/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="{{ asset('backend') }}/assets/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+    <!-- Datatable Demo js -->
     <script src="{{ asset('backend') }}/assets/js/components/table-datatable.js"></script>
 
     <!-- Apex Chart js -->
@@ -512,8 +522,63 @@
 
     <!-- Projects Analytics Dashboard App js -->
     <script src="{{ asset('backend') }}/assets/js/pages/dashboard.js"></script>
-
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.9.0/sweetalert2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    
+    <script>
+        $(function() {
+            $(document).on('click', '#delete', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Delete This Data?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+            });
+
+        });
+    </script>
+       <script>
+        @if (Session::has('message'))
+            var type = "{{ Session::get('alert-type', 'info') }}"
+            toastr.options = {
+                "progressBar": true,
+                "closeButton": true,
+            }
+            switch (type) {
+                case 'info':
+                    toastr.info(" {{ Session::get('message') }} ");
+                    break;
+
+                case 'success':
+                    toastr.success(" {{ Session::get('message') }} ");
+                    break;
+
+                case 'warning':
+                    toastr.warning(" {{ Session::get('message') }} ");
+                    break;
+
+                case 'error':
+                    toastr.error(" {{ Session::get('message') }} ");
+                    break;
+            }
+        @endif
+    </script>
 </body>
 
 </html>

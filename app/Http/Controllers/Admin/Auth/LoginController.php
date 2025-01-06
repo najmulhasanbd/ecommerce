@@ -7,7 +7,6 @@ use App\Http\Requests\Auth\AdminLoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class LoginController extends Controller
@@ -29,9 +28,12 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
+        $notification = array(
+            'message' => 'Admin Login Successfully!',
+            'alert-type' => 'success'
+        );
 
-
-        return redirect()->intended(route('admin.dashboard', absolute: false));
+        return redirect()->intended(route('admin.dashboard', absolute: false))->with($notification);
     }
 
 
@@ -46,6 +48,12 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/admin/login');
+        $notification = array(
+            'message' => 'Admin Logout Successfully!',
+            'alert-type' => 'success'
+        );
+
+
+        return redirect('/admin/login')->with($notification);
     }
 }

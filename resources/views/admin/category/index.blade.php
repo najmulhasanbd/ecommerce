@@ -17,7 +17,6 @@
         </div>
 
         <div class="page-container">
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -39,18 +38,15 @@
                                             <td>{{ ucwords($item->name) }}</td>
                                             <td>
                                                 <img src="{{ asset('storage/categories/' . $item->image) }}"
-                                                    alt="{{ $item->name }}" width="100px">
+                                                    alt="{{ $item->name }}" width="50px" height="30px">
                                             </td>
                                             <td>
-                                                <a href="" class="btn btn-sm btn-success"><i
-                                                        class="ri-pencil-line"></i></a>
-                                                <form action="{{ route('category.delete', $item->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">
-                                                        <i class="ri-delete-bin-line"></i>
-                                                    </button>
-                                                </form>
+                                                <a href="{{ route('category.edit', $item->id) }}"  class="btn btn-sm btn-success">
+                                                    <i class="ri-pencil-line"></i>
+                                                </a>
+                                                <a href="{{ route('category.delete', $item->id) }}" id="delete" class="btn btn-sm btn-danger">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </a>                                                                                           
                                             </td>
                                         </tr>
                                     @endforeach
@@ -60,9 +56,7 @@
                     </div> <!-- end card -->
                 </div><!-- end col-->
             </div> <!-- end row-->
-
-
         </div> <!-- container -->
-
     </div>
+    
 @endsection
