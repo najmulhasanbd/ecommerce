@@ -32,13 +32,13 @@
             </li>
 
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarInvoice" aria-expanded="false" aria-controls="sidebarInvoice"
+                <a data-bs-toggle="collapse" href="#category" aria-expanded="false" aria-controls="category"
                     class="side-nav-link">
                     <span class="menu-icon"><i data-lucide="file-text"></i></span>
                     <span class="menu-text"> Category</span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse" id="sidebarInvoice">
+                <div class="collapse" id="category">
                     <ul class="sub-menu">
                         <li class="side-nav-item">
                             <a href="{{route('category.index')}}" class="side-nav-link">
@@ -48,6 +48,28 @@
                         <li class="side-nav-item">
                             <a href="{{route('category.create')}}" class="side-nav-link">
                                 <span class="menu-text">Category Add</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#brand" aria-expanded="false" aria-controls="brand"
+                    class="side-nav-link">
+                    <span class="menu-icon"><i data-lucide="file-text"></i></span>
+                    <span class="menu-text"> Brand</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="brand">
+                    <ul class="sub-menu">
+                        <li class="side-nav-item">
+                            <a href="{{route('brand.index')}}" class="side-nav-link">
+                                <span class="menu-text">Brand List</span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{route('brand.create')}}" class="side-nav-link">
+                                <span class="menu-text">Brand Add</span>
                             </a>
                         </li>
                     </ul>

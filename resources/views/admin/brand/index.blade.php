@@ -4,12 +4,12 @@
     <div class="page-content">
         <div class="page-title-head d-flex align-items-center ">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-bold mb-0">Cateogry</h4>
+                <h4 class="fs-18 fw-bold mb-0">Brands</h4>
             </div>
 
             <div class="text-end">
                 <ol class="breadcrumb m-0 py-0 fs-13">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Cateogry</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Brands</a></li>
 
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
@@ -32,21 +32,23 @@
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($categories as $item)
+                                    @foreach ($brands as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ ucwords($item->name) }}</td>
                                             <td>
-                                                <img src="{{ asset('storage/categories/' . $item->image) }}"
+                                                <img src="{{ asset('storage/brands/' . $item->image) }}"
                                                     alt="{{ $item->name }}" width="50px" height="30px">
                                             </td>
                                             <td>
-                                                <a href="{{ route('category.edit', $item->id) }}"  class="btn btn-sm btn-success">
+                                                <a href="{{ route('brand.edit', $item->id) }}"
+                                                    class="btn btn-sm btn-success">
                                                     <i class="ri-pencil-line"></i>
                                                 </a>
-                                                <a href="{{ route('category.delete', $item->id) }}" id="delete" class="btn btn-sm btn-danger">
+                                                <a href="{{ route('brand.delete', $item->id) }}" id="delete"
+                                                    class="btn btn-sm btn-danger">
                                                     <i class="ri-delete-bin-line"></i>
-                                                </a>                                                                                           
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -58,5 +60,4 @@
             </div> <!-- end row-->
         </div> <!-- container -->
     </div>
-    
 @endsection

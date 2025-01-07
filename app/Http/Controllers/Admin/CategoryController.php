@@ -41,7 +41,7 @@ class CategoryController extends Controller
             $imagePath = $imageName;
         }
 
-        Category::create([
+        $this->category::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'image' => $imagePath,
@@ -97,8 +97,6 @@ class CategoryController extends Controller
         return redirect()->route('category.index')->with($notification);
     }
     
-
-
     public function destroy($id)
     {
         $data = $this->category::findOrFail($id);

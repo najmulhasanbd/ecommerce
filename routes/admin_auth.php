@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
+use App\Http\Controllers\Admin\Brandcontroller;
 use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,13 +28,23 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         ->name('admin.logout');
 
 
-    //category
+    //category controller
     Route::prefix('category')->controller(CategoryController::class)->name('category.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
         Route::get('/edit/{id}', 'edit')->name('edit');
         Route::put('/update/{id}', 'update')->name('update');
-        Route::get('/delete/{id}', 'destroy')->name('delete');  // Fixed this line
+        Route::get('/delete/{id}', 'destroy')->name('delete');
+    });
+
+    //brand controller
+    Route::prefix('brand')->controller(Brandcontroller::class)->name('brand.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::put('/update/{id}', 'update')->name('update');
+        Route::get('/delete/{id}', 'destroy')->name('delete');
     });
 });
