@@ -54,6 +54,28 @@
                 </div>
             </li>
             <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#subcategory" aria-expanded="false" aria-controls="subcategory"
+                    class="side-nav-link">
+                    <span class="menu-icon"><i data-lucide="file-text"></i></span>
+                    <span class="menu-text"> SubCategory</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="subcategory">
+                    <ul class="sub-menu">
+                        <li class="side-nav-item">
+                            <a href="{{route('subcategory.index')}}" class="side-nav-link">
+                                <span class="menu-text">SubCategory List</span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{route('subcategory.create')}}" class="side-nav-link">
+                                <span class="menu-text">SubCategory Add</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#brand" aria-expanded="false" aria-controls="brand"
                     class="side-nav-link">
                     <span class="menu-icon"><i data-lucide="file-text"></i></span>
