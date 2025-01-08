@@ -97,7 +97,28 @@
                     </ul>
                 </div>
             </li>
-
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#supplier" aria-expanded="false" aria-controls="supplier"
+                    class="side-nav-link">
+                    <span class="menu-icon"><i data-lucide="file-text"></i></span>
+                    <span class="menu-text"> Supplier</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="supplier">
+                    <ul class="sub-menu">
+                        <li class="side-nav-item">
+                            <a href="{{route('supplier.index')}}" class="side-nav-link">
+                                <span class="menu-text">Supplier List</span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{route('supplier.create')}}" class="side-nav-link">
+                                <span class="menu-text">Supplier Add</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
         </ul>
 
         <div class="clearfix"></div>
