@@ -60,11 +60,7 @@ class CategoryController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'string|max:255|unique:categories,name,'
-        ]);
-        
+    {       
         $category = $this->category::findOrFail($id);
     
         $imagePath = $category->image; 
