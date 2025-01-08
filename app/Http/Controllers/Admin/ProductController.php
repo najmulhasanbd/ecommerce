@@ -8,6 +8,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -16,13 +17,15 @@ class ProductController extends Controller
     protected $category;
     protected $subcategory;
     protected $brand;
+    protected $supplier;
 
-    public function __construct(Product $product, Category $category, SubCategory $subcategory, Brand $brand)
+    public function __construct(Product $product, Category $category, SubCategory $subcategory, Brand $brand, Supplier $supplier)
     {
         $this->product = $product;
         $this->category = $category;
         $this->subcategory = $subcategory;
         $this->brand = $brand;
+        $this->supplier = $supplier;
     }
 
     public function index()

@@ -30,7 +30,6 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::post('logout', [LoginController::class, 'destroy'])
         ->name('admin.logout');
 
-
     //category controller
     Route::prefix('category')->controller(CategoryController::class)->name('category.')->group(function () {
         Route::get('/', 'index')->name('index');
