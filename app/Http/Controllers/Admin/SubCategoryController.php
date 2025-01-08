@@ -68,40 +68,27 @@ class SubCategoryController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'string|max:255|unique:sub_categories,name,'
-        ]);
-
         $subcategory = $this->subcategory::findOrFail($id);
-
         $imagePath = $subcategory->image;
-
         if ($request->hasFile('image')) {
-
             if ($subcategory->image) {
                 Storage::disk('public')->delete('subcategories/' . $subcategory->image);
             }
-
             $image = $request->file('image');
             $imageName = Str::slug($request->name) . '.' . $image->getClientOriginalExtension();
-
             $image->storeAs('subcategories', $imageName, 'public');
-
             $imagePath = $imageName;
         }
-
         $subcategory->update([
             'category_id' => $request->category_id,
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'image' => $imagePath,
         ]);
-
         $notification = array(
             'message' => 'SubCategory Updated Successfully!',
             'alert-type' => 'success'
         );
-
         return redirect()->route('subcategory.index')->with($notification);
     }
 

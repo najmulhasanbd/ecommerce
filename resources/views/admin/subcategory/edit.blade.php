@@ -14,15 +14,16 @@
         <div class="page-container">
             <div class="row">
                 <div class="col-12 col-md-6 card p-3 mx-auto">
-                    <form action="{{ route('subcategory.update', $data->id) }}" method="post"
-                        enctype="multipart/form-data">
+                    <form action="{{ route('subcategory.update', $data->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <div class="form-group">
                             <label for="category_id">Category</label>
                             <select name="category_id" id="category_id" class="form-select">
                                 <option value="">Select Category</option>
                                 @foreach ($categories as $item)
-                                    <option value="{{ $item->id }}">
+                                    <option value="{{ $item->id }}"
+                                        {{ $item->id == $data->category_id ? 'selected' : '' }}>
                                         {{ ucwords($item->name) }}</option>
                                 @endforeach
                             </select>
@@ -41,9 +42,8 @@
                                 onchange="previewImage(event)">
 
                             <!-- Display the preview image here -->
-                            <img class="py-2" id="imagePreview"
-                                src="{{ asset('storage/subcategories/' . $data->image) }}" width="100px"
-                                height="100px" style="object-fit: cover" alt="Image Preview">
+                            <img class="py-2" id="imagePreview" src="{{ asset('storage/subcategories/' . $data->image) }}"
+                                width="100px" height="100px" style="object-fit: cover" alt="Image Preview">
 
                             @error('image')
                                 <span class="text-danger">{{ $message }}</span>
