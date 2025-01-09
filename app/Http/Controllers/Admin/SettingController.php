@@ -238,6 +238,31 @@ class SettingController extends Controller
         return view('admin.settings.shipping.edit', compact('data'));
     }
 
+    public function shippingupdate(Request $request, $id)
+    {
+        // Find the shipping record by its ID or fail
+        $data = $this->shipping::findOrFail($id);
+
+        // Update the shipping record
+        $data->update([
+            'name' => $request->name,
+            'location' => $request->location,
+            'charge' => $request->charge,
+            'time' => $request->time,
+            'status' => 1,
+        ]);
+
+        // Prepare success notification
+        $notification = array(
+            'message' => 'Shipping Updated Successfully!',
+            'alert-type' => 'success',
+        );
+
+        // Redirect with success message
+        return redirect()->route('setting.shipping')->with($notification);
+    }
+
+
     public function shippingdestroy($id)
     {
         $data = $this->shipping::findOrFail($id);
