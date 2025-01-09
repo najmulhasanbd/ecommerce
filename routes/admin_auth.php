@@ -102,5 +102,9 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         //seo setting
         Route::get('seo', 'seo')->name('seo');
         Route::post('seo/{id}', 'seoUpdate')->name('seo.update');
+
+        //smtp setting
+        Route::get('smtp', 'smtp')->name('smtp');
+        Route::post('smtp/{id}', 'smtpUpdate')->name('smtp.update');
     });
 });

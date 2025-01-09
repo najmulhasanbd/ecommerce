@@ -6,18 +6,22 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\SEO;
+use App\Models\SMTP;
 use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
     protected $setting;
     protected $seo;
-    public function __construct(Setting $setting, SEO $seo)
+    protected $smtp;
+    public function __construct(Setting $setting, SEO $seo, SMTP $smtp)
     {
         $this->setting = $setting;
         $this->seo = $seo;
+        $this->smtp = $smtp;
     }
 
+    //website setting
     public function website()
     {
         $data = $this->setting::first();
@@ -71,6 +75,7 @@ class SettingController extends Controller
         return redirect()->back()->with($notification);
     }
 
+    //seo setting
     public function seo()
     {
         $data = $this->seo::first();
@@ -97,6 +102,31 @@ class SettingController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    }
 
+    //smtp setting
+    public function smtp()
+    {
+        $data = $this->smtp::first();
+        return view('admin.settings.smtp', compact('data'));
+    }
+
+    public function smtpUpdate(Request $request, $id)
+    {
+        $data = $this->smtp::findOrFail($id);
+
+        $data->update([
+            'mailer' => $request->mailer,
+            'host' => $request->host,
+            'port' => $request->port,
+            'user_name' => $request->user_name,
+            'password' => $request->mailer
+        ]);
+
+        $notification = array(
+            'message' => 'SMTP Updated Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 }
