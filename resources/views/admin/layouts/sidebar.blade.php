@@ -120,6 +120,28 @@
                 </div>
             </li>
             <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#unit" aria-expanded="false" aria-controls="unit"
+                    class="side-nav-link">
+                    <span class="menu-icon"><i data-lucide="file-text"></i></span>
+                    <span class="menu-text"> Unit</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="unit">
+                    <ul class="sub-menu">
+                        <li class="side-nav-item">
+                            <a href="{{ route('unit.index') }}" class="side-nav-link">
+                                <span class="menu-text">Unit List</span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{ route('unit.create') }}" class="side-nav-link">
+                                <span class="menu-text">Unit Add</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#product" aria-expanded="false" aria-controls="product"
                     class="side-nav-link">
                     <span class="menu-icon"><i data-lucide="file-text"></i></span>
@@ -141,8 +163,6 @@
                     </ul>
                 </div>
             </li>
-
-
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="setting"
                     class="side-nav-link">
