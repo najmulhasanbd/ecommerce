@@ -158,8 +158,8 @@
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{ route('product.create') }}" class="side-nav-link">
-                                <span class="menu-text">Product Add</span>
+                            <a href="{{ route('setting.seo') }}" class="side-nav-link">
+                                <span class="menu-text">SEO Setting</span>
                             </a>
                         </li>
                     </ul>

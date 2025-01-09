@@ -76,21 +76,68 @@
                         </div>
                     </div><!-- end col-->
                     <div class="col-12 col-md-6">
-                        <div class="form-group">
-                            <label for="logo">Logo</label>
-                            <input type="file">
+                        <div class="form-group py-1">
+                            <label for="logo" style="width: 100%; text-align: start;">Image</label>
+                            <input type="file" name="logo" class="form-control" id="logo"
+                                onchange="previewImage(event)">
+                            <img src="{{ asset('storage/logo/' . $data->logo) }}" width="100px" alt="">
+                            <div style="margin-top: 10px;">
+                                <img id="imagePreview" src="#" alt="Image Preview"
+                                    style="max-width: 100px; display: none;" />
+                            </div> @error('logo')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
-                        
                     </div><!-- end col-->
-                    <div class="col-12 col-md-6">
-                        <div class="form-group">
-                            <label for="phone">Phone</label>
-                            <input type="text" id="phone" name="phone" class="form-control"
-                                value="{{ $data->phone }}">
+                    <div class="col-12 col-md-6">0
+                        <div class="form-group py-1">
+                            <label for="favicon" style="width: 100%; text-align: start;">Favicon</label>
+                            <input type="file" name="favicon" class="form-control" id="favicon"
+                                onchange="previewFavicon(event)">
+                            <img src="{{ asset('storage/favicon/' . $data->favicon) }}" width="100px" alt="">
+                            <div style="margin-top: 10px;">
+                                <img id="faviconPreview" src="#" alt="Image Preview"
+                                    style="max-width: 100px; display: none;" />
+                            </div> @error('favicon')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div><!-- end col-->
+                    <button type="submit" class="btn btn-success">Update</button>
                 </div> <!-- end row-->
             </form>
         </div> <!-- container -->
     </div>
+
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            const file = event.target.files[0];
+
+            reader.onload = function() {
+                const imagePreview = document.getElementById('imagePreview');
+                imagePreview.src = reader.result;
+                imagePreview.style.display = 'block';
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function previewFavicon(event) {
+            const reader = new FileReader();
+            const file = event.target.files[0];
+
+            reader.onload = function() {
+                const faviconPreview = document.getElementById('faviconPreview');
+                faviconPreview.src = reader.result;
+                faviconPreview.style.display = 'block';
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 @endsection

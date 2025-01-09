@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('google_verification')->nullable();
             $table->string('google_analytics')->nullable();
             $table->string('alexa_varification')->nullable();
-            $table->string('google_adsense')->nullable();
             $table->timestamps();
         });
     }

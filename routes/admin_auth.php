@@ -98,5 +98,9 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         //setting
         Route::get('/website', 'website')->name('website');
         Route::post('/website/{id}', 'websiteUpdate')->name('website.update');
+
+        //seo setting
+        Route::get('seo', 'seo')->name('seo');
+        Route::post('seo/{id}', 'seoUpdate')->name('seo.update');
     });
 });
