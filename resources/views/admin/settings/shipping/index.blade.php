@@ -46,7 +46,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('setting.page.edit', $item->id) }}"
+                                                <a href="{{ route('setting.shipping.edit', $item->id) }}"
                                                     class="btn btn-sm btn-success">
                                                     <i class="ri-pencil-line"></i>
                                                 </a>

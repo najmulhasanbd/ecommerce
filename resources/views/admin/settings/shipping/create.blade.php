@@ -4,7 +4,7 @@
     <div class="page-content">
         <div class="page-title-head d-flex align-items-center ">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-bold mb-0">Cateogry</h4>
+                <h4 class="fs-18 fw-bold mb-0">Shipping</h4>
             </div>
 
             <div class="text-end">

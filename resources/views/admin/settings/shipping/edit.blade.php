@@ -4,7 +4,7 @@
     <div class="page-content">
         <div class="page-title-head d-flex align-items-center ">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-bold mb-0">Cateogry</h4>
+                <h4 class="fs-18 fw-bold mb-0">Shipping</h4>
             </div>
 
             <div class="text-end">
@@ -14,29 +14,48 @@
         <div class="page-container">
             <div class="row">
                 <div class="col-12 col-md-6 card p-3 mx-auto">
-                    <form action="{{ route('setting.page.store') }}" method="post">
+                    <form action="#" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="name" style="width: 100%;text-align:start">Name</label>
                             <input type="text" name="name" id="name" class="form-control"
-                                 value="{{ old('name',$data->name) }}">
+                                placeholder="enter page name" value="{{ old('name') }}">
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="title" style="width: 100%;text-align:start">Title</label>
-                            <input type="text" name="title" id="title" class="form-control"
-                                placeholder="enter title title" value="{{ old('title',$data->title) }}">
+                            <label for="location" style="width: 100%;text-align:start">Location</label>
+                            <select name="location" id="location" class="form-select">
+                                <option value="">Select Location</option>
+                                <option value="1">Inside Dhaka</option>
+                                <option value="2">OutSide Dhaka</option>
+                            </select>
                             @error('title')
+                                <span class="text-danger">{{ $location }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="charge" style="width: 100%;text-align:start">Charge</label>
+                            <input type="number" name="charge" id="charge" class="form-control"
+                                placeholder="enter page charge" value="{{ old('charge') }}">
+                            @error('charge')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="time" style="width: 100%;text-align:start">Time </label>
+                            <input type="text" name="time" id="time" class="form-control"
+                                placeholder="enter time" value="{{ old('time') }}">
+                            @error('time')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="description" style="width: 100%;text-align:start">Description</label>
-                            <textarea name="description" id="description" cols="30" class="form-control" rows="10">{{ old('title',$data->description) }}</textarea>
+                            <textarea name="description" id="summernote" cols="30" class="form-control" rows="10">{{ old('title') }}</textarea>
                         </div>
-                        <button type="submit" class="btn btn-success mt-2">Update</button>
+                        <button type="submit" class="btn btn-success mt-2">Submit</button>
                     </form>
                 </div>
             </div>

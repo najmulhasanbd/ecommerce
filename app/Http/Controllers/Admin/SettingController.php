@@ -231,9 +231,15 @@ class SettingController extends Controller
         return redirect()->route('setting.shipping')->with($notification);
     }
 
+    public function shippingedit($id)
+    {
+        $data = $this->shipping::findOrFail($id);
+        return view('admin.settings.shipping.edit', compact('data'));
+    }
 
-    public function shippingdestroy($id){
-        $data=$this->shipping::findOrFail($id);
+    public function shippingdestroy($id)
+    {
+        $data = $this->shipping::findOrFail($id);
         $data->delete();
 
         $notification = array(
@@ -242,5 +248,4 @@ class SettingController extends Controller
         );
         return redirect()->route('setting.shipping')->with($notification);
     }
-
 }
