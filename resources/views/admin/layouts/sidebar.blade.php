@@ -141,6 +141,30 @@
                     </ul>
                 </div>
             </li>
+            
+
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="setting"
+                    class="side-nav-link">
+                    <span class="menu-icon"><i data-lucide="file-text"></i></span>
+                    <span class="menu-text"> Setting</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="setting">
+                    <ul class="sub-menu">
+                        <li class="side-nav-item">
+                            <a href="{{ route('setting.website') }}" class="side-nav-link">
+                                <span class="menu-text">Website Setting</span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{ route('product.create') }}" class="side-nav-link">
+                                <span class="menu-text">Product Add</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
         </ul>
 
         <div class="clearfix"></div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Brandcontroller;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -89,15 +90,13 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
 
 
-    
 
-    //product controller
-    Route::prefix('product')->controller(ProductController::class)->name('product.')->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
-        Route::post('/store', 'store')->name('store');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::put('/update/{id}', 'update')->name('update');
-        Route::get('/delete/{id}', 'destroy')->name('delete');
+
+    //setting controller
+    Route::prefix('setting')->controller(SettingController::class)->name('setting.')->group(function () {
+
+        //setting
+        Route::get('/website', 'website')->name('website');
+        Route::post('/website/{id}', 'websiteUpdate')->name('website.update');
     });
 });
