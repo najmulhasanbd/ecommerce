@@ -149,7 +149,7 @@ class SettingController extends Controller
         $validated = $request->validate([
             'name' => 'required|unique:pages,name',
         ]);
-        
+
         $this->page::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name, '-'),
@@ -162,8 +162,15 @@ class SettingController extends Controller
         );
         return redirect()->route('setting.page')->with($notification);
     }
-    public function destroy($id){
+
+    public function edit($id){
         $data=$this->page::findOrFail($id);
+        return view('admin.settings.page.edit',compact('data'));
+    }
+
+    public function destroy($id)
+    {
+        $data = $this->page::findOrFail($id);
         $data->delete();
         $notification = array(
             'message' => 'Page Destroy Successfully!',
