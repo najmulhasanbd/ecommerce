@@ -25,7 +25,6 @@ return new class extends Migration
 
             $table->json('tags')->nullable();
             $table->json('size')->nullable();
-            $table->json('febric')->nullable();
             $table->json('color')->nullable();
             $table->json('unit')->nullable();
 

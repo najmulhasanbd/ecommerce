@@ -76,7 +76,7 @@
                 </div>
                 <div class="cl-lg-3 col-md-4 col-12">
                     <div class="form-group">
-                        <label for="qty">Quantity</label>
+                        <label for="qty">Tags</label>
                         <input class="form-control" id="choices-text-unique-values" data-choices
                             data-choices-text-unique-true type="text" />
                     </div>
