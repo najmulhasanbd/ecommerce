@@ -79,4 +79,25 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::put('/update/{id}', 'update')->name('update');
         Route::get('/delete/{id}', 'destroy')->name('delete');
     });
+
+
+
+
+
+
+
+
+
+
+    
+
+    //product controller
+    Route::prefix('product')->controller(ProductController::class)->name('product.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::put('/update/{id}', 'update')->name('update');
+        Route::get('/delete/{id}', 'destroy')->name('delete');
+    });
 });

@@ -39,7 +39,8 @@ class ProductController extends Controller
         $categories = $this->category::latest()->get();
         $subcategories = $this->subcategory::latest()->get();
         $brands = $this->brand::latest()->get();
-        return view('admin.product.create');
+        $suppliers=$this->supplier::latest()->get();
+        return view('admin.product.create',compact('categories','subcategories','brands','suppliers'));
     }
 
     public function store(ProductRequest $product) {}

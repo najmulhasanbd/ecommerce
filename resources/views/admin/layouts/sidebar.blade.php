@@ -41,12 +41,12 @@
                 <div class="collapse" id="category">
                     <ul class="sub-menu">
                         <li class="side-nav-item">
-                            <a href="{{route('category.index')}}" class="side-nav-link">
+                            <a href="{{ route('category.index') }}" class="side-nav-link">
                                 <span class="menu-text">Category List</span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{route('category.create')}}" class="side-nav-link">
+                            <a href="{{ route('category.create') }}" class="side-nav-link">
                                 <span class="menu-text">Category Add</span>
                             </a>
                         </li>
@@ -63,12 +63,12 @@
                 <div class="collapse" id="subcategory">
                     <ul class="sub-menu">
                         <li class="side-nav-item">
-                            <a href="{{route('subcategory.index')}}" class="side-nav-link">
+                            <a href="{{ route('subcategory.index') }}" class="side-nav-link">
                                 <span class="menu-text">SubCategory List</span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{route('subcategory.create')}}" class="side-nav-link">
+                            <a href="{{ route('subcategory.create') }}" class="side-nav-link">
                                 <span class="menu-text">SubCategory Add</span>
                             </a>
                         </li>
@@ -85,12 +85,12 @@
                 <div class="collapse" id="brand">
                     <ul class="sub-menu">
                         <li class="side-nav-item">
-                            <a href="{{route('brand.index')}}" class="side-nav-link">
+                            <a href="{{ route('brand.index') }}" class="side-nav-link">
                                 <span class="menu-text">Brand List</span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{route('brand.create')}}" class="side-nav-link">
+                            <a href="{{ route('brand.create') }}" class="side-nav-link">
                                 <span class="menu-text">Brand Add</span>
                             </a>
                         </li>
@@ -107,13 +107,35 @@
                 <div class="collapse" id="supplier">
                     <ul class="sub-menu">
                         <li class="side-nav-item">
-                            <a href="{{route('supplier.index')}}" class="side-nav-link">
+                            <a href="{{ route('supplier.index') }}" class="side-nav-link">
                                 <span class="menu-text">Supplier List</span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="{{route('supplier.create')}}" class="side-nav-link">
+                            <a href="{{ route('supplier.create') }}" class="side-nav-link">
                                 <span class="menu-text">Supplier Add</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#product" aria-expanded="false" aria-controls="product"
+                    class="side-nav-link">
+                    <span class="menu-icon"><i data-lucide="file-text"></i></span>
+                    <span class="menu-text"> Product</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="product">
+                    <ul class="sub-menu">
+                        <li class="side-nav-item">
+                            <a href="{{ route('product.index') }}" class="side-nav-link">
+                                <span class="menu-text">Product List</span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{ route('product.create') }}" class="side-nav-link">
+                                <span class="menu-text">Product Add</span>
                             </a>
                         </li>
                     </ul>
