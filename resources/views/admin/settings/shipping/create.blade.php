@@ -51,10 +51,6 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="description" style="width: 100%;text-align:start">Description</label>
-                            <textarea name="description" id="summernote" cols="30" class="form-control" rows="10">{{ old('title') }}</textarea>
-                        </div>
                         <button type="submit" class="btn btn-success mt-2">Submit</button>
                     </form>
                 </div>

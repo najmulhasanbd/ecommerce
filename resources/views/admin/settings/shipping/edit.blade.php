@@ -14,12 +14,12 @@
         <div class="page-container">
             <div class="row">
                 <div class="col-12 col-md-6 card p-3 mx-auto">
-                    <form action="#" method="post">
+                    <form action="{{ route('setting.shipping.update', $data->id) }}" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="name" style="width: 100%;text-align:start">Name</label>
                             <input type="text" name="name" id="name" class="form-control"
-                                placeholder="enter page name" value="{{ old('name') }}">
+                                value="{{ old('name', $data->name) }}">
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -28,8 +28,10 @@
                             <label for="location" style="width: 100%;text-align:start">Location</label>
                             <select name="location" id="location" class="form-select">
                                 <option value="">Select Location</option>
-                                <option value="1">Inside Dhaka</option>
-                                <option value="2">OutSide Dhaka</option>
+                                <option value="1" @if ($data->location == 1) selected @endif>Inside Dhaka
+                                </option>
+                                <option value="2" @if ($data->location == 2) selected @endif>OutSide Dhaka
+                                </option>
                             </select>
                             @error('title')
                                 <span class="text-danger">{{ $location }}</span>
@@ -38,7 +40,7 @@
                         <div class="form-group">
                             <label for="charge" style="width: 100%;text-align:start">Charge</label>
                             <input type="number" name="charge" id="charge" class="form-control"
-                                placeholder="enter page charge" value="{{ old('charge') }}">
+                                value="{{ old('charge', $data->charge) }}">
                             @error('charge')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -46,14 +48,10 @@
                         <div class="form-group">
                             <label for="time" style="width: 100%;text-align:start">Time </label>
                             <input type="text" name="time" id="time" class="form-control"
-                                placeholder="enter time" value="{{ old('time') }}">
+                                value="{{ old('time', $data->time) }}">
                             @error('time')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="description" style="width: 100%;text-align:start">Description</label>
-                            <textarea name="description" id="summernote" cols="30" class="form-control" rows="10">{{ old('title') }}</textarea>
                         </div>
                         <button type="submit" class="btn btn-success mt-2">Submit</button>
                     </form>

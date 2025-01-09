@@ -35,7 +35,13 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ ucwords($item->name) }}</td>
-                                            <td>{{ ucwords($item->location) }}</td>
+                                            <td>
+                                                @if ($item->location == 1)
+                                                    Inside Dhaka
+                                                @else($item->location==2)
+                                                    Outside Dhaka
+                                                @endif
+                                            </td>
                                             <td>{{ $item->charge }}</td>
                                             <td>{{ $item->time }}</td>
                                             <td>

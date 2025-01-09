@@ -221,6 +221,7 @@ class SettingController extends Controller
             'location' => $request->location,
             'charge' => $request->charge,
             'time' => $request->time,
+            'time' => $request->time,
             'status' => 1,
         ]);
 
