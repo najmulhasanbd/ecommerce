@@ -9,6 +9,7 @@ use App\Models\Setting;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Shipping;
 use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
@@ -17,11 +18,13 @@ class SettingController extends Controller
     protected $seo;
     protected $smtp;
     protected $page;
-    public function __construct(Setting $setting, SEO $seo, SMTP $smtp, Page $page)
+    protected $shipping;
+    public function __construct(Setting $setting, SEO $seo, SMTP $smtp, Page $page, Shipping $shipping)
     {
         $this->setting = $setting;
         $this->seo = $seo;
         $this->smtp = $smtp;
+        $this->shipping = $shipping;
         $this->page = $page;
     }
 
@@ -196,5 +199,35 @@ class SettingController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    }
+
+    //shipping
+    public function shipping()
+    {
+        $data = $this->shipping::latest()->get();
+        return view('admin.settings.shipping.index', compact('data'));
+    }
+
+    public function shippingcreate()
+    {
+        return view('admin.settings.shipping.create');
+    }
+
+    public function shippingstore(Request $request)
+    {
+
+        $this->shipping::create([
+            'name' => $request->name,
+            'location' => $request->location,
+            'charge' => $request->charge,
+            'time' => $request->time,
+            'status' => 1,
+        ]);
+
+        $notification = array(
+            'message' => 'Shipping Insert Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('setting.shipping')->with($notification);
     }
 }

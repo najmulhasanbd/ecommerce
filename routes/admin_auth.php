@@ -109,11 +109,11 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
         //shipping setting
         Route::get('shipping', 'shipping')->name('shipping');
-        Route::get('shipping/create', 'create')->name('shipping.create');
-        Route::post('shipping/store', 'store')->name('shipping.store');
-        Route::get('shipping/edit/{id}', 'edit')->name('shipping.edit');
+        Route::get('shipping/create', 'shippingcreate')->name('shipping.create');
+        Route::post('shipping/store', 'shippingstore')->name('shipping.store');
+        Route::get('shipping/edit/{id}', 'shippingedit')->name('shipping.edit');
         Route::post('shipping/update/{id}', 'shippingupdate')->name('shipping.update');
-        Route::get('shipping/destroy/{id}', 'destroy')->name('shipping.destroy');
+        Route::get('shipping/destroy/{id}', 'shippingdestroy')->name('shipping.destroy');
 
         //page setting
         Route::get('page', 'page')->name('page');

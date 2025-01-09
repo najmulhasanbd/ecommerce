@@ -172,6 +172,11 @@
                                 <span class="menu-text">Page Setting</span>
                             </a>
                         </li>
+                        <li class="side-nav-item">
+                            <a href="{{ route('setting.shipping') }}" class="side-nav-link">
+                                <span class="menu-text">Shipping Setting</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>
