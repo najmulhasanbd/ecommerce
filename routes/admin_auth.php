@@ -107,11 +107,19 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::get('smtp', 'smtp')->name('smtp');
         Route::post('smtp/{id}', 'smtpUpdate')->name('smtp.update');
 
+        //shipping setting
+        Route::get('shipping', 'shipping')->name('shipping');
+        Route::get('shipping/create', 'create')->name('shipping.create');
+        Route::post('shipping/store', 'store')->name('shipping.store');
+        Route::get('shipping/edit/{id}', 'edit')->name('shipping.edit');
+        Route::post('shipping/update/{id}', 'shippingupdate')->name('shipping.update');
+        Route::get('shipping/destroy/{id}', 'destroy')->name('shipping.destroy');
+
         //page setting
         Route::get('page', 'page')->name('page');
         Route::get('page/create', 'create')->name('page.create');
         Route::post('page/store', 'store')->name('page.store');
-        Route::get('page/edit/{id}','edit')->name('page.edit');
+        Route::get('page/edit/{id}', 'edit')->name('page.edit');
         Route::post('page/update/{id}', 'pageupdate')->name('page.update');
         Route::get('page/destroy/{id}', 'destroy')->name('page.destroy');
     });

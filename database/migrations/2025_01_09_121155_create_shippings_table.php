@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('location')->comment('1=>Inside Dhaka, 2=>OutSide Dhaka');
             $table->float('charge', 20, 2)->nullable();
-            $table->string('time',100)->nullable();
+            $table->string('time', 100)->nullable();
             $table->string('status')->comment('1=>Active, 2=>Inactive');
             $table->timestamps();
         });
