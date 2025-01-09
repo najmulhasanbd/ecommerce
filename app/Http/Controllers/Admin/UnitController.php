@@ -19,16 +19,18 @@ class UnitController extends Controller
         $data = $this->unit::latest()->get();
         return view('admin.unit.index', compact('data'));
     }
-    public function create() {
+    public function create()
+    {
         return view('admin.unit.create');
     }
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $validated = $request->validate([
             'name' => 'required|unique:units,name',
         ]);
         $this->unit::create([
-            'name'=>$request->name,
-            'status'=>1
+            'name' => $request->name,
+            'status' => 1
         ]);
 
         $notification = array(
@@ -39,5 +41,15 @@ class UnitController extends Controller
     }
     public function edit($id) {}
     public function update(Request $request, $id) {}
-    public function destroy($id) {}
+    public function destroy($id)
+    {
+        $data = $this->unit::findOrFail($id);
+        $data->delete();
+
+        $notification = array(
+            'message' => 'Unit Delete Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('unit.index')->with($notification);
+    }
 }
