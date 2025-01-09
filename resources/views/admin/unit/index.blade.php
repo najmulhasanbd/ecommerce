@@ -37,11 +37,12 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ ucwords($item->name) }}</td>
                                             <td>
-                                                @if ($item->status==1)
-                                                    <a href="" class="btn btn-sm btn-success">active</a>
-                                                @else ($item->status==2)
-                                                    <a href="" class="btn btn-sm btn-danger">inactive</a>
-                                                @endif
+                                                    <a href=""
+                                                        class="btn btn-sm btn-success">Active</a>
+                                                
+                                                    <a href=""
+                                                        class="btn btn-sm btn-danger">Inactive</a>
+                                               
                                             </td>
                                             <td>
                                                 <a href="{{ route('unit.edit', $item->id) }}"

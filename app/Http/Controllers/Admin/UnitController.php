@@ -50,7 +50,7 @@ class UnitController extends Controller
 
         $data->update([
             'name' => $request->name,
-            'status'=>1
+            'status' => 1
         ]);
 
         $notification = array(
@@ -58,7 +58,6 @@ class UnitController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('unit.index')->with($notification);
-
     }
     public function destroy($id)
     {
@@ -71,4 +70,6 @@ class UnitController extends Controller
         );
         return redirect()->route('unit.index')->with($notification);
     }
+
+
 }

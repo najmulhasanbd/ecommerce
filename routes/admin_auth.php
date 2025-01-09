@@ -81,8 +81,6 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::put('/update/{id}', 'update')->name('update');
         Route::get('/delete/{id}', 'destroy')->name('delete');
 
-        Route::get('/active','active')->name('active');
-        Route::get('/inactive','inactive')->name('inactive');
     });
 
     //product controller
