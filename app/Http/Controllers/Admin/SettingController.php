@@ -76,4 +76,27 @@ class SettingController extends Controller
         $data = $this->seo::first();
         return view('admin.settings.seo', compact('data'));
     }
+
+    public function seoUpdate(Request $request, $id)
+    {
+        $data = $this->seo::findOrFail($id);
+
+        $data->update([
+            'meta_title' => $request->meta_title,
+            'meta_author' => $request->meta_author,
+            'meta_tag' => $request->meta_tag,
+            'meta_description' => $request->meta_description,
+            'meta_keywords' => $request->meta_keywords,
+            'google_verification' => $request->google_verification,
+            'google_analytics' => $request->google_analytics,
+            'alexa_varification' => $request->alexa_varification,
+        ]);
+
+        $notification = array(
+            'message' => 'SEO Updated Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    }
 }

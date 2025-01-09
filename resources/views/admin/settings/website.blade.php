@@ -89,7 +89,7 @@
                             @enderror
                         </div>
                     </div><!-- end col-->
-                    <div class="col-12 col-md-6">0
+                    <div class="col-12 col-md-6">
                         <div class="form-group py-1">
                             <label for="favicon" style="width: 100%; text-align: start;">Favicon</label>
                             <input type="file" name="favicon" class="form-control" id="favicon"
