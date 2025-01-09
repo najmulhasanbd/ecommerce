@@ -141,7 +141,7 @@
                     </ul>
                 </div>
             </li>
-            
+
 
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="setting"
@@ -165,6 +165,11 @@
                         <li class="side-nav-item">
                             <a href="{{ route('setting.smtp') }}" class="side-nav-link">
                                 <span class="menu-text">SMTP Setting</span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{{ route('setting.page') }}" class="side-nav-link">
+                                <span class="menu-text">Page Setting</span>
                             </a>
                         </li>
                     </ul>

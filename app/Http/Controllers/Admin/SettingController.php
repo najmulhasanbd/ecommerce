@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\SEO;
+use App\Models\Page;
+use App\Models\SMTP;
 use App\Models\Setting;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\SEO;
-use App\Models\SMTP;
 use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
@@ -14,11 +16,13 @@ class SettingController extends Controller
     protected $setting;
     protected $seo;
     protected $smtp;
-    public function __construct(Setting $setting, SEO $seo, SMTP $smtp)
+    protected $page;
+    public function __construct(Setting $setting, SEO $seo, SMTP $smtp, Page $page)
     {
         $this->setting = $setting;
         $this->seo = $seo;
         $this->smtp = $smtp;
+        $this->page = $page;
     }
 
     //website setting
@@ -128,5 +132,34 @@ class SettingController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    }
+
+    //page setting
+    public function page()
+    {
+        $data = $this->page::latest()->get();
+        return view('admin.settings.page.index', compact('data'));
+    }
+    public function create()
+    {
+        return view('admin.settings.page.create');
+    }
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|unique:pages,name',
+        ]);
+        
+        $this->page::create([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name, '-'),
+            'title' => $request->title,
+            'description' => $request->description,
+        ]);
+        $notification = array(
+            'message' => 'Page Create Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('setting.page')->with($notification);
     }
 }

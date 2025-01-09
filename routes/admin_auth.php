@@ -106,5 +106,10 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         //smtp setting
         Route::get('smtp', 'smtp')->name('smtp');
         Route::post('smtp/{id}', 'smtpUpdate')->name('smtp.update');
+
+        //page setting
+        Route::get('page', 'page')->name('page');
+        Route::get('page/create', 'create')->name('page.create');
+        Route::post('page/store', 'store')->name('page.store');
     });
 });
