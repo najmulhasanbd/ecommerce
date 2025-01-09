@@ -230,4 +230,17 @@ class SettingController extends Controller
         );
         return redirect()->route('setting.shipping')->with($notification);
     }
+
+
+    public function shippingdestroy($id){
+        $data=$this->shipping::findOrFail($id);
+        $data->delete();
+
+        $notification = array(
+            'message' => 'Shipping Delete Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('setting.shipping')->with($notification);
+    }
+
 }
