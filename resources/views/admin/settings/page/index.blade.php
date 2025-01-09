@@ -34,7 +34,7 @@
                                             <td>{{ ucwords($item->name) }}</td>
                                             <td>{{ ucwords($item->title) }}</td>
                                             <td>
-                                                <a href="" class="btn btn-sm btn-success">
+                                                <a href="{{route('setting.page.edit',$item->id)}}" class="btn btn-sm btn-success">
                                                     <i class="ri-pencil-line"></i>
                                                 </a>
                                                 <a href="{{route('setting.page.destroy',$item->id)}}" id="delete" class="btn btn-sm btn-danger">

@@ -163,9 +163,26 @@ class SettingController extends Controller
         return redirect()->route('setting.page')->with($notification);
     }
 
-    public function edit($id){
-        $data=$this->page::findOrFail($id);
-        return view('admin.settings.page.edit',compact('data'));
+    public function edit($id)
+    {
+        $data = $this->page::findOrFail($id);
+        return view('admin.settings.page.edit', compact('data'));
+    }
+
+    public function pageupdate(Request $request, $id)
+    {
+        $data = $this->page::findOrfail($id);
+        $data->page::update([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name, '-'),
+            'title' => $request->title,
+            'description' => $request->description,
+        ]);
+        $notification = array(
+            'message' => 'Page Create Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('setting.page')->with($notification);
     }
 
     public function destroy($id)
