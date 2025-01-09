@@ -162,4 +162,13 @@ class SettingController extends Controller
         );
         return redirect()->route('setting.page')->with($notification);
     }
+    public function destroy($id){
+        $data=$this->page::findOrFail($id);
+        $data->delete();
+        $notification = array(
+            'message' => 'Page Destroy Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

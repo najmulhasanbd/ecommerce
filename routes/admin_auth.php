@@ -111,5 +111,6 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::get('page', 'page')->name('page');
         Route::get('page/create', 'create')->name('page.create');
         Route::post('page/store', 'store')->name('page.store');
+        Route::get('page/destroy/{id}', 'destroy')->name('page.destroy');
     });
 });

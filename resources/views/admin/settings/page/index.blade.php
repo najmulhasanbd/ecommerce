@@ -37,7 +37,7 @@
                                                 <a href="" class="btn btn-sm btn-success">
                                                     <i class="ri-pencil-line"></i>
                                                 </a>
-                                                <a href="" id="delete" class="btn btn-sm btn-danger">
+                                                <a href="{{route('setting.page.destroy',$item->id)}}" id="delete" class="btn btn-sm btn-danger">
                                                     <i class="ri-delete-bin-line"></i>
                                                 </a>
                                             </td>
