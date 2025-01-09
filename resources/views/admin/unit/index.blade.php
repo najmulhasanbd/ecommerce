@@ -38,9 +38,9 @@
                                             <td>{{ ucwords($item->name) }}</td>
                                             <td>
                                                 @if ($item->status==1)
-                                                    active
+                                                    <a href="" class="btn btn-sm btn-success">active</a>
                                                 @else ($item->status==2)
-                                                    inactive
+                                                    <a href="" class="btn btn-sm btn-danger">inactive</a>
                                                 @endif
                                             </td>
                                             <td>
