@@ -39,7 +39,10 @@ class UnitController extends Controller
         );
         return redirect()->route('unit.index')->with($notification);
     }
-    public function edit($id) {}
+    public function edit($id) {
+        $data=$this->unit::findOrFail($id);
+        return view('admin.unit.edit',compact('data'));
+    }
     public function update(Request $request, $id) {}
     public function destroy($id)
     {

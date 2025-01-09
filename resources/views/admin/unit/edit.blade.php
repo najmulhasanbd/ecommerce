@@ -14,12 +14,12 @@
         <div class="page-container">
             <div class="row">
                 <div class="col-12 col-md-6 card p-3 mx-auto">
-                    <form action="{{ route('brand.update', $data->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('unit.update', $data->id) }}" method="POST">
                         @csrf
                         @method('PUT')
 
                         <div class="form-group">
-                            <label for="name" style="width: 100%; text-align:start">Brand Name</label>
+                            <label for="name" style="width: 100%; text-align:start">Unit Name</label>
                             <input type="text" name="name" id="name" class="form-control"
                                 value="{{ old('name', $data->name) }}">
                             @error('name')
@@ -27,21 +27,7 @@
                             @enderror
                         </div>
 
-                        <div class="form-group py-1">
-                            <label for="image" style="width: 100%; text-align:start">Image</label>
-                            <input type="file" name="image" class="form-control" id="image"
-                                onchange="previewImage(event)">
-
-                            <!-- Display the preview image here -->
-                            <img class="py-2" id="imagePreview" src="{{ asset('storage/brands/' . $data->image) }}"
-                                width="100px" height="100px" style="object-fit: cover" alt="Image Preview">
-
-                            @error('image')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button type="submit" class="btn btn-success mt-2">Update</button>
                     </form>
 
                 </div>
@@ -49,20 +35,4 @@
         </div>
     </div>
 
-    <script>
-        function previewImage(event) {
-            const reader = new FileReader();
-            const file = event.target.files[0];
-
-            reader.onload = function() {
-                const imagePreview = document.getElementById('imagePreview');
-                imagePreview.src = reader.result;
-                imagePreview.style.display = 'block';
-            }
-
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
 @endsection
