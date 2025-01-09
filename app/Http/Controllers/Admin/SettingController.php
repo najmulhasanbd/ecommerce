@@ -62,6 +62,8 @@ class SettingController extends Controller
 
 
         $data->update([
+            'name' => $request->name,
+            'copyright' => $request->copyright,
             'email' => $request->email,
             'address' => $request->address,
             'facebook' => $request->facebook,

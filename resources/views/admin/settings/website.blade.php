@@ -22,6 +22,20 @@
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="form-group">
+                            <label for="name">Business Name</label>
+                            <input type="text" id="name" name="name" class="form-control"
+                                value="{{ $data->name }}">
+                        </div>
+                    </div><!-- end col-->
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="copyright">Copyright</label>
+                            <input type="text" id="copyright" name="copyright" class="form-control"
+                                value="{{ $data->copyright }}">
+                        </div>
+                    </div><!-- end col-->
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
                             <label for="phone">Phone</label>
                             <input type="text" id="phone" name="phone" class="form-control"
                                 value="{{ $data->phone }}">
