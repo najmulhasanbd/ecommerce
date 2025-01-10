@@ -9,14 +9,14 @@
         </div>
         <div class="page-container">
             <div class="row">
-                <div class="cl-lg-3 col-md-4 col-12">
+                <div class="col-lg-3 col-md-4 col-12">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" name="name" id="name" class="form-control"
                             placeholder="enter product name">
                     </div>
                 </div>
-                <div class="cl-lg-3 col-md-4 col-12">
+                <div class="col-lg-3 col-md-4 col-12">
                     <div class="form-group">
                         <label for="name">Category</label>
                         <select class="form-control" name="category_id" data-choices data-choices-sorting-false>
@@ -27,7 +27,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="cl-lg-3 col-md-4 col-12">
+                <div class="col-lg-3 col-md-4 col-12">
                     <div class="form-group">
                         <label for="name">SubCategory</label>
                         <select class="form-control" name="subcategory_id" data-choices data-choices-sorting-false>
@@ -38,7 +38,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="cl-lg-3 col-md-4 col-12">
+                <div class="col-lg-3 col-md-4 col-12">
                     <div class="form-group">
                         <label for="name">Brand</label>
                         <select class="form-control" name="brand_id" data-choices data-choices-sorting-false>
@@ -49,7 +49,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="cl-lg-3 col-md-4 col-12">
+                <div class="col-lg-3 col-md-4 col-12">
                     <div class="form-group">
                         <label for="name">Supplier</label>
                         <select class="form-control" name="supplier_id" data-choices data-choices-sorting-false>
@@ -60,28 +60,90 @@
                         </select>
                     </div>
                 </div>
-                <div class="cl-lg-3 col-md-4 col-12">
+                <div class="col-lg-3 col-md-4 col-12">
                     <div class="form-group">
                         <label for="code">Code</label>
                         <input type="text" name="code" id="code" class="form-control"
                             placeholder="enter product code">
                     </div>
                 </div>
-                <div class="cl-lg-3 col-md-4 col-12">
+                <div class="col-lg-3 col-md-4 col-12">
+                    <div class="form-group">
+                        <label for="code">Code</label>
+                        <input type="text" name="code" id="code" class="form-control"
+                            placeholder="enter product code">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-12">
+                    <div class="form-group">
+                        <label for="code">Code</label>
+                        <input type="text" name="code" id="code" class="form-control"
+                            placeholder="enter product code">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-12">
                     <div class="form-group">
                         <label for="qty">Quantity</label>
                         <input type="text" name="qty" id="qty" class="form-control"
                             placeholder="enter product qty">
                     </div>
                 </div>
-                <div class="cl-lg-3 col-md-4 col-12">
+                <div class="col-lg-3 col-md-4 col-12">
                     <div class="form-group">
                         <label for="qty">Tags</label>
                         <input class="form-control" id="choices-text-unique-values" data-choices
                             data-choices-text-unique-true type="text" />
                     </div>
                 </div>
-
+                <div class="col-lg-3 col-md-4 col-12">
+                    <div class="form-group">
+                        <label for="selling_price">Selling Price</label>
+                        <input type="number" name="selling_price" id="selling_price" class="form-control"
+                            placeholder="enter selling price">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-12">
+                    <div class="form-group">
+                        <label for="discount_price">Discount Price</label>
+                        <input type="number" name="discount_price" id="discount_price" class="form-control"
+                            placeholder="enter selling price">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-12">
+                    <div class="form-group">
+                        <label for="buying_price">Buying Price</label>
+                        <input type="number" name="buying_price" id="buying_price" class="form-control"
+                            placeholder="enter selling price">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-12">
+                    <div class="form-group">
+                        <label for="stock_quantity">Stock Quantity</label>
+                        <input type="number" name="stock_quantity" id="stock_quantity" class="form-control"
+                            placeholder="enter selling price">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-12">
+                    <div class="form-group">
+                        <label for="alert_quantity">Alert Quantity</label>
+                        <input type="number" name="alert_quantity" id="alert_quantity" class="form-control"
+                            placeholder="enter selling price">
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        <label for="short_description">Short Description</label>
+                        <textarea name="short_description" id="short_description" cols="30" rows="10" class="form-control"
+                            placeholder="enter shor description"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        <label for="long_description">Long Description</label>
+                        <textarea name="long_description" id="long_description" cols="30" rows="10" class="form-control"
+                            placeholder="enter shor description"></textarea>
+                    </div>
+                </div>
                 {{-- <div class="col-12 ">
                     <form action="{{ route('category.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
