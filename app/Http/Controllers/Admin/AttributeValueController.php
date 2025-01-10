@@ -20,7 +20,8 @@ class AttributeValueController extends Controller
         return view('admin.attribute-value.index', compact('data'));
     }
     public function create() {
-        return view('admin.attribute-value.create');
+        $data = $this->attributeValue::latest()->get();
+        return view('admin.attribute-value.create',compact('data'));
     }
     public function store(Request $request) {
         $this->attributeValue::create([

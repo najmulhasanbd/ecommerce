@@ -28,6 +28,42 @@
                     </form>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($data as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ ucwords($item->name) }}</td>
+                                            <td>
+                                                <a href="{{ route('attribute.edit', $item->id) }}"
+                                                    class="btn btn-sm btn-success">
+                                                    <i class="ri-pencil-line"></i>
+                                                </a>
+                                                <a href="{{ route('attribute.delete', $item->id) }}" id="delete"
+                                                    class="btn btn-sm btn-danger">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div> <!-- end card body-->
+                    </div> <!-- end card -->
+                </div><!-- end col-->
+            </div> <!-- end row-->
         </div>
     </div>
 @endsection
