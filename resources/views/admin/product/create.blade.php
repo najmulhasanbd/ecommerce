@@ -180,7 +180,41 @@
                         @enderror
                     </div>
                 </div>
-                {{-- <div class="col-12 ">
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        <div class="d-flex gap-1">
+                            <h5>Status</h5>
+                            <input type="checkbox" id="switch1" data-switch="bool" />
+                            <label for="switch1" data-on-label="On" data-off-label="Off"></label>
+                        </div>
+                        <div class="form-group">
+                            <div class="d-flex gap-1">
+                                <h5>Special Deals</h5>
+                                <input type="checkbox" id="switch2" data-switch="bool" />
+                                <label for="switch2" data-on-label="On" data-off-label="Off"></label>
+                            </div>
+                            <div class="form-group">
+                                <div class="d-flex gap-1">
+                                    <h5>Special Offer</h5>
+                                    <input type="checkbox" id="switch3" data-switch="bool" />
+                                    <label for="switch3" data-on-label="On" data-off-label="Off"></label>
+                                </div>
+                                <div class="form-group">
+                                    <div class="d-flex gap-1">
+                                        <h5>Featured</h5>
+                                        <input type="checkbox" id="switch4" data-switch="bool" />
+                                        <label for="switch4" data-on-label="On" data-off-label="Off"></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="d-flex gap-1">
+                                            <h5>Hot Deals</h5>
+                                            <input type="checkbox" id="switch5" data-switch="bool" />
+                                            <label for="switch1" data-on-label="On" data-off-label="Off"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- <div class="col-12 ">
                     <form action="{{ route('category.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
@@ -207,71 +241,71 @@
                         <button type="submit" class="btn btn-success">Submit</button>
                     </form>
                 </div> --}}
-            </div>
-        </div>
-    </div>
-    <script>
-        function previewImage(event) {
-            const reader = new FileReader();
-            const file = event.target.files[0];
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function previewImage(event) {
+                        const reader = new FileReader();
+                        const file = event.target.files[0];
 
-            reader.onload = function() {
-                const imagePreview = document.getElementById('imagePreview');
-                imagePreview.src = reader.result;
-                imagePreview.style.display = 'block';
-            }
+                        reader.onload = function() {
+                            const imagePreview = document.getElementById('imagePreview');
+                            imagePreview.src = reader.result;
+                            imagePreview.style.display = 'block';
+                        }
 
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
-    <script>
-        function previewImages(event) {
-            const files = event.target.files;
-            const galleryPreviewContainer = document.getElementById('galleryPreviewContainer');
+                        if (file) {
+                            reader.readAsDataURL(file);
+                        }
+                    }
+                </script>
+                <script>
+                    function previewImages(event) {
+                        const files = event.target.files;
+                        const galleryPreviewContainer = document.getElementById('galleryPreviewContainer');
 
-            galleryPreviewContainer.innerHTML = '';
+                        galleryPreviewContainer.innerHTML = '';
 
-            for (let i = 0; i < files.length; i++) {
-                const reader = new FileReader();
-                const file = files[i];
+                        for (let i = 0; i < files.length; i++) {
+                            const reader = new FileReader();
+                            const file = files[i];
 
-                reader.onload = function() {
-                    const imageDiv = document.createElement('div');
-                    imageDiv.style.display = 'inline-block';
-                    imageDiv.style.marginRight = '10px';
-                    imageDiv.style.position = 'relative';
+                            reader.onload = function() {
+                                const imageDiv = document.createElement('div');
+                                imageDiv.style.display = 'inline-block';
+                                imageDiv.style.marginRight = '10px';
+                                imageDiv.style.position = 'relative';
 
-                    const image = document.createElement('img');
-                    image.src = reader.result;
-                    image.style.width = '100px';
-                    image.style.height = '60px';
-                    image.style.display = 'block';
+                                const image = document.createElement('img');
+                                image.src = reader.result;
+                                image.style.width = '100px';
+                                image.style.height = '60px';
+                                image.style.display = 'block';
 
-                    const removeButton = document.createElement('button');
-                    removeButton.textContent = 'X';
-                    removeButton.style.position = 'absolute';
-                    removeButton.style.top = '0';
-                    removeButton.style.right = '0';
-                    removeButton.style.backgroundColor = 'red';
-                    removeButton.style.color = 'white';
-                    removeButton.style.border = 'none';
-                    removeButton.style.cursor = 'pointer';
-                    removeButton.onclick = function() {
-                        imageDiv.remove();
-                    };
+                                const removeButton = document.createElement('button');
+                                removeButton.textContent = 'X';
+                                removeButton.style.position = 'absolute';
+                                removeButton.style.top = '0';
+                                removeButton.style.right = '0';
+                                removeButton.style.backgroundColor = 'red';
+                                removeButton.style.color = 'white';
+                                removeButton.style.border = 'none';
+                                removeButton.style.cursor = 'pointer';
+                                removeButton.onclick = function() {
+                                    imageDiv.remove();
+                                };
 
-                    imageDiv.appendChild(image);
-                    imageDiv.appendChild(removeButton);
+                                imageDiv.appendChild(image);
+                                imageDiv.appendChild(removeButton);
 
-                    galleryPreviewContainer.appendChild(imageDiv);
-                };
+                                galleryPreviewContainer.appendChild(imageDiv);
+                            };
 
-                if (file) {
-                    reader.readAsDataURL(file);
-                }
-            }
-        }
-    </script>
-@endsection
+                            if (file) {
+                                reader.readAsDataURL(file);
+                            }
+                        }
+                    }
+                </script>
+            @endsection
