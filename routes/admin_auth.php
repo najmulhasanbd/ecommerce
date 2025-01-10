@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\Admin\Auth\LoginController;
-use App\Http\Controllers\Admin\Auth\RegisteredUserController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UnitController;
 use App\Http\Controllers\Admin\Brandcontroller;
-use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SupplierController;
-use App\Http\Controllers\Admin\UnitController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AttributeController;
+use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 
 Route::prefix('admin')->middleware('guest:admin')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -72,7 +73,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::get('/delete/{id}', 'destroy')->name('delete');
     });
 
-    //product controller
+    //unit controller
     Route::prefix('unit')->controller(UnitController::class)->name('unit.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
@@ -83,6 +84,16 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
         Route::get('active/{id}','active')->name('active');
         Route::get('inactive/{id}','inactive')->name('inactive');
+    });
+
+    //attribute controller
+    Route::prefix('attribute')->controller(AttributeController::class)->name('attribute.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::put('/update/{id}', 'update')->name('update');
+        Route::get('/delete/{id}', 'destroy')->name('delete');
     });
 
     //product controller
