@@ -14,10 +14,10 @@
         <div class="page-container">
             <div class="row">
                 <div class="col-12 col-md-6 card p-3 mx-auto">
-                    <form action="{{ route('unit.store') }}" method="post">
+                    <form action="{{ route('attribute-value.store') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label for="name" style="width: 100%;text-align:start">Unit Name</label>
+                            <label for="name" style="width: 100%;text-align:start">Value Name</label>
                             <input type="text" name="name" id="name" class="form-control"
                                 placeholder="enter unit name" value="{{ old('name') }}">
                             @error('name')

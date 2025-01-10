@@ -19,8 +19,20 @@ class AttributeValueController extends Controller
         $data = $this->attributeValue::latest()->get();
         return view('admin.attribute-value.index', compact('data'));
     }
-    public function create() {}
-    public function store() {}
+    public function create() {
+        return view('admin.attribute-value.create');
+    }
+    public function store(Request $request) {
+        $this->attributeValue::create([
+            'name'=>$request->name,
+            'status'=>1
+        ]);
+        $notification = array(
+            'message' => 'Value Insert  Success!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
     public function edit() {}
     public function update() {}
     public function destroy() {}

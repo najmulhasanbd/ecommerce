@@ -36,7 +36,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ ucwords($item->name) }}</td>
                                             <td>
-                                                <a href="{{route('attribute-value.index')}}"
+                                                <a href="{{route('attribute-value.create')}}"
                                                     class="btn btn-sm btn-primary">
                                                     Details
                                                 </a>
