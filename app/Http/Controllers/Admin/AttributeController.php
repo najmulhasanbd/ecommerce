@@ -20,12 +20,14 @@ class AttributeController extends Controller
         return view('admin.attribute.index', compact('data'));
     }
 
-    public function create() {
+    public function create()
+    {
         return view('admin.attribute.create');
     }
-    public function store(Request $request) {
-        $data=$this->attribute::create([
-            'name'=>$request->name,
+    public function store(Request $request)
+    {
+        $data = $this->attribute::create([
+            'name' => $request->name,
         ]);
         $notification = array(
             'message' => 'Attribute Insert  Success!',
@@ -33,10 +35,27 @@ class AttributeController extends Controller
         );
         return redirect()->route('attribute.index')->with($notification);
     }
-    public function edit() {}
-    public function update() {}
-    public function destroy($id) {
-        $data=$this->attribute::findOrFail($id);
+    public function edit($id)
+    {
+        $data = $this->attribute::findOrFail($id);
+        return view('admin.attribute.edit', compact('data'));
+    }
+    public function update(Request $request, $id)
+    {
+        $data = $this->attribute::findOrFail($id);
+        $data->update([
+            'name' => $request->name,
+        ]);
+
+        $notification = array(
+            'message' => 'Attribute Update  Success!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('attribute.index')->with($notification);
+    }
+    public function destroy($id)
+    {
+        $data = $this->attribute::findOrFail($id);
         $data->delete();
 
         $notification = array(

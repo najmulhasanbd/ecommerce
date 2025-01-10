@@ -14,12 +14,12 @@
         <div class="page-container">
             <div class="row">
                 <div class="col-12 col-md-6 card p-3 mx-auto">
-                    <form action="{{ route('unit.update', $data->id) }}" method="POST">
+                    <form action="{{ route('attribute.update', $data->id) }}" method="POST">
                         @csrf
                         @method('PUT')
 
                         <div class="form-group">
-                            <label for="name" style="width: 100%; text-align:start">Unit Name</label>
+                            <label for="name" style="width: 100%; text-align:start">Attribute Name</label>
                             <input type="text" name="name" id="name" class="form-control"
                                 value="{{ old('name', $data->name) }}">
                             @error('name')
