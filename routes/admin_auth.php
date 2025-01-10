@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\AttributeController;
+use App\Http\Controllers\Admin\AttributeValueController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
@@ -82,12 +83,22 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::put('/update/{id}', 'update')->name('update');
         Route::get('/delete/{id}', 'destroy')->name('delete');
 
-        Route::get('active/{id}','active')->name('active');
-        Route::get('inactive/{id}','inactive')->name('inactive');
+        Route::get('active/{id}', 'active')->name('active');
+        Route::get('inactive/{id}', 'inactive')->name('inactive');
     });
 
     //attribute controller
     Route::prefix('attribute')->controller(AttributeController::class)->name('attribute.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::put('/update/{id}', 'update')->name('update');
+        Route::get('/delete/{id}', 'destroy')->name('delete');
+    });
+
+    //attribute value controller
+    Route::prefix('attribute-value')->controller(AttributeValueController::class)->name('attribute-value.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
