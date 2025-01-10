@@ -71,5 +71,20 @@ class UnitController extends Controller
         return redirect()->route('unit.index')->with($notification);
     }
 
-
+    public function active($id) {
+        $data=$this->unit::where('id',$id)->update(['status'=>1]);
+        $notification = array(
+            'message' => 'Unit Active Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('unit.index')->with($notification);
+    }
+    public function inactive($id) {
+        $data=$this->unit::where('id',$id)->update(['status'=>2]);
+        $notification = array(
+            'message' => 'Unit Inactive Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('unit.index')->with($notification);
+    }
 }

@@ -521,11 +521,69 @@
 
     <!-- Projects Analytics Dashboard App js -->
     <script src="{{ asset('backend') }}/assets/js/pages/dashboard.js"></script>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.9.0/sweetalert2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote.min.js"></script>
-    
+
+
+    {{-- active sweet alert message --}}
+    <script>
+        $(function() {
+            $(document).on('click', '#active', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Active This Data?",
+                    icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, active it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'Activet!',
+                            'Your file has been Activet.',
+                            'success'
+                        )
+                    }
+                })
+            });
+
+        });
+    </script>
+     {{-- inactive sweet alert message --}}
+     <script>
+        $(function() {
+            $(document).on('click', '#inactive', function(e) {
+                e.preventDefault();
+                var link = $(this).attr("href");
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Inactive This Data?",
+                    icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Inactive it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link
+                        Swal.fire(
+                            'inactive!',
+                            'Your file has been Inactive.',
+                            'success'
+                        )
+                    }
+                })
+            });
+
+        });
+    </script>
+    {{-- delete sweet alert message --}}
     <script>
         $(function() {
             $(document).on('click', '#delete', function(e) {
@@ -553,7 +611,9 @@
 
         });
     </script>
-       <script>
+
+    {{-- toastr message --}}
+    <script>
         @if (Session::has('message'))
             var type = "{{ Session::get('alert-type', 'info') }}"
             toastr.options = {
