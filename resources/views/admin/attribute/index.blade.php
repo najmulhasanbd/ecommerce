@@ -26,7 +26,6 @@
                                     <tr>
                                         <th>SL</th>
                                         <th>Name</th>
-                                        <th>Value</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -35,7 +34,6 @@
                                     @foreach ($data as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ ucwords($item->name) }}</td>
                                             <td>{{ ucwords($item->name) }}</td>
                                             <td>
                                                 <a href="{{ route('attribute-value.create', $item->id) }}"

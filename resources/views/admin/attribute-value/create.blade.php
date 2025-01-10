@@ -18,7 +18,6 @@
                         <h4>Attribute : <strong>{{ ucwords($attribute->name) }}</strong></h4>
                     </div>
                 </div>
-                {{ $attribute->id }}
                 <div class="col-12 col-md-5 mx-auto card p-3">
                     <form action="{{ route('attribute-value.store') }}" method="post">
                         @csrf
@@ -43,6 +42,7 @@
                                 <thead>
                                     <tr>
                                         <th>SL</th>
+                                        <th>Attribute</th>
                                         <th>Name</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -53,6 +53,7 @@
                                     @foreach ($data as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->attribute->name }}</td>
                                             <td>{{ ucwords($item->name) }}</td>
                                             <td>
                                                 @if ($item->status == 1)
