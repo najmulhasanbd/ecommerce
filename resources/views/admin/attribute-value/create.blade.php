@@ -12,8 +12,13 @@
             </div>
         </div>
         <div class="page-container">
-            <div class="row">
-                <div class="col-12 col-md-6 card p-3 mx-auto">
+            <div class="row-2">
+                <div class="col-12 col-md-5 mx-auto card p-3">
+                    <div class="form-group">
+                        <h4>Attribute Value : <strong>{{ ucwords($attribute->name) }}</strong></h4>
+                    </div>
+                </div>
+                <div class="col-12 col-md-5 mx-auto card p-3">
                     <form action="{{ route('attribute-value.store') }}" method="post">
                         @csrf
                         <div class="form-group">
@@ -49,11 +54,11 @@
                                             <td>{{ ucwords($item->name) }}</td>
                                             <td>
                                                 @if ($item->status == 1)
-                                                    <a href="{{ route('attribute-value.inactive', $item->id) }}" id="inactive"
-                                                        class="btn btn-sm btn-success">Active</a>
+                                                    <a href="{{ route('attribute-value.inactive', $item->id) }}"
+                                                        id="inactive" class="btn btn-sm btn-success">Active</a>
                                                 @else
-                                                    <a href="{{ route('attribute-value.active', $item->id) }}" id="active"
-                                                        class="btn btn-sm btn-danger">Inactive</a>
+                                                    <a href="{{ route('attribute-value.active', $item->id) }}"
+                                                        id="active" class="btn btn-sm btn-danger">Inactive</a>
                                                 @endif
                                             </td>
                                             <td>

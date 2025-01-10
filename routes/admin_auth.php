@@ -100,7 +100,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     //attribute value controller
     Route::prefix('attribute-value')->controller(AttributeValueController::class)->name('attribute-value.')->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
+        Route::get('/create/{id}', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
         Route::get('/edit/{id}', 'edit')->name('edit');
         Route::put('/update/{id}', 'update')->name('update');
