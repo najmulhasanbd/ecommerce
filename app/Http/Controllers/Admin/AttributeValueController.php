@@ -24,10 +24,13 @@ class AttributeValueController extends Controller
     // }
     public function create($id)
     {
-        $data = $this->attributeValue::with('attribute')->latest()->get();
         $attribute = $this->attribute::findOrFail($id);
+
+        $data = $this->attributeValue::where('attribute_id', $id)->latest()->get();
+
         return view('admin.attribute-value.create', compact('data', 'attribute'));
     }
+
     public function store(Request $request)
     {
         $this->attributeValue::create([
@@ -35,7 +38,7 @@ class AttributeValueController extends Controller
             'attribute_id' => $request->attribute_id,
             'status' => 1
         ]);
-        
+
         $notification = array(
             'message' => 'Value Insert  Success!',
             'alert-type' => 'success'
@@ -57,7 +60,7 @@ class AttributeValueController extends Controller
             'message' => 'Value Update  Success!',
             'alert-type' => 'success'
         );
-        return redirect()->route('attribute-value.create')->with($notification);
+        return redirect()->back()->with($notification);
     }
     public function destroy($id)
     {

@@ -21,7 +21,7 @@
                 <div class="col-12 col-md-5 mx-auto card p-3">
                     <form action="{{ route('attribute-value.store') }}" method="post">
                         @csrf
-                        <input type="text" name="attribute_id" value="{{ $attribute->id }}">
+                        <input type="hidden" name="attribute_id" value="{{ $attribute->id }}">
                         <div class="form-group">
                             <label for="name" style="width: 100%;text-align:start">Value Name</label>
                             <input type="text" name="name" id="name" class="form-control"
@@ -53,7 +53,7 @@
                                     @foreach ($data as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->attribute->name }}</td>
+                                            <td>{{ ucwords($attribute->name) }}</td>
                                             <td>{{ ucwords($item->name) }}</td>
                                             <td>
                                                 @if ($item->status == 1)
@@ -65,16 +65,54 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('attribute-value.edit', $item->id) }}"
+                                                {{-- <a href="{{ route('attribute-value.edit', $item->id) }}"
                                                     class="btn btn-sm btn-success">
                                                     <i class="ri-pencil-line"></i>
-                                                </a>
+                                                </a> --}}
+                                                <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                    data-bs-target="#updateValue{{ $item->id }}"
+                                                    class="btn btn-sm btn-success">
+                                                    <i class="ri-pencil-line"></i></a>
                                                 <a href="{{ route('attribute-value.delete', $item->id) }}" id="delete"
                                                     class="btn btn-sm btn-danger">
                                                     <i class="ri-delete-bin-line"></i>
                                                 </a>
                                             </td>
                                         </tr>
+                                        <div class="modal fade" id="updateValue{{ $item->id }}"
+                                            data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                                                            {{ ucwords($attribute->name) }} Value
+                                                        </h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="{{ route('attribute-value.update', $item->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="form-group">
+                                                                <label for="name"
+                                                                    style="width: 100%; text-align:start">Value Name</label>
+                                                                <input type="text" name="name" id="name"
+                                                                    class="form-control" value="{{ $item->name }}">
+                                                                @error('name')
+                                                                    <span class="text-danger">{{ $message }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <button type="submit"
+                                                                class="btn btn-success mt-2">Update</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </tbody>
                             </table>

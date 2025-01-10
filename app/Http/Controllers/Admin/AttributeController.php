@@ -58,13 +58,23 @@ class AttributeController extends Controller
     }
     public function destroy($id)
     {
-        $data = $this->attribute::findOrFail($id);
-        $data->delete();
+        $attribute = $this->attribute::findOrFail($id);
+
+        if ($attribute->attributevalue()->exists()) {
+            $notification = array(
+                'message' => 'Please remove all associated values before deleting this attribute.',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('attribute.index')->with($notification);
+        }
+
+        $attribute->delete();
 
         $notification = array(
-            'message' => 'Attribute Delete  Success!',
+            'message' => 'Attribute deleted successfully!',
             'alert-type' => 'success'
         );
+
         return redirect()->route('attribute.index')->with($notification);
     }
 }
