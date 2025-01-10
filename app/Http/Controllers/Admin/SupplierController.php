@@ -26,6 +26,9 @@ class SupplierController extends Controller
     }
     public function store(SupplierRequest $request)
     {
+        $validated = $request->validate([
+            'mobile' => 'required|unique:suppliers,mobile',
+        ]);
         $this->supplier::create([
             'name' => $request->name,
             'mobile' => $request->mobile,

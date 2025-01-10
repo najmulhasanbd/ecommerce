@@ -32,6 +32,9 @@ class Brandcontroller extends Controller
 
     public function store(BrandRequest $request)
     {
+        $validated = $request->validate([
+            'name' => 'required|unique:brands,name',
+        ]);
         $imagePath = null;
 
         if ($request->hasFile('image')) {

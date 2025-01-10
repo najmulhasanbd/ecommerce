@@ -37,16 +37,22 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ ucwords($item->name) }}</td>
                                             <td>
-                                                <img src="{{ asset('storage/categories/' . $item->image) }}"
-                                                    alt="{{ $item->name }}" width="50px" height="30px">
+                                                @if ($item->image)
+                                                    <img src="{{ asset('storage/categories/' . $item->image) }}"
+                                                        alt="{{ $item->name }}" width="50px" height="30px">
+                                                @else
+                                                    <img src="{{ asset('no-image.jpg') }}" width="50px" alt="">
+                                                @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('category.edit', $item->id) }}"  class="btn btn-sm btn-success">
+                                                <a href="{{ route('category.edit', $item->id) }}"
+                                                    class="btn btn-sm btn-success">
                                                     <i class="ri-pencil-line"></i>
                                                 </a>
-                                                <a href="{{ route('category.delete', $item->id) }}" id="delete" class="btn btn-sm btn-danger">
+                                                <a href="{{ route('category.delete', $item->id) }}" id="delete"
+                                                    class="btn btn-sm btn-danger">
                                                     <i class="ri-delete-bin-line"></i>
-                                                </a>                                                                                           
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -58,5 +64,4 @@
             </div> <!-- end row-->
         </div> <!-- container -->
     </div>
-    
 @endsection

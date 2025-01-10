@@ -39,8 +39,12 @@
                                             <td>{{ ucwords($item->category->name ?? '') }}</td>
                                             <td>{{ ucwords($item->name) }}</td>
                                             <td>
-                                                <img src="{{ asset('storage/subcategories/' . $item->image) }}"
-                                                    alt="{{ $item->name }}" width="50px" height="30px">
+                                                @if ($item->image)
+                                                    <img src="{{ asset('storage/subcategories/' . $item->image) }}"
+                                                        alt="{{ $item->name }}" width="50px" height="30px">
+                                                @else
+                                                    <img src="{{ asset('no-image.jpg') }}" width="50px" alt="">
+                                                @endif
                                             </td>
                                             <td>
                                                 <a href="{{ route('subcategory.edit', $item->id) }}"

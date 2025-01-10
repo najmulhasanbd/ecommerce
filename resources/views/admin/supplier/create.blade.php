@@ -26,7 +26,7 @@
                         </div>
                         <div class="form-group py-2">
                             <label for="mobile" style="width: 100%;text-align:start">Supplier Mobile</label>
-                            <input type="text" name="mobile" id="mobile" class="form-control"
+                            <input type="number" name="mobile" id="mobile" class="form-control"
                                 placeholder="enter supplier mobile" value="{{ old('mobile') }}">
                             @error('mobile')
                                 <span class="text-danger">{{ $message }}</span>
