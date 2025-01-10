@@ -4,7 +4,7 @@
     <div class="page-content">
         <div class="page-title-head d-flex align-items-center ">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-bold mb-0">Brand</h4>
+                <h4 class="fs-18 fw-bold mb-0">Attribute Value</h4>
             </div>
 
             <div class="text-end">
@@ -37,6 +37,7 @@
                                     <tr>
                                         <th>SL</th>
                                         <th>Name</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -47,7 +48,16 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ ucwords($item->name) }}</td>
                                             <td>
-                                                <a href="{{ route('attribute.edit', $item->id) }}"
+                                                @if ($item->status == 1)
+                                                    <a href="{{ route('attribute-value.inactive', $item->id) }}" id="inactive"
+                                                        class="btn btn-sm btn-success">Active</a>
+                                                @else
+                                                    <a href="{{ route('attribute-value.active', $item->id) }}" id="active"
+                                                        class="btn btn-sm btn-danger">Inactive</a>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('attribute-value.edit', $item->id) }}"
                                                     class="btn btn-sm btn-success">
                                                     <i class="ri-pencil-line"></i>
                                                 </a>
