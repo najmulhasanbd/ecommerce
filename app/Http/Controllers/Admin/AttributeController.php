@@ -35,5 +35,14 @@ class AttributeController extends Controller
     }
     public function edit() {}
     public function update() {}
-    public function destroy() {}
+    public function destroy($id) {
+        $data=$this->attribute::findOrFail($id);
+        $data->delete();
+
+        $notification = array(
+            'message' => 'Attribute Delete  Success!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('attribute.index')->with($notification);
+    }
 }
