@@ -36,5 +36,14 @@ class AttributeValueController extends Controller
     }
     public function edit() {}
     public function update() {}
-    public function destroy() {}
+    public function destroy($id) {
+        $data=$this->attributeValue::findOrFail($id);
+        $data->delete();
+
+        $notification = array(
+            'message' => 'Value Delete  Success!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

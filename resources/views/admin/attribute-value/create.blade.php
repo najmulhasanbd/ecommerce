@@ -51,7 +51,7 @@
                                                     class="btn btn-sm btn-success">
                                                     <i class="ri-pencil-line"></i>
                                                 </a>
-                                                <a href="{{ route('attribute.delete', $item->id) }}" id="delete"
+                                                <a href="{{ route('attribute-value.delete', $item->id) }}" id="delete"
                                                     class="btn btn-sm btn-danger">
                                                     <i class="ri-delete-bin-line"></i>
                                                 </a>
