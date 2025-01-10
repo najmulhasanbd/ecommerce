@@ -130,6 +130,21 @@
                             placeholder="enter selling price">
                     </div>
                 </div>
+                <div class="col-lg-3 col-md-4 col-12">
+                    <div class="form-group py-1">
+                        <label for="image" style="width: 100%; text-align: start;">Image</label>
+                        <input type="file" name="image" class="form-control" id="image"
+                            onchange="previewImage(event)">
+
+                        <!-- Display the preview image here -->
+                        <div id="imagePreviewContainer" style="margin-top: 10px;">
+                            <img id="imagePreview" src="#" alt="Image Preview"
+                                style="max-width: 100px; display: none;" />
+                        </div> @error('image')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
                 <div class="col-md-6 col-12">
                     <div class="form-group">
                         <label for="short_description">Short Description</label>
