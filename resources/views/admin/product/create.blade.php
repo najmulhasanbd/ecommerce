@@ -131,18 +131,10 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group py-1">
-                        <label for="image" style="width: 100%; text-align: start;">Image</label>
-                        <input type="file" name="image" class="form-control" id="image"
-                            onchange="previewImage(event)">
-
-                        <!-- Display the preview image here -->
-                        <div id="imagePreviewContainer" style="margin-top: 10px;">
-                            <img id="imagePreview" src="#" alt="Image Preview"
-                                style="max-width: 100px; display: none;" />
-                        </div> @error('image')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                    <div class="form-group">
+                        <label for="alert_quantity">Alert Quantity</label>
+                        <input type="number" name="alert_quantity" id="alert_quantity" class="form-control"
+                            placeholder="enter selling price">
                     </div>
                 </div>
                 <div class="col-md-6 col-12">
@@ -157,6 +149,35 @@
                         <label for="long_description">Long Description</label>
                         <textarea name="long_description" id="long_description" cols="30" rows="10" class="form-control"
                             placeholder="enter shor description"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="form-group py-1">
+                        <label for="thumbnail" style="width: 100%; text-align: start;">Thumbnail</label>
+                        <input type="file" name="thumbnail" class="form-control" id="thumbnail"
+                            onchange="previewImage(event)">
+
+                        <!-- Display the preview image here -->
+                        <div id="imagePreviewContainer" style="margin-top: 10px;">
+                            <img id="imagePreview" src="#" alt="Image Preview"
+                                style="max-width: 100px; display: none;" />
+                        </div> @error('thumbnail')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="form-group py-1">
+                        <label for="gallery" style="width: 100%; text-align: start;">Gallery</label>
+                        <input type="file" name="gallery[]" class="form-control" id="gallery"
+                            onchange="previewImages(event)" multiple>
+
+                        <div id="galleryPreviewContainer" style="margin-top: 10px;">
+                        </div>
+
+                        @error('gallery')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
                 {{-- <div class="col-12 ">
@@ -202,6 +223,54 @@
 
             if (file) {
                 reader.readAsDataURL(file);
+            }
+        }
+    </script>
+    <script>
+        function previewImages(event) {
+            const files = event.target.files;
+            const galleryPreviewContainer = document.getElementById('galleryPreviewContainer');
+
+            galleryPreviewContainer.innerHTML = '';
+
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                const file = files[i];
+
+                reader.onload = function() {
+                    const imageDiv = document.createElement('div');
+                    imageDiv.style.display = 'inline-block';
+                    imageDiv.style.marginRight = '10px';
+                    imageDiv.style.position = 'relative';
+
+                    const image = document.createElement('img');
+                    image.src = reader.result;
+                    image.style.width = '100px';
+                    image.style.height = '60px';
+                    image.style.display = 'block';
+
+                    const removeButton = document.createElement('button');
+                    removeButton.textContent = 'X';
+                    removeButton.style.position = 'absolute';
+                    removeButton.style.top = '0';
+                    removeButton.style.right = '0';
+                    removeButton.style.backgroundColor = 'red';
+                    removeButton.style.color = 'white';
+                    removeButton.style.border = 'none';
+                    removeButton.style.cursor = 'pointer';
+                    removeButton.onclick = function() {
+                        imageDiv.remove();
+                    };
+
+                    imageDiv.appendChild(image);
+                    imageDiv.appendChild(removeButton);
+
+                    galleryPreviewContainer.appendChild(imageDiv);
+                };
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
             }
         }
     </script>
