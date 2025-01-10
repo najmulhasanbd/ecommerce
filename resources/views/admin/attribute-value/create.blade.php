@@ -15,12 +15,14 @@
             <div class="row-2">
                 <div class="col-12 col-md-5 mx-auto card p-3">
                     <div class="form-group">
-                        <h4>Attribute Value : <strong>{{ ucwords($attribute->name) }}</strong></h4>
+                        <h4>Attribute : <strong>{{ ucwords($attribute->name) }}</strong></h4>
                     </div>
                 </div>
+                {{ $attribute->id }}
                 <div class="col-12 col-md-5 mx-auto card p-3">
                     <form action="{{ route('attribute-value.store') }}" method="post">
                         @csrf
+                        <input type="text" name="attribute_id" value="{{ $attribute->id }}">
                         <div class="form-group">
                             <label for="name" style="width: 100%;text-align:start">Value Name</label>
                             <input type="text" name="name" id="name" class="form-control"

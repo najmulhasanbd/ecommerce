@@ -25,15 +25,17 @@ class AttributeValueController extends Controller
     public function create($id)
     {
         $data = $this->attributeValue::latest()->get();
-        $attribute=$this->attribute::findOrFail($id);
-        return view('admin.attribute-value.create', compact('data','attribute'));
+        $attribute = $this->attribute::findOrFail($id);
+        return view('admin.attribute-value.create', compact('data', 'attribute'));
     }
     public function store(Request $request)
     {
         $this->attributeValue::create([
             'name' => $request->name,
+            'attribute_id' => $request->attribute_id,
             'status' => 1
         ]);
+        
         $notification = array(
             'message' => 'Value Insert  Success!',
             'alert-type' => 'success'
@@ -57,17 +59,17 @@ class AttributeValueController extends Controller
     //     );
     //     return redirect()->route('attribute-value.create')->with($notification);
     // }
-    // public function destroy($id)
-    // {
-    //     $data = $this->attributeValue::findOrFail($id);
-    //     $data->delete();
+    public function destroy($id)
+    {
+        $data = $this->attributeValue::findOrFail($id);
+        $data->delete();
 
-    //     $notification = array(
-    //         'message' => 'Value Delete  Success!',
-    //         'alert-type' => 'success'
-    //     );
-    //     return redirect()->back()->with($notification);
-    // }
+        $notification = array(
+            'message' => 'Value Delete  Success!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
     // public function active($id)
     // {
     //     $data = $this->attributeValue::where('id', $id)->update(['status' => 1]);

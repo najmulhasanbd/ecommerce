@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('status')->comment('1=>Active, 2=>Inactive');
+            $table->unsignedBigInteger('attribute_id');
             $table->timestamps();
+
+            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascase');
         });
     }
 

@@ -26,6 +26,9 @@ class AttributeController extends Controller
     }
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required|unique:attributes,name',
+        ]);
         $data = $this->attribute::create([
             'name' => $request->name,
         ]);
