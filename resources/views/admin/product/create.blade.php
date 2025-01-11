@@ -1,6 +1,12 @@
 @extends('admin.layouts.admin_master')
 
 @section('admin_content')
+    <style>
+        h5 {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
     <div class="page-content">
         <div class="page-title-head d-flex align-items-center ">
             <div class="flex-grow-1">
@@ -8,304 +14,349 @@
             </div>
         </div>
         <div class="page-container">
-            <div class="row">
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" name="name" id="name" class="form-control"
-                            placeholder="enter product name">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="name">Category</label>
-                        <select class="form-control" name="category_id" data-choices data-choices-sorting-false>
-                            <option value="">Select Category</option>
-                            @foreach ($categories as $item)
-                                <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="name">SubCategory</label>
-                        <select class="form-control" name="subcategory_id" data-choices data-choices-sorting-false>
-                            <option value="">Select SubCategory</option>
-                            @foreach ($subcategories as $item)
-                                <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="name">Brand</label>
-                        <select class="form-control" name="brand_id" data-choices data-choices-sorting-false>
-                            <option value="">Select Brand</option>
-                            @foreach ($brands as $item)
-                                <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="name">Supplier</label>
-                        <select class="form-control" name="supplier_id" data-choices data-choices-sorting-false>
-                            <option value="">Select Supplier</option>
-                            @foreach ($suppliers as $item)
-                                <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="code">Code</label>
-                        <input type="text" name="code" id="code" class="form-control"
-                            placeholder="enter product code">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="code">Code</label>
-                        <input type="text" name="code" id="code" class="form-control"
-                            placeholder="enter product code">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="code">Code</label>
-                        <input type="text" name="code" id="code" class="form-control"
-                            placeholder="enter product code">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="qty">Quantity</label>
-                        <input type="text" name="qty" id="qty" class="form-control"
-                            placeholder="enter product qty">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="qty">Tags</label>
-                        <input class="form-control" id="choices-text-unique-values" data-choices
-                            data-choices-text-unique-true type="text" />
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="selling_price">Selling Price</label>
-                        <input type="number" name="selling_price" id="selling_price" class="form-control"
-                            placeholder="enter selling price">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="discount_price">Discount Price</label>
-                        <input type="number" name="discount_price" id="discount_price" class="form-control"
-                            placeholder="enter selling price">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="buying_price">Buying Price</label>
-                        <input type="number" name="buying_price" id="buying_price" class="form-control"
-                            placeholder="enter selling price">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="stock_quantity">Stock Quantity</label>
-                        <input type="number" name="stock_quantity" id="stock_quantity" class="form-control"
-                            placeholder="enter selling price">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="alert_quantity">Alert Quantity</label>
-                        <input type="number" name="alert_quantity" id="alert_quantity" class="form-control"
-                            placeholder="enter selling price">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="alert_quantity">Alert Quantity</label>
-                        <input type="number" name="alert_quantity" id="alert_quantity" class="form-control"
-                            placeholder="enter selling price">
-                    </div>
-                </div>
-                <div class="col-md-6 col-12">
-                    <div class="form-group">
-                        <label for="short_description">Short Description</label>
-                        <textarea name="short_description" id="short_description" cols="30" rows="10" class="form-control"
-                            placeholder="enter shor description"></textarea>
-                    </div>
-                </div>
-                <div class="col-md-6 col-12">
-                    <div class="form-group">
-                        <label for="long_description">Long Description</label>
-                        <textarea name="long_description" id="long_description" cols="30" rows="10" class="form-control"
-                            placeholder="enter shor description"></textarea>
-                    </div>
-                </div>
-                <div class="col-md-6 col-12">
-                    <div class="form-group py-1">
-                        <label for="thumbnail" style="width: 100%; text-align: start;">Thumbnail</label>
-                        <input type="file" name="thumbnail" class="form-control" id="thumbnail"
-                            onchange="previewImage(event)">
 
-                        <!-- Display the preview image here -->
-                        <div id="imagePreviewContainer" style="margin-top: 10px;">
-                            <img id="imagePreview" src="#" alt="Image Preview"
-                                style="max-width: 100px; display: none;" />
-                        </div> @error('thumbnail')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-md-6 col-12">
-                    <div class="form-group py-1">
-                        <label for="gallery" style="width: 100%; text-align: start;">Gallery</label>
-                        <input type="file" name="gallery[]" class="form-control" id="gallery"
-                            onchange="previewImages(event)" multiple>
-
-                        <div id="galleryPreviewContainer" style="margin-top: 10px;">
-                        </div>
-
-                        @error('gallery')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-md-6 col-12">
-                    <div class="form-group">
-                        <div class="d-flex gap-1">
-                            <h5>Status</h5>
-                            <input type="checkbox" id="switch1" data-switch="bool" />
-                            <label for="switch1" data-on-label="On" data-off-label="Off"></label>
-                        </div>
-                        <div class="form-group">
-                            <div class="d-flex gap-1">
-                                <h5>Special Deals</h5>
-                                <input type="checkbox" id="switch2" data-switch="bool" />
-                                <label for="switch2" data-on-label="On" data-off-label="Off"></label>
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <h3 class="card-header bg-success text-white">
+                        Basic Information
+                    </h3>
+                    <div class="row p-3">
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="name"><strong>Name</strong></label>
+                                <input type="text" name="name" id="name" class="form-control"
+                                    placeholder="enter product name">
                             </div>
-                            <div class="form-group">
-                                <div class="d-flex gap-1">
-                                    <h5>Special Offer</h5>
-                                    <input type="checkbox" id="switch3" data-switch="bool" />
-                                    <label for="switch3" data-on-label="On" data-off-label="Off"></label>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="name"><b>Category</b></label>
+                                <select class="form-control" name="category_id" data-choices data-choices-sorting-false>
+                                    <option value="">Select Category</option>
+                                    @foreach ($categories as $item)
+                                        <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="name"><b>SubCategory</b></label>
+                                <select class="form-control" name="subcategory_id" data-choices data-choices-sorting-false>
+                                    <option value="">Select SubCategory</option>
+                                    @foreach ($subcategories as $item)
+                                        <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="name"><b>Brand</b></label>
+                                <select class="form-control" name="brand_id" data-choices data-choices-sorting-false>
+                                    <option value="">Select Brand</option>
+                                    @foreach ($brands as $item)
+                                        <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="name"><b>Supplier</b></label>
+                                <select class="form-control" name="supplier_id" data-choices data-choices-sorting-false>
+                                    <option value="">Select Supplier</option>
+                                    @foreach ($suppliers as $item)
+                                        <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="code"><b>Code</b></label>
+                                <input type="text" name="code" id="code" class="form-control"
+                                    placeholder="enter product code">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="sku"><b>SKU</b></label>
+                                <input type="text" name="sku" id="sku" class="form-control"
+                                    placeholder="enter product sku">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="qty"><b>Quantity</b></label>
+                                <input type="text" name="qty" id="qty" class="form-control"
+                                    placeholder="enter product qty">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="qty"><b>Tags</b></label>
+                                <input class="form-control" id="choices-text-unique-values" data-choices
+                                    data-choices-text-unique-true type="text" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" card">
+                    <h3 class="card-header bg-success text-white">
+                        Product Variation
+                    </h3>
+                    <div class="row p-3">
+                        <div class="col-lg-6">
+                            <p class="mb-1 fw-bold text-muted">Attributes</p>
+                            <select class="select2 form-control select2-multiple" data-toggle="select2" multiple="multiple"
+                                data-placeholder="Choose attributes">
+                                <optgroup label="Choose attributes">
+                                    @foreach ($attributes as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </optgroup>
+                            </select>
+                        </div> <!-- end col -->
+                    </div>
+                </div>
+                <div class=" card">
+                    <h3 class="card-header bg-success text-white">
+                        Pricing
+                    </h3>
+                    <div class="row p-3">
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="selling_price"><b>Selling Price</b></label>
+                                <input type="number" name="selling_price" id="selling_price" class="form-control"
+                                    placeholder="enter selling price">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="discount_price"><b>Discount Price</b></label>
+                                <input type="number" name="discount_price" id="discount_price" class="form-control"
+                                    placeholder="enter selling price">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="buying_price"><b>Buying Price</b></label>
+                                <input type="number" name="buying_price" id="buying_price" class="form-control"
+                                    placeholder="enter selling price">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="stock_quantity"><b>Stock Quantity</b></label>
+                                <input type="number" name="stock_quantity" id="stock_quantity" class="form-control"
+                                    placeholder="enter selling price">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="alert_quantity"><b>Alert Quantity</b></label>
+                                <input type="number" name="alert_quantity" id="alert_quantity" class="form-control"
+                                    placeholder="enter selling price">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" card">
+                    <h3 class="card-header bg-success text-white">
+                        Description
+                    </h3>
+                    <div class="row p-3">
+                        <div class="col-md-6 col-12">
+                            <div class="form-group mb-2">
+                                <label for="short_description"><b>Short Description</b></label>
+                                <textarea name="short_description" id="short_description" cols="30" rows="10" class="form-control"
+                                    placeholder="enter shor description"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <div class="form-group mb-2">
+                                <label for="long_description"><b>Long Description</b></label>
+                                <textarea name="long_description" id="long_description" cols="30" rows="10" class="form-control"
+                                    placeholder="enter shor description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" card">
+                    <h3 class="card-header bg-success text-white">
+                        Product Image
+                    </h3>
+                    <div class="row p-3">
+                        <div class="col-md-6 col-12">
+                            <div class="form-group py-1">
+                                <label for="thumbnail" style="width: 100%; text-align: start;"><b>Thumbnail</b></label>
+                                <input type="file" name="thumbnail" class="form-control" id="thumbnail"
+                                    onchange="previewImage(event)">
+
+                                <!-- Display the preview image here -->
+                                <div id="imagePreviewContainer" style="margin-top: 10px;">
+                                    <img id="imagePreview" src="#" alt="Image Preview"
+                                        style="max-width: 100px; display: none;" />
+                                </div> @error('thumbnail')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <div class="form-group py-1">
+                                <label for="gallery" style="width: 100%; text-align: start;"><b>Gallery</b></label>
+                                <input type="file" name="gallery[]" class="form-control" id="gallery"
+                                    onchange="previewImages(event)" multiple>
+
+                                <div id="galleryPreviewContainer" style="margin-top: 10px;">
                                 </div>
-                                <div class="form-group">
-                                    <div class="d-flex gap-1">
-                                        <h5>Featured</h5>
-                                        <input type="checkbox" id="switch4" data-switch="bool" />
-                                        <label for="switch4" data-on-label="On" data-off-label="Off"></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="d-flex gap-1">
-                                            <h5>Hot Deals</h5>
-                                            <input type="checkbox" id="switch5" data-switch="bool" />
+
+                                @error('gallery')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" card">
+                    <h3 class="card-header bg-success text-white">
+                        Others Information
+                    </h3>
+
+                    <div class="row p-3">
+                        <div class="col-12 mb-4">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-12 col-sm-2 mb-2">
+                                        <div class="d-flex gap-1 align-items-center">
+                                            <h5 style="width: 100px"><b>Status</b></h5>
+                                            <input type="checkbox" id="switch1" data-switch="bool" />
                                             <label for="switch1" data-on-label="On" data-off-label="Off"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-2 mb-2">
+                                        <div class="d-flex gap-1 align-items-center">
+                                            <h5 style="width: 100px"><b>Special Deals</b></h5>
+                                            <input type="checkbox" id="switch2" data-switch="bool" />
+                                            <label for="switch2" data-on-label="On" data-off-label="Off"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-2 mb-2">
+                                        <div class="d-flex gap-1 align-items-center">
+                                            <h5 style="width: 100px"><b>Special Offer</b></h5>
+                                            <input type="checkbox" id="switch3" data-switch="bool" />
+                                            <label for="switch3" data-on-label="On" data-off-label="Off"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-2 mb-2">
+                                        <div class="d-flex gap-1 align-items-center">
+                                            <h5 style="width: 100px"><b>Featured</b></h5>
+                                            <input type="checkbox" id="switch4" data-switch="bool" />
+                                            <label for="switch4" data-on-label="On" data-off-label="Off"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-2">
+                                        <div class="d-flex gap-1 align-items-center">
+                                            <h5 style="width: 100px"><b>Hot Deals</b></h5>
+                                            <input type="checkbox" id="switch5" data-switch="bool" />
+                                            <label for="switch5" data-on-label="On" data-off-label="Off"></label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="col-12 ">
-                    <form action="{{ route('category.store') }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            <label for="name" style="width: 100%;text-align:start">Category Name</label>
-                            <input type="text" name="name" id="name" class="form-control"
-                                placeholder="enter category name" value="{{ old('name') }}">
-                            @error('name')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
-                        <div class="form-group py-1">
-                            <label for="image" style="width: 100%; text-align: start;">Image</label>
-                            <input type="file" name="image" class="form-control" id="image"
-                                onchange="previewImage(event)">
-
-                            <!-- Display the preview image here -->
-                            <div id="imagePreviewContainer" style="margin-top: 10px;">
-                                <img id="imagePreview" src="#" alt="Image Preview"
-                                    style="max-width: 100px; display: none;" />
-                            </div> @error('image')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                        <div class="col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="meta_keywords"><b>Meta Keywords</b></label>
+                                <input type="text" name="meta_keywords" id="meta_keywords" class="form-control"
+                                    placeholder="enter meta Keywords">
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-success">Submit</button>
-                    </form>
-                </div> --}}
+                        <div class="col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="meta_title"><b>Meta Title</b></label>
+                                <input type="text" name="meta_title" id="meta_title" class="form-control"
+                                    placeholder="enter meta Title">
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="meta_description"><b>Meta Description</b></label>
+                                <input type="text" name="meta_description" id="meta_title" class="form-control"
+                                    placeholder="enter meta description">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <script>
-                    function previewImage(event) {
-                        const reader = new FileReader();
-                        const file = event.target.files[0];
+                <button type="submit" class="btn-success btn mb-3">Submit</button>
+            </form>
 
-                        reader.onload = function() {
-                            const imagePreview = document.getElementById('imagePreview');
-                            imagePreview.src = reader.result;
-                            imagePreview.style.display = 'block';
-                        }
+        </div>
+    </div>
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            const file = event.target.files[0];
 
-                        if (file) {
-                            reader.readAsDataURL(file);
-                        }
-                    }
-                </script>
-                <script>
-                    function previewImages(event) {
-                        const files = event.target.files;
-                        const galleryPreviewContainer = document.getElementById('galleryPreviewContainer');
+            reader.onload = function() {
+                const imagePreview = document.getElementById('imagePreview');
+                imagePreview.src = reader.result;
+                imagePreview.style.display = 'block';
+            }
 
-                        galleryPreviewContainer.innerHTML = '';
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+    <script>
+        function previewImages(event) {
+            const files = event.target.files;
+            const galleryPreviewContainer = document.getElementById('galleryPreviewContainer');
 
-                        for (let i = 0; i < files.length; i++) {
-                            const reader = new FileReader();
-                            const file = files[i];
+            galleryPreviewContainer.innerHTML = '';
 
-                            reader.onload = function() {
-                                const imageDiv = document.createElement('div');
-                                imageDiv.style.display = 'inline-block';
-                                imageDiv.style.marginRight = '10px';
-                                imageDiv.style.position = 'relative';
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                const file = files[i];
 
-                                const image = document.createElement('img');
-                                image.src = reader.result;
-                                image.style.width = '100px';
-                                image.style.height = '60px';
-                                image.style.display = 'block';
+                reader.onload = function() {
+                    const imageDiv = document.createElement('div');
+                    imageDiv.style.display = 'inline-block';
+                    imageDiv.style.marginRight = '10px';
+                    imageDiv.style.position = 'relative';
 
-                                const removeButton = document.createElement('button');
-                                removeButton.textContent = 'X';
-                                removeButton.style.position = 'absolute';
-                                removeButton.style.top = '0';
-                                removeButton.style.right = '0';
-                                removeButton.style.backgroundColor = 'red';
-                                removeButton.style.color = 'white';
-                                removeButton.style.border = 'none';
-                                removeButton.style.cursor = 'pointer';
-                                removeButton.onclick = function() {
-                                    imageDiv.remove();
-                                };
+                    const image = document.createElement('img');
+                    image.src = reader.result;
+                    image.style.width = '100px';
+                    image.style.height = '60px';
+                    image.style.display = 'block';
 
-                                imageDiv.appendChild(image);
-                                imageDiv.appendChild(removeButton);
+                    const removeButton = document.createElement('button');
+                    removeButton.textContent = 'X';
+                    removeButton.style.position = 'absolute';
+                    removeButton.style.top = '0';
+                    removeButton.style.right = '0';
+                    removeButton.style.backgroundColor = 'red';
+                    removeButton.style.color = 'white';
+                    removeButton.style.border = 'none';
+                    removeButton.style.cursor = 'pointer';
+                    removeButton.onclick = function() {
+                        imageDiv.remove();
+                    };
 
-                                galleryPreviewContainer.appendChild(imageDiv);
-                            };
+                    imageDiv.appendChild(image);
+                    imageDiv.appendChild(removeButton);
 
-                            if (file) {
-                                reader.readAsDataURL(file);
-                            }
-                        }
-                    }
-                </script>
-            @endsection
+                    galleryPreviewContainer.appendChild(imageDiv);
+                };
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+    </script>
+@endsection

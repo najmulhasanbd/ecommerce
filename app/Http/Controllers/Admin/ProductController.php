@@ -9,7 +9,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\Supplier;
-use Illuminate\Http\Request;
+use App\Models\Attribute;
 
 class ProductController extends Controller
 {
@@ -18,14 +18,16 @@ class ProductController extends Controller
     protected $subcategory;
     protected $brand;
     protected $supplier;
+    protected $attribute;
 
-    public function __construct(Product $product, Category $category, SubCategory $subcategory, Brand $brand, Supplier $supplier)
+    public function __construct(Product $product, Category $category, SubCategory $subcategory, Brand $brand, Supplier $supplier, Attribute $attribute)
     {
         $this->product = $product;
         $this->category = $category;
         $this->subcategory = $subcategory;
         $this->brand = $brand;
         $this->supplier = $supplier;
+        $this->attribute = $attribute;
     }
 
     public function index()
@@ -39,8 +41,9 @@ class ProductController extends Controller
         $categories = $this->category::latest()->get();
         $subcategories = $this->subcategory::latest()->get();
         $brands = $this->brand::latest()->get();
-        $suppliers=$this->supplier::latest()->get();
-        return view('admin.product.create',compact('categories','subcategories','brands','suppliers'));
+        $suppliers = $this->supplier::latest()->get();
+        $attributes = $this->attribute::latest()->get();
+        return view('admin.product.create', compact('categories', 'subcategories', 'brands', 'suppliers','attributes'));
     }
 
     public function store(ProductRequest $product) {}
