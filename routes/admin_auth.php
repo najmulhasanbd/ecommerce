@@ -60,6 +60,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::get('inactive/{id}', 'inactive')->name('inactive');
     });
 
+
     //brand controller
     Route::prefix('brand')->controller(Brandcontroller::class)->name('brand.')->group(function () {
         Route::get('/', 'index')->name('index');
@@ -114,7 +115,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::put('/update/{id}', 'update')->name('update');
         Route::get('/delete/{id}', 'destroy')->name('delete');
 
-        
+
         Route::get('active/{id}', 'active')->name('active');
         Route::get('inactive/{id}', 'inactive')->name('inactive');
     });

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Tripli" name="author" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('backend') }}/assets/images/favicon.ico">
@@ -526,6 +527,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote.min.js"></script>
 
+    <script>
+    	$.ajaxSetup({
+		    headers: {
+		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		    }
+		});
+    </script>
 
     {{-- active sweet alert message --}}
     <script>

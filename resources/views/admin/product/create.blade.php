@@ -30,8 +30,9 @@
                         </div>
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
-                                <label for="name"><b>Category</b></label>
-                                <select class="form-control" name="category_id" data-choices data-choices-sorting-false>
+                                <label for="category_id"><b>Category</b></label>
+                                <select class="form-control" name="category_id" id="category_id" data-choices
+                                    data-choices-sorting-false>
                                     <option value="">Select Category</option>
                                     @foreach ($categories as $item)
                                         <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>
@@ -39,14 +40,13 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
-                                <label for="name"><b>SubCategory</b></label>
-                                <select class="form-control" name="subcategory_id" data-choices data-choices-sorting-false>
+                                <label for="subcategory_id"><b>SubCategory</b></label>
+                                <select class="form-control" name="subcategory_id" id="subcategory_id" data-choices
+                                    data-choices-sorting-false>
                                     <option value="">Select SubCategory</option>
-                                    @foreach ($subcategories as $item)
-                                        <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>
-                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -219,7 +219,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class=" card">
                     <h3 class="card-header bg-success text-white">
                         Others Information
@@ -292,9 +291,38 @@
                 </div>
                 <button type="submit" class="btn-success btn mb-3">Submit</button>
             </form>
-
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#category_id').on('change', function() {
+                var category_id = $(this).val();
+                if (category_id) {
+                    $.ajax({
+                        url: "{{ url('/subcategory/ajax') }}/" + category_id,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            $('select[name="subcategory_id"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="subcategory_id"]').append(
+                                    '<option value="' + value.id + '">' + value
+                                    .name + '</option>'
+                                );
+                            });
+                        }
+                    });
+                } else {
+                    alert('danger');
+                }
+            });
+        });
+    </script>
+    
+
     <script>
         function previewImage(event) {
             const reader = new FileReader();

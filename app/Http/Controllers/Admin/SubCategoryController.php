@@ -109,6 +109,7 @@ class SubCategoryController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+
     public function active($id)
     {
         $data = $this->subcategory::where('id', $id)->update(['status' => 1]);
@@ -127,4 +128,5 @@ class SubCategoryController extends Controller
         );
         return redirect()->route('subcategory.index')->with($notification);
     }
+  
 }
