@@ -50,7 +50,8 @@ class SubCategoryController extends Controller
             'category_id' => $request->category_id,
             'name' => $request->name,
             'slug' => Str::slug($request->name, '-'),
-            'image' => $imagePath
+            'image' => $imagePath,
+            'status' => 1
         ]);
         $notification = array(
             'message' => 'SubCategory Insert  Success!',
@@ -107,5 +108,23 @@ class SubCategoryController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    }
+    public function active($id)
+    {
+        $data = $this->subcategory::where('id', $id)->update(['status' => 1]);
+        $notification = array(
+            'message' => 'SubCategory Active Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('subcategory.index')->with($notification);
+    }
+    public function inactive($id)
+    {
+        $data = $this->subcategory::where('id', $id)->update(['status' => 2]);
+        $notification = array(
+            'message' => 'SubCategory Inactive Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('subcategory.index')->with($notification);
     }
 }

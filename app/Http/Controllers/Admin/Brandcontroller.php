@@ -47,7 +47,8 @@ class Brandcontroller extends Controller
         $this->brand::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
-            'image' => $imagePath,
+            'image' => $imagePath,            
+            'status' => 1
         ]);
         $notification = array(
             'message' => 'Brand Insert  Success!',
@@ -113,5 +114,23 @@ class Brandcontroller extends Controller
         );
 
         return redirect()->back()->with($notification);
+    }
+    public function active($id)
+    {
+        $data = $this->brand::where('id', $id)->update(['status' => 1]);
+        $notification = array(
+            'message' => 'Brand Active Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('brand.index')->with($notification);
+    }
+    public function inactive($id)
+    {
+        $data = $this->brand::where('id', $id)->update(['status' => 2]);
+        $notification = array(
+            'message' => 'Brand Inactive Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('brand.index')->with($notification);
     }
 }

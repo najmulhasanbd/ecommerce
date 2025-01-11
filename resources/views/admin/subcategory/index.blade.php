@@ -28,6 +28,7 @@
                                         <th>Category</th>
                                         <th>Name</th>
                                         <th>Image</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -44,6 +45,14 @@
                                                         alt="{{ $item->name }}" width="50px" height="30px">
                                                 @else
                                                     <img src="{{ asset('no-image.jpg') }}" width="50px" alt="">
+                                                @endif
+                                            </td><td>
+                                                @if ($item->status == 1)
+                                                    <a href="{{ route('subcategory.inactive', $item->id) }}" id="inactive"
+                                                        class="btn btn-sm btn-success">Active</a>
+                                                @else
+                                                    <a href="{{ route('subcategory.active', $item->id) }}" id="active"
+                                                        class="btn btn-sm btn-danger">Inactive</a>
                                                 @endif
                                             </td>
                                             <td>
