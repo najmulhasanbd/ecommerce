@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 100)->unique();
             $table->string('slug',100)->unique()->nullable();
             $table->string('image')->nullable();
+            $table->string('status')->comment('1=>Active, 2=>Inactive');
             $table->timestamps();
         });
     }

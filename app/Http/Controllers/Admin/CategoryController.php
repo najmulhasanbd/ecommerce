@@ -45,6 +45,7 @@ class CategoryController extends Controller
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'image' => $imagePath,
+            'status' => 1
         ]);
         $notification = array(
             'message' => 'Category Insert  Success!',
@@ -60,54 +61,72 @@ class CategoryController extends Controller
     }
 
     public function update(Request $request, $id)
-    {       
+    {
         $category = $this->category::findOrFail($id);
-    
-        $imagePath = $category->image; 
-    
+
+        $imagePath = $category->image;
+
         if ($request->hasFile('image')) {
-    
+
             if ($category->image) {
                 Storage::disk('public')->delete('categories/' . $category->image);
             }
-    
+
             $image = $request->file('image');
             $imageName = Str::slug($request->name) . '.' . $image->getClientOriginalExtension();
-            
+
             $image->storeAs('categories', $imageName, 'public');
-            
+
             $imagePath = $imageName;
         }
-    
+
         $category->update([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
-            'image' => $imagePath, 
+            'image' => $imagePath,
         ]);
-    
+
         $notification = array(
             'message' => 'Category Updated Successfully!',
             'alert-type' => 'success'
         );
-    
+
         return redirect()->route('category.index')->with($notification);
     }
-    
+
     public function destroy($id)
     {
         $data = $this->category::findOrFail($id);
         if (file_exists(public_path('storage/categories/' . $data->image))) {
             unlink(public_path('storage/categories/' . $data->image));
         }
-    
-       $data->delete();
-    
+
+        $data->delete();
+
         $notification = array(
             'message' => 'Category Delete Success!',
             'alert-type' => 'success'
         );
-    
+
         return redirect()->back()->with($notification);
     }
-    
+
+    public function active($id)
+    {
+        $data = $this->category::where('id', $id)->update(['status' => 1]);
+        $notification = array(
+            'message' => 'Category Active Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('category.index')->with($notification);
+    }
+    public function inactive($id)
+    {
+        $data = $this->category::where('id', $id)->update(['status' => 2]);
+        $notification = array(
+            'message' => 'Category Inactive Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('category.index')->with($notification);
+    }
 }
