@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AttributeValueController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
+use App\Http\Controllers\Admin\SubscriberController;
 
 Route::prefix('admin')->middleware('guest:admin')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -128,6 +129,12 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/edit/{id}', 'edit')->name('edit');
         Route::put('/update/{id}', 'update')->name('update');
+        Route::get('/delete/{id}', 'destroy')->name('delete');
+    });
+
+    //subscriber controller
+    Route::prefix('subscriber')->controller(SubscriberController::class)->name('subscriber.')->group(function () {
+        Route::get('/', 'index')->name('index');
         Route::get('/delete/{id}', 'destroy')->name('delete');
     });
 

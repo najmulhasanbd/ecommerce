@@ -186,6 +186,23 @@
                 </div>
             </li>
             <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#subscriber" aria-expanded="false" aria-controls="subscriber"
+                    class="side-nav-link">
+                    <span class="menu-icon"><i data-lucide="file-text"></i></span>
+                    <span class="menu-text"> Subscriber</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="subscriber">
+                    <ul class="sub-menu">
+                        <li class="side-nav-item">
+                            <a href="{{ route('subscriber.index') }}" class="side-nav-link">
+                                <span class="menu-text">Subscriber List</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="setting"
                     class="side-nav-link">
                     <span class="menu-icon"><i data-lucide="file-text"></i></span>
