@@ -128,5 +128,12 @@ class SubCategoryController extends Controller
         );
         return redirect()->route('subcategory.index')->with($notification);
     }
-  
+    public function subcategoryajax($category_id)
+    {
+        $subcategories = SubCategory::where('category_id', $category_id)->get();
+
+        // Return response as JSON
+        return response()->json($subcategories);
+    }
+    
 }

@@ -14,7 +14,6 @@
             </div>
         </div>
         <div class="page-container">
-
             <form action="" method="post" enctype="multipart/form-data">
                 <div class="card">
                     <h3 class="card-header bg-success text-white">
@@ -31,8 +30,7 @@
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
                                 <label for="category_id"><b>Category</b></label>
-                                <select class="form-control" name="category_id" id="category_id" data-choices
-                                    data-choices-sorting-false>
+                                <select class="form-control" name="category_id" id="category_id">
                                     <option value="">Select Category</option>
                                     @foreach ($categories as $item)
                                         <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>
@@ -44,8 +42,7 @@
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
                                 <label for="subcategory_id"><b>SubCategory</b></label>
-                                <select class="form-control" name="subcategory_id" id="subcategory_id" data-choices
-                                    data-choices-sorting-false>
+                                <select class="form-control" name="subcategory_id" id="subcategory_id">
                                     <option value="">Select SubCategory</option>
                                 </select>
                             </div>
@@ -302,26 +299,31 @@
                 var category_id = $(this).val();
                 if (category_id) {
                     $.ajax({
-                        url: "{{ url('/subcategory/ajax') }}/" + category_id,
+                        url: "{{ url('admin/subcategory/ajax') }}/" + category_id,
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
-                            $('select[name="subcategory_id"]').empty();
+                            $('select[name="subcategory_id"]').empty().append(
+                                '<option value="">Select SubCategory</option>');
                             $.each(data, function(key, value) {
                                 $('select[name="subcategory_id"]').append(
                                     '<option value="' + value.id + '">' + value
                                     .name + '</option>'
                                 );
                             });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error:', xhr.responseText);
                         }
                     });
                 } else {
-                    alert('danger');
+                    $('select[name="subcategory_id"]').empty().append(
+                        '<option value="">Select SubCategory</option>');
                 }
             });
         });
     </script>
-    
+
 
     <script>
         function previewImage(event) {

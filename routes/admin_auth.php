@@ -119,6 +119,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::get('active/{id}', 'active')->name('active');
         Route::get('inactive/{id}', 'inactive')->name('inactive');
     });
+    Route::get('subcategory/ajax/{category_id}', [SubCategoryController::class, 'subcategoryajax']);
 
     //product controller
     Route::prefix('product')->controller(ProductController::class)->name('product.')->group(function () {
