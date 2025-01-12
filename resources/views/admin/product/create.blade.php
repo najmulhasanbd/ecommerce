@@ -125,6 +125,33 @@
 
                             </div>
                         </div>
+
+                        <div class="col-12 mt-2">
+                            <h4>Price Variation</h4>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-success">
+                                    <thead>
+                                        <tr>
+                                            <th>Variant</th>
+                                            <th>Price</th>
+                                            <th>Reseller Price</th>
+                                            <th>SKU</th>
+                                            <th>Quantity</th>
+                                            <th>Photo</th>
+                                        </tr>
+                                    </thead>
+                                    <thead>
+                                        <td></td>
+                                        <td><input style="width:250px" type="text" class="form-control"></td>
+                                        <td><input style="width:250px" type="text" class="form-control"></td>
+                                        <td><input style="width:250px" type="text" class="form-control"></td>
+                                        <td><input style="width:250px" type="text" class="form-control"></td>
+                                        <td><input style="width:250px" type="file" class="form-control"></td>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class=" card">
