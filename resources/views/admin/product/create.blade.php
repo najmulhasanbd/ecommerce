@@ -104,17 +104,27 @@
                         Product Variation
                     </h3>
                     <div class="row p-3">
-                        <div class="col-lg-6">
+                        <!-- Attribute Selection -->
+                        <div class="col-12" id="attributeList">
                             <p class="mb-1 fw-bold text-muted">Attributes</p>
-                            <select class="select2 form-control select2-multiple" data-toggle="select2" multiple="multiple"
-                                data-placeholder="Choose attributes">
+                            <select class="select2 form-control select2-multiple" id="attributes" data-toggle="select2"
+                                multiple="multiple" data-placeholder="Choose attributes">
                                 <optgroup label="Choose attributes">
                                     @foreach ($attributes as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}" data-name="{{ $item->name }}">
+                                            {{ $item->name }}</option>
                                     @endforeach
                                 </optgroup>
                             </select>
-                        </div> <!-- end col -->
+                        </div>
+
+                        <!-- Attribute Values Selection -->
+                        <div class="col-12 mt-2 d-none" id="valueOfAttribute">
+                            <p class="mb-1 fw-bold text-muted">Attribute Values</p>
+                            <div id="attributeValuesContainer">
+
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class=" card">
@@ -295,6 +305,57 @@
 
     <script>
         $(document).ready(function() {
+            $('.select2').select2();
+
+            const attributeValuesMap = @json($attributes_value->groupBy('attribute_id'));
+
+            $('#attributes').on('change', function() {
+                const selectedAttributes = $(this).val();
+                const $valueOfAttribute = $('#valueOfAttribute');
+                const $attributeValuesContainer = $('#attributeValuesContainer');
+
+                if (selectedAttributes && selectedAttributes.length > 0) {
+                    $valueOfAttribute.removeClass('d-none');
+
+                    selectedAttributes.forEach(attributeId => {
+                        if (!$(`#attribute-row-${attributeId}`).length) {
+                            const attributeName = $(`#attributes option[value="${attributeId}"]`)
+                                .data('name');
+                            const values = attributeValuesMap[attributeId] || [];
+
+                            const attributeRow = `
+                                <div class="mb-3" id="attribute-row-${attributeId}">
+                                    <label class="fw-bold">${attributeName} Values:</label>
+                                    <select class="select2 form-control select2-multiple" multiple="multiple">
+                                        ${values.map(value => `<option value="${value.id}">${value.name}</option>`).join('')}
+                                    </select>
+                                </div>
+                            `;
+
+                            $attributeValuesContainer.append(attributeRow);
+                        }
+                    });
+
+                    $attributeValuesContainer
+                        .children()
+                        .each(function() {
+                            const attributeId = $(this).attr('id').replace('attribute-row-', '');
+                            if (!selectedAttributes.includes(attributeId)) {
+                                $(this).remove();
+                            }
+                        });
+
+                    $('.select2').select2();
+                } else {
+                    $valueOfAttribute.addClass('d-none');
+                    $attributeValuesContainer.empty();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
             $('#category_id').on('change', function() {
                 var category_id = $(this).val();
                 if (category_id) {
@@ -323,8 +384,6 @@
             });
         });
     </script>
-
-
     <script>
         function previewImage(event) {
             const reader = new FileReader();
