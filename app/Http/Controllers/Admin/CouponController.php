@@ -39,7 +39,11 @@ class CouponController extends Controller
         );
         return redirect()->route('coupon.index')->with($notification);
     }
-    public function edit($id) {}
+    public function edit($id)
+    {
+        $data = $this->coupon::findOrFail($id);
+        return view('admin.coupon.edit', compact('data'));
+    }
     public function update(Request $request, $id) {}
     public function destroy($id)
     {
