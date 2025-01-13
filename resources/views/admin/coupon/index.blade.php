@@ -28,10 +28,7 @@
                                         <th>Code</th>
                                         <th>Type</th>
                                         <th>Amount</th>
-                                        <th>Per Limit</th>
-                                        <th>Total User</th>
                                         <th>Expire Date</th>
-                                        <th>Description</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -41,14 +38,10 @@
                                     @foreach ($data as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->name }}</td>
                                             <td>{{ $item->code }}</td>
+                                            <td>{{ $item->type }}</td>
                                             <td>{{ $item->amount }}</td>
-                                            <td>{{ $item->useLimitPerUser }}</td>
-                                            <td>{{ $item->totalUseLimit }}</td>
                                             <td>{{ $item->expireDate }}</td>
-                                            <td>{{ $item->description }}</td>
-                                            <td>{{ $item->status }}</td>
                                             <td>
                                                 @if ($item->status == 1)
                                                     <a href="{{ route('coupon.inactive', $item->id) }}" id="inactive"

@@ -14,7 +14,7 @@
         <div class="page-container">
             <div class="row">
                 <div class="col-12 col-md-10 card p-3 mx-auto">
-                    <form action="{{ route('coupon.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('coupon.store') }}" method="post">
                         @csrf
                         <div class="row">
                             <div class="col-12 col-lg-6 mb-2">
@@ -45,16 +45,6 @@
                                     <input type="text" name="amount" id="amount" class="form-control"
                                         placeholder="enter amount" value="{{ old('amount') }}">
                                     @error('amount')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6 mb-2">
-                                <div class="form-group">
-                                    <label for="totalUseLimit" style="width: 100%;text-align:start">Total Use Limit</label>
-                                    <input type="text" name="totalUseLimit" id="totalUseLimit" class="form-control"
-                                        placeholder="Total Use Limit" value="{{ old('totalUseLimit') }}">
-                                    @error('totalUseLimit')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
