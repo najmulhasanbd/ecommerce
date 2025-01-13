@@ -103,8 +103,7 @@
                     <h3 class="card-header bg-success text-white">
                         Product Variation
                     </h3>
-                    <div class="row p-3">
-                        <!-- Attribute Selection -->
+                    {{-- <div class="row p-3">
                         <div class="col-12" id="attributeList">
                             <p class="mb-1 fw-bold text-muted">Attributes</p>
                             <select class="select2 form-control select2-multiple" id="attributes" data-toggle="select2"
@@ -117,15 +116,12 @@
                                 </optgroup>
                             </select>
                         </div>
-
-                        <!-- Attribute Values Selection -->
                         <div class="col-12 mt-2 d-none" id="valueOfAttribute">
                             <p class="mb-1 fw-bold text-muted">Attribute Values</p>
                             <div id="attributeValuesContainer">
 
                             </div>
                         </div>
-
                         <div class="col-12 mt-2">
                             <h4>Price Variation</h4>
                             <div class="table-responsive">
@@ -152,6 +148,45 @@
                             </div>
                         </div>
 
+                    </div> --}}
+                    <div class="row p-3">
+                        <div class="col-12" id="attributeList">
+                            <p class="mb-1 fw-bold text-muted">Attributes</p>
+                            <select class="select2 form-control select2-multiple" id="attributes" data-toggle="select2"
+                                multiple="multiple" data-placeholder="Choose attributes">
+                                <optgroup label="Choose attributes">
+                                    @foreach ($attributes as $item)
+                                        <option value="{{ $item->id }}" data-name="{{ $item->name }}">
+                                            {{ $item->name }}
+                                        </option>
+                                    @endforeach
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <div class="col-12 mt-2 d-none" id="valueOfAttribute">
+                            <p class="mb-1 fw-bold text-muted">Attribute Values</p>
+                            <div id="attributeValuesContainer"></div>
+                        </div>
+
+                        <div class="col-12 mt-2 d-none" id="priceVariation">
+                            <h4>Price Variation</h4>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-success">
+                                    <thead>
+                                        <tr>
+                                            <th>Variant</th>
+                                            <th>Price</th>
+                                            <th>Reseller Price</th>
+                                            <th>SKU</th>
+                                            <th>Quantity</th>
+                                            <th>Photo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="priceVariationBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class=" card">
@@ -340,6 +375,97 @@
                 const selectedAttributes = $(this).val();
                 const $valueOfAttribute = $('#valueOfAttribute');
                 const $attributeValuesContainer = $('#attributeValuesContainer');
+                const $priceVariation = $('#priceVariation');
+                const $priceVariationBody = $('#priceVariationBody');
+
+                if (selectedAttributes && selectedAttributes.length > 0) {
+                    $valueOfAttribute.removeClass('d-none');
+
+                    selectedAttributes.forEach(attributeId => {
+                        if (!$(`#attribute-row-${attributeId}`).length) {
+                            const attributeName = $(`#attributes option[value="${attributeId}"]`)
+                                .data('name');
+                            const values = attributeValuesMap[attributeId] || [];
+
+                            const attributeRow = `
+                                <div class="mb-3" id="attribute-row-${attributeId}">
+                                    <label class="fw-bold">${attributeName} Values:</label>
+                                    <select class="select2 form-control select2-multiple attribute-values" data-attribute-id="${attributeId}" multiple="multiple">
+                                        ${values.map(value => `<option value="${value.id}" data-name="${value.name}">${value.name}</option>`).join('')}
+                                    </select>
+                                </div>
+                            `;
+                            $attributeValuesContainer.append(attributeRow);
+                        }
+                    });
+
+                    $attributeValuesContainer.children().each(function() {
+                        const attributeId = $(this).attr('id').replace('attribute-row-', '');
+                        if (!selectedAttributes.includes(attributeId)) {
+                            $(this).remove();
+                            $(`[id^="price-row-${attributeId}-"]`).remove();
+                        }
+                    });
+
+                    $('.attribute-values').off('change').on('change', function() {
+                        const attributeId = $(this).data('attribute-id');
+                        const selectedValues = $(this).val() || [];
+
+                        if (selectedValues.length > 0) {
+                            $priceVariation.removeClass('d-none');
+
+                            selectedValues.forEach(valueId => {
+                                if (!$(`#price-row-${attributeId}-${valueId}`).length) {
+                                    const valueName = $(this).find(
+                                        `option[value="${valueId}"]`).data('name');
+                                    const priceRow = `
+                                        <tr id="price-row-${attributeId}-${valueId}">
+                                            <td>${valueName}</td>
+                                            <td><input style="width:150px" type="text" class="form-control" placeholder="Price"></td>
+                                            <td><input style="width:150px" type="text" class="form-control" placeholder="Reseller Price"></td>
+                                            <td><input style="width:150px" type="text" class="form-control" placeholder="SKU"></td>
+                                            <td><input style="width:150px" type="text" class="form-control" placeholder="Quantity"></td>
+                                            <td><input style="width:150px" type="file" class="form-control"></td>
+                                        </tr>
+                                    `;
+                                    $priceVariationBody.append(priceRow);
+                                }
+                            });
+
+                            $priceVariationBody.children().each(function() {
+                                const rowId = $(this).attr('id');
+                                const [_, attrId, valId] = rowId.split('-');
+                                if (attrId == attributeId && !selectedValues.includes(
+                                        valId)) {
+                                    $(this).remove();
+                                }
+                            });
+                        } else {
+                            $(`[id^="price-row-${attributeId}-"]`).remove();
+                        }
+                    });
+
+                    $('.select2').select2();
+                } else {
+                    $valueOfAttribute.addClass('d-none');
+                    $priceVariation.addClass('d-none');
+                    $attributeValuesContainer.empty();
+                    $priceVariationBody.empty();
+                }
+            });
+        });
+    </script>
+
+    {{-- <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+
+            const attributeValuesMap = @json($attributes_value->groupBy('attribute_id'));
+
+            $('#attributes').on('change', function() {
+                const selectedAttributes = $(this).val();
+                const $valueOfAttribute = $('#valueOfAttribute');
+                const $attributeValuesContainer = $('#attributeValuesContainer');
 
                 if (selectedAttributes && selectedAttributes.length > 0) {
                     $valueOfAttribute.removeClass('d-none');
@@ -379,7 +505,7 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 
     <script>
         $(document).ready(function() {
