@@ -92,8 +92,8 @@
                         </div>
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
-                                <label for="qty"><b>Tags</b></label>
-                                <input class="form-control" id="choices-text-unique-values" data-choices
+                                <label for="tags"><b>Tags</b></label>
+                                <input class="form-control" name="tags" id="choices-text-unique-values" data-choices
                                     data-choices-text-unique-true type="text" />
                             </div>
                         </div>
@@ -103,57 +103,11 @@
                     <h3 class="card-header bg-success text-white">
                         Product Variation
                     </h3>
-                    {{-- <div class="row p-3">
-                        <div class="col-12" id="attributeList">
-                            <p class="mb-1 fw-bold text-muted">Attributes</p>
-                            <select class="select2 form-control select2-multiple" id="attributes" data-toggle="select2"
-                                multiple="multiple" data-placeholder="Choose attributes">
-                                <optgroup label="Choose attributes">
-                                    @foreach ($attributes as $item)
-                                        <option value="{{ $item->id }}" data-name="{{ $item->name }}">
-                                            {{ $item->name }}</option>
-                                    @endforeach
-                                </optgroup>
-                            </select>
-                        </div>
-                        <div class="col-12 mt-2 d-none" id="valueOfAttribute">
-                            <p class="mb-1 fw-bold text-muted">Attribute Values</p>
-                            <div id="attributeValuesContainer">
-
-                            </div>
-                        </div>
-                        <div class="col-12 mt-2">
-                            <h4>Price Variation</h4>
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-hover table-success">
-                                    <thead>
-                                        <tr>
-                                            <th>Variant</th>
-                                            <th>Price</th>
-                                            <th>Reseller Price</th>
-                                            <th>SKU</th>
-                                            <th>Quantity</th>
-                                            <th>Photo</th>
-                                        </tr>
-                                    </thead>
-                                    <thead>
-                                        <td></td>
-                                        <td><input style="width:250px" type="text" class="form-control"></td>
-                                        <td><input style="width:250px" type="text" class="form-control"></td>
-                                        <td><input style="width:250px" type="text" class="form-control"></td>
-                                        <td><input style="width:250px" type="text" class="form-control"></td>
-                                        <td><input style="width:250px" type="file" class="form-control"></td>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div> --}}
                     <div class="row p-3">
                         <div class="col-12" id="attributeList">
                             <p class="mb-1 fw-bold text-muted">Attributes</p>
-                            <select class="select2 form-control select2-multiple" id="attributes" data-toggle="select2"
-                                multiple="multiple" data-placeholder="Choose attributes">
+                            <select class="select2 form-control select2-multiple" id="attributes" name="attributes"
+                                data-toggle="select2" multiple="multiple" data-placeholder="Choose attributes">
                                 <optgroup label="Choose attributes">
                                     @foreach ($attributes as $item)
                                         <option value="{{ $item->id }}" data-name="{{ $item->name }}">
@@ -263,7 +217,6 @@
                                 <input type="file" name="thumbnail" class="form-control" id="thumbnail"
                                     onchange="previewImage(event)">
 
-                                <!-- Display the preview image here -->
                                 <div id="imagePreviewContainer" style="margin-top: 10px;">
                                     <img id="imagePreview" src="#" alt="Image Preview"
                                         style="max-width: 100px; display: none;" />
@@ -300,36 +253,38 @@
                                     <div class="col-12 col-sm-2 mb-2">
                                         <div class="d-flex gap-1 align-items-center">
                                             <h5 style="width: 100px"><b>Status</b></h5>
-                                            <input type="checkbox" id="switch1" data-switch="bool" />
-                                            <label for="switch1" data-on-label="On" data-off-label="Off"></label>
+                                            <input type="checkbox" name="status" id="status" data-switch="bool" />
+                                            <label for="status" data-on-label="On" data-off-label="Off"></label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-2 mb-2">
                                         <div class="d-flex gap-1 align-items-center">
                                             <h5 style="width: 100px"><b>Special Deals</b></h5>
-                                            <input type="checkbox" id="switch2" data-switch="bool" />
-                                            <label for="switch2" data-on-label="On" data-off-label="Off"></label>
+                                            <input type="checkbox" id="special_deals" name="special_deals"
+                                                data-switch="bool" />
+                                            <label for="special_deals" data-on-label="On" data-off-label="Off"></label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-2 mb-2">
                                         <div class="d-flex gap-1 align-items-center">
                                             <h5 style="width: 100px"><b>Special Offer</b></h5>
-                                            <input type="checkbox" id="switch3" data-switch="bool" />
-                                            <label for="switch3" data-on-label="On" data-off-label="Off"></label>
+                                            <input type="checkbox" id="special_offer" name="special_offer"
+                                                data-switch="bool" />
+                                            <label for="special_offer" data-on-label="On" data-off-label="Off"></label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-2 mb-2">
                                         <div class="d-flex gap-1 align-items-center">
                                             <h5 style="width: 100px"><b>Featured</b></h5>
-                                            <input type="checkbox" id="switch4" data-switch="bool" />
-                                            <label for="switch4" data-on-label="On" data-off-label="Off"></label>
+                                            <input type="checkbox" id="featured" name="featured" data-switch="bool" />
+                                            <label for="featured" data-on-label="On" data-off-label="Off"></label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-2">
                                         <div class="d-flex gap-1 align-items-center">
                                             <h5 style="width: 100px"><b>Hot Deals</b></h5>
-                                            <input type="checkbox" id="switch5" data-switch="bool" />
-                                            <label for="switch5" data-on-label="On" data-off-label="Off"></label>
+                                            <input type="checkbox" id="hot_deals" name="hot_deals" data-switch="bool" />
+                                            <label for="hot_deals" data-on-label="On" data-off-label="Off"></label>
                                         </div>
                                     </div>
                                 </div>
@@ -390,7 +345,7 @@
                             const attributeRow = `
                                 <div class="mb-3" id="attribute-row-${attributeId}">
                                     <label class="fw-bold">${attributeName} Values:</label>
-                                    <select class="select2 form-control select2-multiple attribute-values" data-attribute-id="${attributeId}" multiple="multiple">
+                                    <select class="select2 form-control select2-multiple attribute-values" name="attributes" data-attribute-id="${attributeId}" multiple="multiple">
                                         ${values.map(value => `<option value="${value.id}" data-name="${value.name}">${value.name}</option>`).join('')}
                                     </select>
                                 </div>
@@ -398,7 +353,6 @@
                             $attributeValuesContainer.append(attributeRow);
                         }
                     });
-
                     $attributeValuesContainer.children().each(function() {
                         const attributeId = $(this).attr('id').replace('attribute-row-', '');
                         if (!selectedAttributes.includes(attributeId)) {
@@ -406,7 +360,6 @@
                             $(`[id^="price-row-${attributeId}-"]`).remove();
                         }
                     });
-
                     $('.attribute-values').off('change').on('change', function() {
                         const attributeId = $(this).data('attribute-id');
                         const selectedValues = $(this).val() || [];
@@ -421,11 +374,11 @@
                                     const priceRow = `
                                         <tr id="price-row-${attributeId}-${valueId}">
                                             <td>${valueName}</td>
-                                            <td><input style="width:150px" type="text" class="form-control" placeholder="Price"></td>
-                                            <td><input style="width:150px" type="text" class="form-control" placeholder="Reseller Price"></td>
-                                            <td><input style="width:150px" type="text" class="form-control" placeholder="SKU"></td>
-                                            <td><input style="width:150px" type="text" class="form-control" placeholder="Quantity"></td>
-                                            <td><input style="width:150px" type="file" class="form-control"></td>
+                                            <td><input style="width:150px" type="text" name="price[]" class="form-control" placeholder="Price"></td>
+                                            <td><input style="width:150px" type="text" name="reseller_price[]" class="form-control" placeholder="Reseller Price"></td>
+                                            <td><input style="width:150px" type="text" name="sku[]" class="form-control" placeholder="SKU"></td>
+                                            <td><input style="width:150px" type="text" name="qty[]" class="form-control" placeholder="Quantity"></td>
+                                            <td><input style="width:150px" type="file" name="thumbnail[]" class="form-control"></td>
                                         </tr>
                                     `;
                                     $priceVariationBody.append(priceRow);
@@ -455,58 +408,6 @@
             });
         });
     </script>
-
-    {{-- <script>
-        $(document).ready(function() {
-            $('.select2').select2();
-
-            const attributeValuesMap = @json($attributes_value->groupBy('attribute_id'));
-
-            $('#attributes').on('change', function() {
-                const selectedAttributes = $(this).val();
-                const $valueOfAttribute = $('#valueOfAttribute');
-                const $attributeValuesContainer = $('#attributeValuesContainer');
-
-                if (selectedAttributes && selectedAttributes.length > 0) {
-                    $valueOfAttribute.removeClass('d-none');
-
-                    selectedAttributes.forEach(attributeId => {
-                        if (!$(`#attribute-row-${attributeId}`).length) {
-                            const attributeName = $(`#attributes option[value="${attributeId}"]`)
-                                .data('name');
-                            const values = attributeValuesMap[attributeId] || [];
-
-                            const attributeRow = `
-                                <div class="mb-3" id="attribute-row-${attributeId}">
-                                    <label class="fw-bold">${attributeName} Values:</label>
-                                    <select class="select2 form-control select2-multiple" multiple="multiple">
-                                        ${values.map(value => `<option value="${value.id}">${value.name}</option>`).join('')}
-                                    </select>
-                                </div>
-                            `;
-
-                            $attributeValuesContainer.append(attributeRow);
-                        }
-                    });
-
-                    $attributeValuesContainer
-                        .children()
-                        .each(function() {
-                            const attributeId = $(this).attr('id').replace('attribute-row-', '');
-                            if (!selectedAttributes.includes(attributeId)) {
-                                $(this).remove();
-                            }
-                        });
-
-                    $('.select2').select2();
-                } else {
-                    $valueOfAttribute.addClass('d-none');
-                    $attributeValuesContainer.empty();
-                }
-            });
-        });
-    </script> --}}
-
     <script>
         $(document).ready(function() {
             $('#category_id').on('change', function() {

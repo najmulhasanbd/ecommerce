@@ -49,7 +49,10 @@ class ProductController extends Controller
         return view('admin.product.create', compact('categories',  'brands', 'suppliers', 'attributes', 'attributes_value'));
     }
 
-    public function store(ProductRequest $product) {}
+    public function store(ProductRequest $request)
+    {
+        return $request;
+    }
 
     public function edit() {}
 
