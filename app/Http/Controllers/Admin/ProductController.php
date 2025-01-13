@@ -11,6 +11,7 @@ use App\Models\SubCategory;
 use App\Models\Supplier;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -49,9 +50,13 @@ class ProductController extends Controller
         return view('admin.product.create', compact('categories',  'brands', 'suppliers', 'attributes', 'attributes_value'));
     }
 
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
-        return $request;
+
+
+        $this->product::create();
+
+        return redirect()->route('products.index')->with('success', 'Product created successfully!');
     }
 
     public function edit() {}

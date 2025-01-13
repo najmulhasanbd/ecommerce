@@ -27,7 +27,9 @@ return new class extends Migration
             $table->json('size')->nullable();
             $table->json('color')->nullable();
             $table->json('unit')->nullable();
-            $table->string('sku')->nullable();
+            $table->string('sku')->nullable()
+            ;
+            $table->json('attributes')->nullable();
 
             $table->decimal('selling_price', 10, 2);
             $table->decimal('discount_price', 10, 2)->nullable();

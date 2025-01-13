@@ -14,7 +14,8 @@
             </div>
         </div>
         <div class="page-container">
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
                 <div class="card">
                     <h3 class="card-header bg-success text-white">
                         Basic Information
@@ -79,14 +80,14 @@
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
                                 <label for="sku"><b>SKU</b></label>
-                                <input type="text" name="sku" id="sku" class="form-control"
+                                <input type="text" name="sku[]" id="sku" class="form-control"
                                     placeholder="enter product sku">
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
                                 <label for="qty"><b>Quantity</b></label>
-                                <input type="text" name="qty" id="qty" class="form-control"
+                                <input type="text" name="qty[]" id="qty" class="form-control"
                                     placeholder="enter product qty">
                             </div>
                         </div>
@@ -106,7 +107,7 @@
                     <div class="row p-3">
                         <div class="col-12" id="attributeList">
                             <p class="mb-1 fw-bold text-muted">Attributes</p>
-                            <select class="select2 form-control select2-multiple" id="attributes" name="attributes"
+                            <select class="select2 form-control select2-multiple" id="attributes" name="attributes[]"
                                 data-toggle="select2" multiple="multiple" data-placeholder="Choose attributes">
                                 <optgroup label="Choose attributes">
                                     @foreach ($attributes as $item)
@@ -214,7 +215,7 @@
                         <div class="col-md-6 col-12">
                             <div class="form-group py-1">
                                 <label for="thumbnail" style="width: 100%; text-align: start;"><b>Thumbnail</b></label>
-                                <input type="file" name="thumbnail" class="form-control" id="thumbnail"
+                                <input type="file" name="thumbnail[]" class="form-control" id="thumbnail"
                                     onchange="previewImage(event)">
 
                                 <div id="imagePreviewContainer" style="margin-top: 10px;">
@@ -345,7 +346,7 @@
                             const attributeRow = `
                                 <div class="mb-3" id="attribute-row-${attributeId}">
                                     <label class="fw-bold">${attributeName} Values:</label>
-                                    <select class="select2 form-control select2-multiple attribute-values" name="attributes" data-attribute-id="${attributeId}" multiple="multiple">
+                                    <select class="select2 form-control select2-multiple attribute-values" name="attributes[]" data-attribute-id="${attributeId}" multiple="multiple">
                                         ${values.map(value => `<option value="${value.id}" data-name="${value.name}">${value.name}</option>`).join('')}
                                     </select>
                                 </div>
