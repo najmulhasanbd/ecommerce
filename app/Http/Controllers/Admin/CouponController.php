@@ -12,12 +12,16 @@ class CouponController extends Controller
 
     public function __construct(Coupon $coupon)
     {
-        $this->coupon=$coupon;
+        $this->coupon = $coupon;
     }
-    public function index(){}
-    public function create(){}
-    public function store(Request $request){}
-    public function edit($id){}
-    public function update(Request $request, $id){}
-    public function destroy($id){}
+    public function index()
+    {
+        $data = $this->coupon::latest()->get();
+        return view('admin.coupon.index', compact('data'));
+    }
+    public function create() {}
+    public function store(Request $request) {}
+    public function edit($id) {}
+    public function update(Request $request, $id) {}
+    public function destroy($id) {}
 }
