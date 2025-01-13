@@ -39,7 +39,13 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->code }}</td>
-                                            <td>{{ $item->type }}</td>
+                                            <td>
+                                                @if ($item->status==1)
+                                                <button class="btn btn-success">Fixed</button>
+                                                @else                                                
+                                                <button class="btn btn-success">Percen</button>
+                                                @endif
+                                            </td>
                                             <td>{{ $item->amount }}</td>
                                             <td>{{ $item->expireDate }}</td>
                                             <td>

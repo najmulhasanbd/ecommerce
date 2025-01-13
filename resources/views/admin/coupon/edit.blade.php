@@ -56,7 +56,7 @@
                                 <div class="form-group">
                                     <label for="expireDate" style="width: 100%; text-align: start;">Expire Date</label>
                                     <input type="date" name="expireDate" id="expireDate" class="form-control"
-                                    value="{{ old('expireDate', $data->expireDate ?? '') }}">                             
+                                        value="{{ old('expireDate', $data->expireDate ?? '') }}">
                                     @error('expireDate')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror

@@ -44,7 +44,23 @@ class CouponController extends Controller
         $data = $this->coupon::findOrFail($id);
         return view('admin.coupon.edit', compact('data'));
     }
-    public function update(Request $request, $id) {}
+    public function update(Request $request, $id)
+    {
+        $data = $this->coupon::findOrFail($id);
+
+        $data->update([
+            'code' => $request->code,
+            'type' => $request->type,
+            'amount' => $request->amount,
+            'expireDate' => $request->expireDate,
+        ]);
+
+        $notification = array(
+            'message' => 'Coupon Update Success!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('coupon.index')->with($notification);
+    }
     public function destroy($id)
     {
         $data = $this->coupon::findOrFail($id);
