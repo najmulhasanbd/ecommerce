@@ -4,7 +4,7 @@
     <div class="page-content">
         <div class="page-title-head d-flex align-items-center ">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-bold mb-0">Cateogry</h4>
+                <h4 class="fs-18 fw-bold mb-0">Coupon</h4>
             </div>
 
             <div class="text-end">
@@ -14,7 +14,7 @@
         <div class="page-container">
             <div class="row">
                 <div class="col-12 col-md-6 card p-3 mx-auto">
-                    <form action="{{ route('category.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('coupon.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="name" style="width: 100%;text-align:start">Category Name</label>
@@ -45,13 +45,13 @@
     </div>
     <script>
         function previewImage(event) {
-            const reader = new FileReader(); 
-            const file = event.target.files[0]; 
+            const reader = new FileReader();
+            const file = event.target.files[0];
 
             reader.onload = function() {
                 const imagePreview = document.getElementById('imagePreview');
                 imagePreview.src = reader.result;
-                imagePreview.style.display = 'block'; 
+                imagePreview.style.display = 'block';
             }
 
             if (file) {

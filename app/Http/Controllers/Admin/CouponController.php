@@ -19,7 +19,9 @@ class CouponController extends Controller
         $data = $this->coupon::latest()->get();
         return view('admin.coupon.index', compact('data'));
     }
-    public function create() {}
+    public function create() {
+        return view('admin.coupon.create');
+    }
     public function store(Request $request) {}
     public function edit($id) {}
     public function update(Request $request, $id) {}
