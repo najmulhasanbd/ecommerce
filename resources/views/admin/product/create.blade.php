@@ -26,6 +26,9 @@
                                 <label for="name"><strong>Name</strong></label>
                                 <input type="text" name="name" id="name" class="form-control"
                                     placeholder="enter product name">
+                                @error('name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-12">
@@ -94,8 +97,19 @@
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
                                 <label for="tags"><b>Tags</b></label>
-                                <input class="form-control" name="tags" id="choices-text-unique-values" data-choices
+                                <input class="form-control" name="tags[]" id="choices-text-unique-values" data-choices
                                     data-choices-text-unique-true type="text" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="unit"><b>Unit</b></label>
+                                <select class="form-control" name="unit" data-choices data-choices-sorting-false>
+                                    <option value="">Select Unit</option>
+                                    @foreach ($units as $item)
+                                        <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -132,7 +146,6 @@
                                         <tr>
                                             <th>Variant</th>
                                             <th>Price</th>
-                                            <th>Reseller Price</th>
                                             <th>SKU</th>
                                             <th>Quantity</th>
                                             <th>Photo</th>
@@ -375,8 +388,7 @@
                                     const priceRow = `
                                         <tr id="price-row-${attributeId}-${valueId}">
                                             <td>${valueName}</td>
-                                            <td><input style="width:150px" type="text" name="price[]" class="form-control" placeholder="Price"></td>
-                                            <td><input style="width:150px" type="text" name="reseller_price[]" class="form-control" placeholder="Reseller Price"></td>
+                                            <td><input style="width:150px" type="text" name="selling_price[]" class="form-control" placeholder="Price"></td>
                                             <td><input style="width:150px" type="text" name="sku[]" class="form-control" placeholder="SKU"></td>
                                             <td><input style="width:150px" type="text" name="qty[]" class="form-control" placeholder="Quantity"></td>
                                             <td><input style="width:150px" type="file" name="thumbnail[]" class="form-control"></td>

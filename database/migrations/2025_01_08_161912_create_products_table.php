@@ -13,33 +13,32 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('subcategory_id');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('subcategory_id')->nullable();
             $table->integer('brand_id')->nullable();
 
-            $table->string('name');
-            $table->string('slug');
-            $table->string('code', 100);
-            $table->integer('qty');
+            $table->string('name')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('code', 100)->nullable();
+            $table->json('qty')->nullable();
             $table->string('supplier')->nullable();
 
             $table->json('tags')->nullable();
             $table->json('size')->nullable();
             $table->json('color')->nullable();
-            $table->json('unit')->nullable();
-            $table->string('sku')->nullable()
-            ;
+            $table->string('unit')->nullable();
+            $table->json('sku')->nullable();
             $table->json('attributes')->nullable();
 
-            $table->decimal('selling_price', 10, 2);
+            $table->decimal('selling_price', 10, 2)->nullable();
             $table->decimal('discount_price', 10, 2)->nullable();
-            $table->decimal('buying_price', 10, 2);
-            $table->integer('stock_quantity');
+            $table->decimal('buying_price', 10, 2)->nullable();
+            $table->integer('stock_quantity')->nullable();
             $table->integer('alert_quantity')->nullable();
 
             $table->text('short_description')->nullable();
             $table->longText('long_description')->nullable();
-            $table->string('thumbnail');
+            $table->string('thumbnail')->nullable();
             $table->json('gallery')->nullable();
 
             $table->tinyInteger('hot_deals')->default(0);
@@ -48,7 +47,7 @@ return new class extends Migration
             $table->tinyInteger('special_deals')->default(0);
             $table->tinyInteger('status')->default(0);
 
-            $table->json('meta_keywords')->nullable();
+            $table->string('meta_keywords')->nullable();
             $table->string('meta_title')->nullable();
             $table->longText('meta_description')->nullable();
 
