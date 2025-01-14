@@ -56,50 +56,66 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $thumbnailPath = [];
+
+        $imagePath = null;
 
         if ($request->hasFile('thumbnail')) {
-            foreach ($request->file('thumbnail') as $image) {
-                $imageName = Str::slug($request->name) . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-                $image->storeAs('thumbnail', $imageName, 'public');
-                $thumbnailPath[] = $imageName;
-            }
-            $thumbnailPath = implode(',', $thumbnailPath);
+            $image = $request->file('thumbnail');
+            $imageName = Str::slug($request->name) . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('thumbnail', $imageName, 'public');
+            $imagePath = $imageName;
         }
+
+        $tags = [];
+        if ($request->has('tags')) {
+            $tags = is_array($request->tags) ? $request->tags : explode(',', $request->tags);
+        }
+        $galleryPaths = [];
+
+        if ($request->hasFile('gallery')) {
+            foreach ($request->file('gallery') as $image) {
+                $imageName = Str::slug($request->name) . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('gallery', $imageName, 'public');  // Store the image
+                $galleryPaths[] = $imageName;  // Add the image path to the array
+            }
+        }
+
         $this->product::create([
             'name' => $request->name,
-            'slug' => Str::slug($request->name, '-'),
+            'slug' => Str::slug($request->name,'-'),
             'category_id' => $request->category_id,
             'subcategory_id' => $request->subcategory_id,
             'brand_id' => $request->brand_id,
+            'supplier_id' => $request->supplier_id,
             'code' => $request->code,
-            'qty' => $request->qty ? json_encode($request->qty) : null,
-            'supplier' => $request->supplier_id,
-            'tags' => $request->tags ? json_encode($request->tags) : null,
-            'size' => $request->size ? json_encode($request->size) : null,
-            'color' => $request->color ? json_encode($request->color) : null,
+
+            'tags' => json_encode($tags), 
+
             'unit' => $request->unit,
-            'sku' => $request->sku ? json_encode($request->sku) : null,
             'selling_price' => $request->selling_price,
             'discount_price' => $request->discount_price,
             'buying_price' => $request->buying_price,
-            'stock_quantity' => $request->stock_quantity,
             'alert_quantity' => $request->alert_quantity,
+            'sku' => $request->sku,
+            'stock_quantity' => $request->stock_quantity,
             'short_description' => $request->short_description,
-            'long_description' => $request->long_description,
-            'hot_deals' => $request->hot_deals ? 1 : 0,
-            'featured' => $request->featured ? 1 : 0,
-            'special_offer' => $request->special_offer ? 1 : 0,
-            'special_deals' => $request->special_deals ? 1 : 0,
-            'status' => $request->status ? 1 : 0,
-            'meta_keywords' => $request->meta_keywords,
-            'meta_title' => $request->meta_title,
-            'meta_description' => $request->meta_description,
-            'thumbnail' => $thumbnailPath,
-            'gallery' => $request->gallery ? json_encode($request->gallery) : null, // JSON কনভার্ট
+            'long_description' => $request->name,
+
+            'status' => $request->has('status'), // Ensure it's a boolean (true or false)
+            'special_deals' => $request->has('special_deals'), // Ensure it's a boolean (true or false)
+            'special_offer' => $request->has('special_offer'), // Ensure it's a boolean (true or false)
+            'featured' => $request->has('featured'), // Ensure it's a boolean (true or false)
+            'hot_deals' => $request->has('hot_deals'), // Ensure it's a boolean (true or false)
+
+            'thumbnail' => $imagePath,
+            'gallery' => json_encode($galleryPaths),  
+
+            'meta_keywords' => $request->name,
+            'meta_title' => $request->name,
+            'meta_description' => $request->name,
         ]);
 
-        return redirect()->route('product.index')->with('success', 'Product created successfully!');
+        return redirect()->route('product.index');
     }
 
     public function edit() {}
@@ -107,16 +123,42 @@ class ProductController extends Controller
     public function update() {}
 
     public function destroy($id)
-    {
-        $data = $this->product::findOrFail($id);
+{
+    // Find the product by ID
+    $data = $this->product::findOrFail($id);
 
-        $data->delete();
-        $notification = array(
-            'message' => 'Product Insert  Success!',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+    // Check and delete the thumbnail if it exists
+    if (file_exists(public_path('storage/thumbnail/' . $data->thumbnail))) {
+        unlink(public_path('storage/thumbnail/' . $data->thumbnail));
     }
+
+    // Check and delete the gallery images if they exist
+    if ($data->gallery) {
+        $galleryImages = json_decode($data->gallery, true); // Decode the gallery JSON to get an array of image paths
+        
+        if (is_array($galleryImages)) {
+            foreach ($galleryImages as $image) {
+                $imagePath = public_path('storage/gallery/' . $image);
+
+                if (file_exists($imagePath)) {
+                    unlink($imagePath); // Delete each gallery image
+                }
+            }
+        }
+    }
+
+    // Delete the product record
+    $data->delete();
+
+    // Prepare success notification
+    $notification = array(
+        'message' => 'Product Deleted Successfully!',
+        'alert-type' => 'success'
+    );
+
+    // Redirect back with the success message
+    return redirect()->back()->with($notification);
+}
 
     public function active($id)
     {

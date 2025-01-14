@@ -37,40 +37,62 @@
                                 </thead>
 
                                 <tbody>
-                                    {{$data}}
                                     @foreach ($data as $item)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>
-                                                <img src="{{ asset('storage/thumbnail/' . $item->thumbnail) }}"
-                                                    alt="{{ $item->name }}" width="50px" height="30px">
-                                            </td>
-                                            <td>{{ ucwords($item->name) }}</td>
-                                            <td>{{ $item->price }}</td>
-                                            <td>{{ ucwords($item->category->name) }}</td>
-                                            <td>{{ ucwords($item->subcategory->name) }}</td>
-                                            <td>{{ ucwords($item->brand->name) }}</td>
-                                            <td>
-                                                @if ($item->status == 1)
-                                                    <a href="{{ route('product.inactive', $item->id) }}" id="inactive"
-                                                        class="btn btn-sm btn-success">Active</a>
-                                                @else
-                                                    <a href="{{ route('product.active', $item->id) }}" id="active"
-                                                        class="btn btn-sm btn-danger">Inactive</a>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('product.edit', $item->id) }}"
-                                                    class="btn btn-sm btn-success">
-                                                    <i class="ri-pencil-line"></i>
-                                                </a>
-                                                <a href="{{ route('product.delete', $item->id) }}" id="delete"
-                                                    class="btn btn-sm btn-danger">
-                                                    <i class="ri-delete-bin-line"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>
+                                            <img src="{{ asset('storage/thumbnail/' . $item->thumbnail) }}"
+                                                 alt="{{ $item->name }}" width="50px" height="30px">
+                                        </td>
+                                        <td>{{ ucwords($item->name) }}</td>
+                                        <td>{{ $item->selling_price }}</td>
+                                        <td>{{ ucwords($item->category->name) }}</td>
+                                        <td>{{ ucwords($item->subcategory->name) }}</td>
+                                        <td>{{ ucwords($item->brand->name) }}</td>
+                                        <td>
+                                            @if ($item->status == 1)
+                                                <a href="{{ route('product.inactive', $item->id) }}" id="inactive"
+                                                   class="btn btn-sm btn-success">Active</a>
+                                            @else
+                                                <a href="{{ route('product.active', $item->id) }}" id="active"
+                                                   class="btn btn-sm btn-danger">Inactive</a>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-primary"
+                                               data-bs-toggle="modal" data-bs-target="#product{{$item->id}}">
+                                                <i class="ri-pencil-line"></i>
+                                            </a>
+                                            <a href="{{ route('product.edit', $item->id) }}" class="btn btn-sm btn-success">
+                                                <i class="ri-pencil-line"></i>
+                                            </a>
+                                            <a href="{{ route('product.delete', $item->id) }}" id="delete"
+                                               class="btn btn-sm btn-danger">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </a>
+                                        </td>
+                                
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="product{{$item->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">{{ ucwords($item->name) }}</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p><strong>Price:</strong> {{ $item->selling_price }}</p>
+                                                        <p><strong>Category:</strong> {{ ucwords($item->category->name) }}</p>
+                                                        <p><strong>Subcategory:</strong> {{ ucwords($item->subcategory->name) }}</p>
+                                                        <p><strong>Brand:</strong> {{ ucwords($item->brand->name) }}</p>
+                                                        <p><strong>Description:</strong> {{ $item->short_description }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tr>
+                                @endforeach
+                                
                                 </tbody>
                             </table>
                         </div> <!-- end card body-->
