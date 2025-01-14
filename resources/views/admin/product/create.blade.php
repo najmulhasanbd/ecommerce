@@ -82,20 +82,6 @@
                         </div>
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
-                                <label for="sku"><b>SKU</b></label>
-                                <input type="text" name="sku[]" id="sku" class="form-control"
-                                    placeholder="enter product sku">
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-12">
-                            <div class="form-group mb-2">
-                                <label for="qty"><b>Quantity</b></label>
-                                <input type="text" name="qty[]" id="qty" class="form-control"
-                                    placeholder="enter product qty">
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-12">
-                            <div class="form-group mb-2">
                                 <label for="tags"><b>Tags</b></label>
                                 <input class="form-control" name="tags[]" id="choices-text-unique-values" data-choices
                                     data-choices-text-unique-true type="text" />
@@ -114,7 +100,16 @@
                         </div>
                     </div>
                 </div>
-                <div class=" card">
+
+                <div class="col-12 col-sm-2">
+                    <div class="d-flex gap-1 align-items-center">
+                        <h5><b>Product Variation</b></h5>
+                        <input type="checkbox" id="isVariant" data-switch="bool" />
+                        <label for="isVariant" data-on-label="On" data-off-label="Off"></label>
+                    </div>
+                </div>
+                <br>
+                <div class="card d-none" id="productVariation">
                     <h3 class="card-header bg-success text-white">
                         Product Variation
                     </h3>
@@ -157,9 +152,9 @@
                         </div>
                     </div>
                 </div>
-                <div class=" card">
+                <div class="card" id="productPriceStock">
                     <h3 class="card-header bg-success text-white">
-                        Pricing
+                        Pricing & Stock
                     </h3>
                     <div class="row p-3">
                         <div class="col-lg-3 col-md-4 col-12">
@@ -197,9 +192,23 @@
                                     placeholder="enter selling price">
                             </div>
                         </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="sku"><b>SKU</b></label>
+                                <input type="text" name="sku[]" id="sku" class="form-control"
+                                    placeholder="enter product sku">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="qty"><b>Quantity</b></label>
+                                <input type="text" name="qty[]" id="qty" class="form-control"
+                                    placeholder="enter product qty">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class=" card">
+                <div class="card">
                     <h3 class="card-header bg-success text-white">
                         Description
                     </h3>
@@ -220,7 +229,7 @@
                         </div>
                     </div>
                 </div>
-                <div class=" card">
+                <div class="card" id="singleImage">
                     <h3 class="card-header bg-success text-white">
                         Product Image
                     </h3>
@@ -333,6 +342,22 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Toggle Product Variation
+            $('#isVariant').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#productVariation').removeClass('d-none');
+                    $('#productPriceStock').addClass('d-none');
+                    $('#singleImage').addClass('d-none');
+                } else {
+                    $('#productVariation').addClass('d-none');
+                    $('#productPriceStock').removeClass('d-none');
+                    $('#singleImage').removeClass('d-none');
+                }
+            });
+        });
+    </script>
 
     <script>
         $(document).ready(function() {
@@ -349,66 +374,60 @@
 
                 if (selectedAttributes && selectedAttributes.length > 0) {
                     $valueOfAttribute.removeClass('d-none');
+                    $attributeValuesContainer.empty(); // Reset attributes
 
+                    // Create attribute-value dropdowns
                     selectedAttributes.forEach(attributeId => {
-                        if (!$(`#attribute-row-${attributeId}`).length) {
-                            const attributeName = $(`#attributes option[value="${attributeId}"]`)
-                                .data('name');
-                            const values = attributeValuesMap[attributeId] || [];
+                        const attributeName = $(`#attributes option[value="${attributeId}"]`).data(
+                            'name');
+                        const values = attributeValuesMap[attributeId] || [];
 
-                            const attributeRow = `
-                                <div class="mb-3" id="attribute-row-${attributeId}">
-                                    <label class="fw-bold">${attributeName} Values:</label>
-                                    <select class="select2 form-control select2-multiple attribute-values" name="attributes[]" data-attribute-id="${attributeId}" multiple="multiple">
-                                        ${values.map(value => `<option value="${value.id}" data-name="${value.name}">${value.name}</option>`).join('')}
-                                    </select>
-                                </div>
-                            `;
-                            $attributeValuesContainer.append(attributeRow);
-                        }
+                        const attributeRow = `
+                    <div class="mb-3" id="attribute-row-${attributeId}">
+                        <label class="fw-bold">${attributeName} Values:</label>
+                        <select class="select2 form-control select2-multiple attribute-values" 
+                            name="attributes[${attributeId}][]" data-attribute-id="${attributeId}" 
+                            multiple="multiple">
+                            ${values.map(value => `<option value="${value.id}" data-name="${value.name}">${value.name}</option>`).join('')}
+                        </select>
+                    </div>
+                `;
+                        $attributeValuesContainer.append(attributeRow);
                     });
-                    $attributeValuesContainer.children().each(function() {
-                        const attributeId = $(this).attr('id').replace('attribute-row-', '');
-                        if (!selectedAttributes.includes(attributeId)) {
-                            $(this).remove();
-                            $(`[id^="price-row-${attributeId}-"]`).remove();
-                        }
-                    });
+
                     $('.attribute-values').off('change').on('change', function() {
-                        const attributeId = $(this).data('attribute-id');
-                        const selectedValues = $(this).val() || [];
+                        const selectedValuesByAttribute = {}; // Store selected values per attribute
 
-                        if (selectedValues.length > 0) {
-                            $priceVariation.removeClass('d-none');
+                        // Gather selected values
+                        $('.attribute-values').each(function() {
+                            const attributeId = $(this).data('attribute-id');
+                            selectedValuesByAttribute[attributeId] = $(this).val() || [];
+                        });
 
-                            selectedValues.forEach(valueId => {
-                                if (!$(`#price-row-${attributeId}-${valueId}`).length) {
-                                    const valueName = $(this).find(
-                                        `option[value="${valueId}"]`).data('name');
-                                    const priceRow = `
-                                        <tr id="price-row-${attributeId}-${valueId}">
-                                            <td>${valueName}</td>
-                                            <td><input style="width:150px" type="text" name="selling_price[]" class="form-control" placeholder="Price"></td>
-                                            <td><input style="width:150px" type="text" name="sku[]" class="form-control" placeholder="SKU"></td>
-                                            <td><input style="width:150px" type="text" name="qty[]" class="form-control" placeholder="Quantity"></td>
-                                            <td><input style="width:150px" type="file" name="thumbnail[]" class="form-control"></td>
-                                        </tr>
-                                    `;
-                                    $priceVariationBody.append(priceRow);
-                                }
-                            });
+                        // Generate all combinations of attributes
+                        const combinations = generateCombinations(selectedValuesByAttribute);
 
-                            $priceVariationBody.children().each(function() {
-                                const rowId = $(this).attr('id');
-                                const [_, attrId, valId] = rowId.split('-');
-                                if (attrId == attributeId && !selectedValues.includes(
-                                        valId)) {
-                                    $(this).remove();
-                                }
-                            });
-                        } else {
-                            $(`[id^="price-row-${attributeId}-"]`).remove();
-                        }
+                        $priceVariation.removeClass('d-none');
+                        $priceVariationBody.empty(); // Reset price rows
+
+                        // Add rows for each combination
+                        combinations.forEach(combination => {
+                            const combinationName = combination.map(item => item.name).join(
+                                ' + ');
+                            const rowId = combination.map(item =>
+                                `${item.attributeId}-${item.valueId}`).join('-');
+
+                            const priceRow = `
+                        <tr id="price-row-${rowId}">
+                            <td>${combinationName}</td>
+                            <td><input style="width:150px" type="text" name="selling_price[]" class="form-control" placeholder="Price"></td>
+                            <td><input style="width:150px" type="text" name="sku[]" class="form-control" placeholder="SKU"></td>
+                            <td><input style="width:150px" type="text" name="qty[]" class="form-control" placeholder="Quantity"></td>
+                            <td><input style="width:150px" type="file" name="thumbnail[]" class="form-control"></td>
+                        </tr>
+                    `;
+                            $priceVariationBody.append(priceRow);
+                        });
                     });
 
                     $('.select2').select2();
@@ -419,8 +438,37 @@
                     $priceVariationBody.empty();
                 }
             });
+
+            // Function to generate all combinations of selected attributes
+            function generateCombinations(selectedValuesByAttribute) {
+                const attributes = Object.keys(selectedValuesByAttribute);
+                if (attributes.length === 0) return [];
+
+                const combinations = [];
+
+                function combine(current, depth) {
+                    if (depth === attributes.length) {
+                        combinations.push(current);
+                        return;
+                    }
+
+                    const attributeId = attributes[depth];
+                    selectedValuesByAttribute[attributeId].forEach(valueId => {
+                        combine([...current, {
+                            attributeId,
+                            valueId,
+                            name: $(`#attribute-row-${attributeId} option[value="${valueId}"]`)
+                                .data('name')
+                        }], depth + 1);
+                    });
+                }
+
+                combine([], 0);
+                return combinations;
+            }
         });
     </script>
+
     <script>
         $(document).ready(function() {
             $('#category_id').on('change', function() {

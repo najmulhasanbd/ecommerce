@@ -8,7 +8,12 @@ class Category extends Model
 {
     protected $guarded = [];
 
-    public function subcategory(){
+    public function subcategory()
+    {
         return $this->hasOne(SubCategory::class);
+    }
+    public function product()
+    {
+        return $this->hasOne(Product::class);
     }
 }

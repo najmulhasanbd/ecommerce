@@ -157,6 +157,9 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::get('/edit/{id}', 'edit')->name('edit');
         Route::put('/update/{id}', 'update')->name('update');
         Route::get('/delete/{id}', 'destroy')->name('delete');
+
+        Route::get('active/{id}', 'active')->name('active');
+        Route::get('inactive/{id}', 'inactive')->name('inactive');
     });
 
     //subscriber controller

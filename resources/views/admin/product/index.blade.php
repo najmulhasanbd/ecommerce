@@ -37,19 +37,28 @@
                                 </thead>
 
                                 <tbody>
+                                    {{$data}}
                                     @foreach ($data as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
-                                                <img src="{{ asset('storage/products/' . $item->image) }}"
+                                                <img src="{{ asset('storage/thumbnail/' . $item->thumbnail) }}"
                                                     alt="{{ $item->name }}" width="50px" height="30px">
                                             </td>
                                             <td>{{ ucwords($item->name) }}</td>
                                             <td>{{ $item->price }}</td>
-                                            <td>{{ $item->category_id }}</td>
-                                            <td>{{ $item->subcategory_id }}</td>
-                                            <td>{{ $item->brand_id }}</td>
-                                            <td>{{ $item->status }}</td>
+                                            <td>{{ ucwords($item->category->name) }}</td>
+                                            <td>{{ ucwords($item->subcategory->name) }}</td>
+                                            <td>{{ ucwords($item->brand->name) }}</td>
+                                            <td>
+                                                @if ($item->status == 1)
+                                                    <a href="{{ route('product.inactive', $item->id) }}" id="inactive"
+                                                        class="btn btn-sm btn-success">Active</a>
+                                                @else
+                                                    <a href="{{ route('product.active', $item->id) }}" id="active"
+                                                        class="btn btn-sm btn-danger">Inactive</a>
+                                                @endif
+                                            </td>
                                             <td>
                                                 <a href="{{ route('product.edit', $item->id) }}"
                                                     class="btn btn-sm btn-success">

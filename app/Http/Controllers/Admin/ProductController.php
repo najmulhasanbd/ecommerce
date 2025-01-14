@@ -39,7 +39,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $data = $this->product::latest()->get();
+        $data = $this->product::with(['category', 'subcategory', 'brand'])->with('brand')->latest()->get();
         return view('admin.product.index', compact('data'));
     }
 
@@ -73,13 +73,13 @@ class ProductController extends Controller
             'subcategory_id' => $request->subcategory_id,
             'brand_id' => $request->brand_id,
             'code' => $request->code,
-            'qty' => $request->qty ? json_encode($request->qty) : null, 
+            'qty' => $request->qty ? json_encode($request->qty) : null,
             'supplier' => $request->supplier_id,
-            'tags' => $request->tags ? json_encode($request->tags) : null, 
-            'size' => $request->size ? json_encode($request->size) : null, 
-            'color' => $request->color ? json_encode($request->color) : null, 
+            'tags' => $request->tags ? json_encode($request->tags) : null,
+            'size' => $request->size ? json_encode($request->size) : null,
+            'color' => $request->color ? json_encode($request->color) : null,
             'unit' => $request->unit,
-            'sku' => $request->sku ? json_encode($request->sku) : null, 
+            'sku' => $request->sku ? json_encode($request->sku) : null,
             'selling_price' => $request->selling_price,
             'discount_price' => $request->discount_price,
             'buying_price' => $request->buying_price,
@@ -87,7 +87,7 @@ class ProductController extends Controller
             'alert_quantity' => $request->alert_quantity,
             'short_description' => $request->short_description,
             'long_description' => $request->long_description,
-            'hot_deals' => $request->hot_deals ? 1 : 0, 
+            'hot_deals' => $request->hot_deals ? 1 : 0,
             'featured' => $request->featured ? 1 : 0,
             'special_offer' => $request->special_offer ? 1 : 0,
             'special_deals' => $request->special_deals ? 1 : 0,
@@ -106,12 +106,32 @@ class ProductController extends Controller
 
     public function update() {}
 
-    public function destroy($id) {
-        $data=$this->product::findOrFail($id);
+    public function destroy($id)
+    {
+        $data = $this->product::findOrFail($id);
 
         $data->delete();
         $notification = array(
             'message' => 'Product Insert  Success!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function active($id)
+    {
+        $data = $this->product::where('id', $id)->update(['status' => 1]);
+        $notification = array(
+            'message' => 'Product Active Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    public function inactive($id)
+    {
+        $data = $this->product::where('id', $id)->update(['status' => 2]);
+        $notification = array(
+            'message' => 'Product Inactive Successfully!',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
