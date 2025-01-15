@@ -24,6 +24,7 @@
 
             <form action="{{ route('product.update', $data->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="card">
                     <h3 class="card-header bg-success text-white">
                         Basic Information

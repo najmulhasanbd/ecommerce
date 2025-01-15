@@ -132,7 +132,87 @@ class ProductController extends Controller
         return view('admin.product.edit', compact('data', 'categories', 'brands', 'suppliers', 'attributes', 'attributes_value', 'units'));
     }
 
-    public function update() {}
+    public function update(Request $request, $id)
+    {
+        $data = $this->product::findOrFail($id);
+
+        // Unlink previous thumbnail if a new one is uploaded
+        $imagePath = $data->thumbnail; // Keep existing thumbnail path
+        if ($request->hasFile('thumbnail')) {
+            if ($data->thumbnail && \Storage::disk('public')->exists('thumbnail/' . $data->thumbnail)) {
+                \Storage::disk('public')->delete('thumbnail/' . $data->thumbnail); // Delete the old thumbnail
+            }
+
+            $image = $request->file('thumbnail');
+            $imageName = Str::slug($request->name) . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('thumbnail', $imageName, 'public'); // Store the new thumbnail
+            $imagePath = $imageName; // Set new thumbnail path
+        }
+
+        // Unlink previous gallery images if new ones are uploaded
+        $galleryPaths = json_decode($data->gallery, true) ?? []; // Keep existing gallery paths
+        if ($request->hasFile('gallery')) {
+            // Delete old gallery images
+            if (!empty($galleryPaths)) {
+                foreach ($galleryPaths as $galleryImage) {
+                    if (\Storage::disk('public')->exists('gallery/' . $galleryImage)) {
+                        \Storage::disk('public')->delete('gallery/' . $galleryImage); // Delete each old image
+                    }
+                }
+            }
+
+            // Save new gallery images
+            $galleryPaths = [];
+            foreach ($request->file('gallery') as $image) {
+                $imageName = Str::slug($request->name) . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('gallery', $imageName, 'public'); // Store the image
+                $galleryPaths[] = $imageName; // Add the image path to the array
+            }
+        }
+
+        // Update the product with new data
+        $data->update([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name, '-'),
+            'category_id' => $request->category_id,
+            'subcategory_id' => $request->subcategory_id,
+            'brand_id' => $request->brand_id,
+            'supplier_id' => $request->supplier_id,
+            'code' => $request->code,
+
+            'tags' => json_encode(is_array($request->tags) ? $request->tags : explode(',', $request->tags)),
+
+            'unit_id' => $request->unit_id,
+            'selling_price' => $request->selling_price,
+            'discount_price' => $request->discount_price,
+            'buying_price' => $request->buying_price,
+            'alert_quantity' => $request->alert_quantity,
+            'sku' => $request->sku,
+            'stock_quantity' => $request->stock_quantity,
+            'short_description' => $request->short_description,
+            'long_description' => $request->long_description,
+
+            'status' => $request->has('status'),
+            'special_deals' => $request->has('special_deals'),
+            'special_offer' => $request->has('special_offer'),
+            'featured' => $request->has('featured'),
+            'hot_deals' => $request->has('hot_deals'),
+
+            'thumbnail' => $imagePath,
+            'gallery' => json_encode($galleryPaths),
+
+            'meta_keywords' => $request->meta_keywords,
+            'meta_title' => $request->meta_title,
+            'meta_description' => $request->meta_description,
+        ]);
+
+        $notification = array(
+            'message' => 'Product Update Successfully!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('product.index')->with($notification);
+    }
 
     public function destroy($id)
     {
