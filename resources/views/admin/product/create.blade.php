@@ -254,7 +254,7 @@
                         Product Image
                     </h3>
                     <div class="row p-3">
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="form-group py-1">
                                 <label for="thumbnail" style="width: 100%; text-align: start;"><b>Thumbnail</b></label>
                                 <input type="file" name="thumbnail" class="form-control" id="thumbnail"
@@ -263,7 +263,27 @@
                                 <div id="imagePreviewContainer" style="margin-top: 10px;">
                                     <img id="imagePreview" src="#" alt="Image Preview"
                                         style="max-width: 100px; display: none;" />
-                                </div> @error('thumbnail')
+                                </div>
+
+                                @error('thumbnail')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-12">
+                            <div class="form-group py-1">
+                                <label for="back_thumbnail" style="width: 100%; text-align: start;"><b>Thumbnail
+                                        Back</b></label>
+                                <input type="file" name="back_thumbnail" class="form-control" id="back_thumbnail"
+                                    onchange="previewImage(event)">
+
+                                <div id="imagePreviewContainer" style="margin-top: 10px;">
+                                    <img id="imageBackPreview" src="#" alt="Image Preview"
+                                        style="max-width: 100px; display: none;" />
+                                </div>
+
+                                @error('back_thumbnail')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -565,7 +585,10 @@
             const file = event.target.files[0];
 
             reader.onload = function() {
-                const imagePreview = document.getElementById('imagePreview');
+                // Get the corresponding preview image element based on the input ID
+                const previewId = event.target.id === 'thumbnail' ? 'imagePreview' : 'imageBackPreview';
+                const imagePreview = document.getElementById(previewId);
+
                 imagePreview.src = reader.result;
                 imagePreview.style.display = 'block';
             }
@@ -575,6 +598,7 @@
             }
         }
     </script>
+
     <script>
         function previewImages(event) {
             const files = event.target.files;

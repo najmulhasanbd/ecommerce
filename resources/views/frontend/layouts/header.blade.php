@@ -3,8 +3,8 @@
         <div class="header-top d-flex">
             <div class="h_header-left d-flex align-items-center position-relative">
                 <div class="h_logo">
-                    <a href="{{url('/')}}">
-                        <img src="{{asset('frontend/')}}/img/BorkaMart.png" alt="">
+                    <a href="{{ url('/') }}">
+                        <img src="{{ asset('frontend/') }}/img/BorkaMart.png" alt="">
                     </a>
                 </div>
                 <div id="main_navigation">
@@ -97,7 +97,7 @@
                 <!-- navigation menu start -->
                 <nav class="nav-menu">
                     <div class="close-nav-menu">
-                        <img src="{{asset('frontend/')}}/img/close.svg" alt="close">
+                        <img src="{{ asset('frontend/') }}/img/close.svg" alt="close">
                     </div>
 
                     <ul class="nav nav-pills" id="pills-tab" role="tablist">
@@ -183,7 +183,8 @@
                                     <a href="#" data-toggle="sub-menu">Offers <i class="plus"></i></a>
                                     <ul class="sub-menu">
                                         <li class="menu-item"><a href="#">30% Off Menswear!*</a></li>
-                                        <li class="menu-item"><a href="#">Next Day Delivery!** Use Code: YESYE</a>
+                                        <li class="menu-item"><a href="#">Next Day Delivery!** Use Code:
+                                                YESYE</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -224,8 +225,8 @@
                 </nav>
                 <!-- navigation menu end -->
                 <div class="logo">
-                    <a href="{{url('/')}}">
-                        <img src="{{asset('frontend/')}}/img/BorkaMart.png" alt="">
+                    <a href="{{ url('/') }}">
+                        <img src="{{ asset('frontend/') }}/img/BorkaMart.png" alt="">
                     </a>
                 </div>
                 <div class="mobile-header-search" data-bs-toggle="offcanvas" href="#mobile_header_search"
@@ -262,7 +263,7 @@
                 <div class="single-cart-product d-flex">
                     <div class="sigle-cart-product-photo">
                         <a href="#">
-                            <img src="{{asset('frontend/')}}/img/siam.jpg" alt="">
+                            <img src="{{ asset('frontend/') }}/img/siam.jpg" alt="">
                         </a>
                     </div>
                     <div class="sigle-cart-product-content">
@@ -277,7 +278,7 @@
                 <div class="single-cart-product d-flex">
                     <div class="sigle-cart-product-photo">
                         <a href="#">
-                            <img src="{{asset('frontend/')}}/img/siam.jpg" alt="">
+                            <img src="{{ asset('frontend/') }}/img/siam.jpg" alt="">
                         </a>
                     </div>
                     <div class="sigle-cart-product-content">
@@ -292,7 +293,7 @@
                 <div class="single-cart-product d-flex">
                     <div class="sigle-cart-product-photo">
                         <a href="#">
-                            <img src="{{asset('frontend/')}}/img/siam.jpg" alt="">
+                            <img src="{{ asset('frontend/') }}/img/siam.jpg" alt="">
                         </a>
                     </div>
                     <div class="sigle-cart-product-content">
@@ -307,7 +308,7 @@
                 <div class="single-cart-product d-flex">
                     <div class="sigle-cart-product-photo">
                         <a href="#">
-                            <img src="{{asset('frontend/')}}/img/siam.jpg" alt="">
+                            <img src="{{ asset('frontend/') }}/img/siam.jpg" alt="">
                         </a>
                     </div>
                     <div class="sigle-cart-product-content">
@@ -322,7 +323,7 @@
                 <div class="single-cart-product d-flex">
                     <div class="sigle-cart-product-photo">
                         <a href="#">
-                            <img src="{{asset('frontend/')}}/img/siam.jpg" alt="">
+                            <img src="{{ asset('frontend/') }}/img/siam.jpg" alt="">
                         </a>
                     </div>
                     <div class="sigle-cart-product-content">
@@ -340,445 +341,18 @@
             <a href="shop.html">View All(100) <i class="fa fa-long-arrow-right"></i></a>
         </div>
     </div>
+    @php
+        $categories = \App\Models\Category::latest()->limit(10)->get();
+    @endphp
 
     <div class="header-bottom header-sticky">
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <ul
-                        class="header-bottom-menu d-flex pl-100 pr-100 justify-content-center position-relative mb-0">
-                        <li><a href="#">men</a>
-                            <div class="submenu position-absolute w-100">
-                                <div class="row">
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2">
-                                        <ul class="submenu-item p-3">
-                                            <h6>ALL shirt</h6>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 bg-white">
-                                        <ul class="submenu-item submenu-offer-item p-2">
-                                            <h6>OFFERS</h6>
-                                            <li><a href="#">30% Off Menswear!*</a></li>
-                                            <li><a href="#">Next Day Delivery!** Use Code:
-                                                    YESYE</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <span><a href="shop.html" class="text-white bg-black lh-1">NEW LINES ADDED
-                                        DAILY!</a></span>
-                            </div>
-                        </li>
-                        <li><a href="#">t-shirts</a>
-                            <div class="submenu position-absolute w-100">
-                                <div class="row">
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2">
-                                        <ul class="submenu-item p-3">
-                                            <h6>CLOTHING</h6>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2">
-                                        <ul class="submenu-item p-3">
-                                            <h6>CLOTHING</h6>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2">
-                                        <ul class="submenu-item p-3">
-                                            <h6>CLOTHING</h6>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2">
-                                        <ul class="submenu-item p-3">
-                                            <h6>CLOTHING</h6>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 bg-white">
-                                        <ul class="submenu-item submenu-offer-item p-2">
-                                            <h6>OFFERS</h6>
-                                            <li><a href="#">30% Off Menswear!*</a></li>
-                                            <li><a href="#">Next Day Delivery!** Use Code:
-                                                    YESYE</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <span><a href="shop.html" class="text-white bg-black lh-1">NEW LINES ADDED
-                                        DAILY!</a></span>
-                            </div>
-                        </li>
-                        <li><a href="#">cuban shirt</a>
-                            <div class="submenu position-absolute w-100">
-                                <div class="row">
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2">
-                                        <ul class="submenu-item p-3">
-                                            <h6>ALL pants</h6>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 bg-white">
-                                        <ul class="submenu-item submenu-offer-item p-2">
-                                            <h6>OFFERS</h6>
-                                            <li><a href="#">30% Off Menswear!*</a></li>
-                                            <li><a href="#">Next Day Delivery!** Use Code:
-                                                    YESYE</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <span><a href="shop.html" class="text-white bg-black lh-1">NEW LINES ADDED
-                                        DAILY!</a></span>
-                            </div>
-                        </li>
-                        <li><a href="#">polos</a>
-                            <div class="submenu position-absolute w-100">
-                                <div class="row">
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2">
-                                        <ul class="submenu-item p-3">
-                                            <h6>ALL CLOTHING</h6>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 bg-white">
-                                        <ul class="submenu-item submenu-offer-item p-2">
-                                            <h6>OFFERS</h6>
-                                            <li><a href="#">30% Off Menswear!*</a></li>
-                                            <li><a href="#">Next Day Delivery!** Use Code:
-                                                    YESYE</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <span><a href="shop.html" class="text-white bg-black lh-1">NEW LINES ADDED
-                                        DAILY!</a></span>
-                            </div>
-                        </li>
-                        <li><a href="#">men</a>
-                            <div class="submenu position-absolute w-100">
-                                <div class="row">
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2">
-                                        <ul class="submenu-item p-3">
-                                            <h6>ALL CLOTHING</h6>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 bg-white">
-                                        <ul class="submenu-item submenu-offer-item p-2">
-                                            <h6>OFFERS</h6>
-                                            <li><a href="#">30% Off Menswear!*</a></li>
-                                            <li><a href="#">Next Day Delivery!** Use Code:
-                                                    YESYE</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <span><a href="shop.html" class="text-white bg-black lh-1">NEW LINES ADDED
-                                        DAILY!</a></span>
-                            </div>
-                        </li>
-                        <li><a href="#">t-shirts</a>
-                            <div class="submenu position-absolute w-100">
-                                <div class="row">
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2">
-                                        <ul class="submenu-item p-3">
-                                            <h6>ALL CLOTHING</h6>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 bg-white">
-                                        <ul class="submenu-item submenu-offer-item p-2">
-                                            <h6>OFFERS</h6>
-                                            <li><a href="#">30% Off Menswear!*</a></li>
-                                            <li><a href="#">Next Day Delivery!** Use Code:
-                                                    YESYE</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <span><a href="shop.html" class="text-white bg-black lh-1">NEW LINES ADDED
-                                        DAILY!</a></span>
-                            </div>
-                        </li>
-                        <li><a href="#">cuban shirt</a>
-                            <div class="submenu position-absolute w-100">
-                                <div class="row">
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2">
-                                        <ul class="submenu-item p-3">
-                                            <h6>ALL CLOTHING</h6>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 bg-white">
-                                        <ul class="submenu-item submenu-offer-item p-2">
-                                            <h6>OFFERS</h6>
-                                            <li><a href="#">30% Off Menswear!*</a></li>
-                                            <li><a href="#">Next Day Delivery!** Use Code:
-                                                    YESYE</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <span><a href="shop.html" class="text-white bg-black lh-1">NEW LINES ADDED
-                                        DAILY!</a></span>
-                            </div>
-                        </li>
-                        <li><a href="#">polos</a>
-                            <div class="submenu position-absolute w-100">
-                                <div class="row">
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2">
-                                        <ul class="submenu-item p-3">
-                                            <h6>ALL CLOTHING</h6>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 bg-white">
-                                        <ul class="submenu-item submenu-offer-item p-2">
-                                            <h6>OFFERS</h6>
-                                            <li><a href="#">30% Off Menswear!*</a></li>
-                                            <li><a href="#">Next Day Delivery!** Use Code:
-                                                    YESYE</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <span><a href="shop.html" class="text-white bg-black lh-1">NEW LINES ADDED
-                                        DAILY!</a></span>
-                            </div>
-                        </li>
-                        <li><a href="#">men</a>
-                            <div class="submenu position-absolute w-100">
-                                <div class="row">
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2">
-                                        <ul class="submenu-item p-3">
-                                            <h6>ALL CLOTHING</h6>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 bg-white">
-                                        <ul class="submenu-item submenu-offer-item p-2">
-                                            <h6>OFFERS</h6>
-                                            <li><a href="#">30% Off Menswear!*</a></li>
-                                            <li><a href="#">Next Day Delivery!** Use Code:
-                                                    YESYE</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <span><a href="shop.html" class="text-white bg-black lh-1">NEW LINES ADDED
-                                        DAILY!</a></span>
-                            </div>
-                        </li>
-                        <li><a href="#">t-shirts</a>
-                            <div class="submenu position-absolute w-100">
-                                <div class="row">
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2">
-                                        <ul class="submenu-item p-3">
-                                            <h6>ALL CLOTHING</h6>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 bg-white">
-                                        <ul class="submenu-item submenu-offer-item p-2">
-                                            <h6>OFFERS</h6>
-                                            <li><a href="#">30% Off Menswear!*</a></li>
-                                            <li><a href="#">Next Day Delivery!** Use Code:
-                                                    YESYE</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <span><a href="shop.html" class="text-white bg-black lh-1">NEW LINES ADDED
-                                        DAILY!</a></span>
-                            </div>
-                        </li>
-                        <li><a href="#">cuban shirt</a>
-                            <div class="submenu position-absolute w-100">
-                                <div class="row">
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2">
-                                        <ul class="submenu-item p-3">
-                                            <h6>ALL CLOTHING</h6>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 bg-white">
-                                        <ul class="submenu-item submenu-offer-item p-2">
-                                            <h6>OFFERS</h6>
-                                            <li><a href="#">30% Off Menswear!*</a></li>
-                                            <li><a href="#">Next Day Delivery!** Use Code:
-                                                    YESYE</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <span><a href="shop.html" class="text-white bg-black lh-1">NEW LINES ADDED
-                                        DAILY!</a></span>
-                            </div>
-                        </li>
-                        <li><a href="#">polos</a>
-                            <div class="submenu position-absolute w-100">
-                                <div class="row">
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2">
-                                        <ul class="submenu-item p-3">
-                                            <h6>ALL CLOTHING</h6>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                            <li><a href="#">men</a></li>
-                                            <li><a href="#">t-shirts</a></li>
-                                            <li><a href="#">cuban shirt</a></li>
-                                            <li><a href="#">polos</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xxl-2 col-xl-2 col-lg-2 bg-white">
-                                        <ul class="submenu-item submenu-offer-item p-2">
-                                            <h6>OFFERS</h6>
-                                            <li><a href="#">30% Off Menswear!*</a></li>
-                                            <li><a href="#">Next Day Delivery!** Use Code:
-                                                    YESYE</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <span><a href="shop.html" class="text-white bg-black lh-1">NEW LINES ADDED
-                                        DAILY!</a></span>
-                            </div>
-                        </li>
+                    <ul class="header-bottom-menu d-flex pl-100 pr-100 justify-content-center position-relative mb-0">
+                        @foreach ($categories as $category)
+                            <li><a href="">{{ ucwords($category->name) }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>

@@ -136,7 +136,7 @@ $('.quick_image').owlCarousel({
   nav: true,
 })
 
-// quick image slider
+// image slider
 $('.banner').owlCarousel({
   loop: true,
   margin: 10,
@@ -167,6 +167,40 @@ $('.banner').owlCarousel({
     }
   }
 })
+
+// Category image slider with animation and smooth scroll
+$('.category-area').owlCarousel({
+  loop: true,
+  margin: 10,
+  responsiveClass: true,
+  items: 4,
+  autoplay: true,
+  autoplayTimeout: 3000, // Adjust the timeout to control autoplay speed
+  autoplayHoverPause: true, // Pause autoplay on hover
+  smartSpeed: 1000, // Adds smooth transition effect (speed of transition)
+  animateOut: 'fadeOut', // Animation when items go out of view
+  animateIn: 'fadeIn',  // Animation when items come into view
+  navText: ['<i class="fa fa-arrow-left"></i>', '<i class="fa fa-arrow-right"></i>'],
+  nav: true,
+  dots: false, // Disable dots navigation
+  responsive: {
+    0: {
+      items: 1,
+      nav: false,
+      dots: true, // Show dots for smaller screens
+    },
+    600: {
+      items: 1,
+      nav: true,
+      dots: false,
+    },
+    1000: {
+      items: 4,
+      nav: true,
+    }
+  }
+});
+
 
 
 // tolltip

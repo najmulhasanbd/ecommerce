@@ -250,28 +250,44 @@
                         Product Image
                     </h3>
                     <div class="row p-3">
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="form-group py-1">
                                 <label for="thumbnail" style="width: 100%; text-align: start;"><b>Thumbnail</b></label>
-                                <!-- File Input -->
                                 <input type="file" name="thumbnail" class="form-control" id="thumbnail"
                                     onchange="previewImage(event)">
 
-                                <!-- Image Preview Container -->
                                 <div id="imagePreviewContainer" style="margin-top: 10px;">
-                                    <!-- New Image Preview -->
                                     <img id="imagePreview" src="#" alt="New Image Preview"
                                         style="max-width: 100px; display: none;" />
 
-                                    <!-- Existing Thumbnail -->
                                     @if ($data->thumbnail)
                                         <img src="{{ asset('storage/thumbnail/' . $data->thumbnail) }}"
                                             alt="Existing Thumbnail" style="max-width: 100px; margin-top: 10px;" />
                                     @endif
                                 </div>
 
-                                <!-- Validation Error -->
                                 @error('thumbnail')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-12">
+                            <div class="form-group py-1">
+                                <label for="back_thumbnail" style="width: 100%; text-align: start;"><b>Thumbnail</b></label>
+                                <input type="file" name="back_thumbnail" class="form-control" id="back_thumbnail"
+                                    onchange="previewImage(event)">
+
+                                <div id="imagePreviewContainer" style="margin-top: 10px;">
+                                    <img id="imagePreview" src="#" alt="New Image Preview"
+                                        style="max-width: 100px; display: none;" />
+
+                                    @if ($data->back_thumbnail)
+                                        <img src="{{ asset('storage/back_thumbnail/' . $data->back_thumbnail) }}"
+                                            alt="Existing back_thumbnail" style="max-width: 100px; margin-top: 10px;" />
+                                    @endif
+                                </div>
+
+                                @error('back_thumbnail')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>

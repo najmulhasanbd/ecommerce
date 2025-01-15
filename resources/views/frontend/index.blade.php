@@ -26,25 +26,20 @@
         <!-- banner end -->
 
         <!-- newly start -->
-        <div class="category-area section-padding">
-            <div class="container-fluid">
-                <div class="row align-items-stretch">
-                    @foreach ($categories as $category)
-                        <div class="col-md-3 col-sm-6 col-6">
-                            <div class="single-category">
-                                <a href="category-product.html" class="category-image text-center d-block">
-                                    <img src="{{ asset('storage/categories/' . $category->image) }}" alt="">
-                                </a>
-                                <div class="category-title">
-                                    <a href="category-product.html">{{ ucwords($category->name) }}</a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+
+
+        <div class="category-area owl-carousel owl-theme section-padding">
+            @foreach ($categories as $category)
+                <div class="single-category">
+                    <a href="category-product.html" class="category-image text-center d-block">
+                        <img src="{{ asset('storage/categories/' . $category->image) }}" alt="">
+                    </a>
+                    <div class="category-title">
+                        <a href="category-product.html">{{ ucwords($category->name) }}</a>
+                    </div>
                 </div>
-            </div>
+            @endforeach
         </div>
-        <!-- newly end -->
 
         <!-- latest product start -->
         <div class="latest-product-area section-padding" style="background-color: #F4F4F4;">
@@ -58,7 +53,7 @@
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-4 col-sm-4 col-5 text-end">
                         <div class="section-header">
-                            <a href="shop.html">all products</a>
+                            <a href="{{ route('product.page') }}">all products</a>
                         </div>
                     </div>
                 </div>
@@ -156,9 +151,8 @@
                                                                     <label class="btn product__size_btn"
                                                                         title="&nbsp; M &nbsp;" for="m_size">M</label>
 
-                                                                    <input type="radio" class="btn-check "
-                                                                        name="btnradio" id="l_size"
-                                                                        autocomplete="off">
+                                                                    <input type="radio" class="btn-check " name="btnradio"
+                                                                        id="l_size" autocomplete="off">
                                                                     <label class="btn product__size_btn disabled"
                                                                         title="&nbsp; L &nbsp;" for="l_size">L</label>
 
@@ -232,7 +226,7 @@
                                                 class="w-100" alt="">
                                         </div>
                                         <div class="back-image">
-                                            <img src="{{ asset('frontend') }}/img/vintage/vintage1.jpg" class="w-100"
+                                            <img src="{{ asset('storage/back_thumbnail/' . $product->back_thumbnail) }}" class="w-100"
                                                 alt="">
                                         </div>
                                     </a>
@@ -297,8 +291,8 @@
                                     </div>
                                 </div>
                                 <!-- productquick view Modal -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
+                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-xl">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -362,13 +356,15 @@
                                                             <div class="quick-image-size">
                                                                 <div class="btn-group" role="group"
                                                                     aria-label="Basic radio toggle button group">
-                                                                    <input type="radio" class="btn-check" name="btnradio"
-                                                                        id="a_aize" autocomplete="off">
+                                                                    <input type="radio" class="btn-check"
+                                                                        name="btnradio" id="a_aize"
+                                                                        autocomplete="off">
                                                                     <label class="btn product__size_btn"
                                                                         title="&nbsp; S &nbsp;" for="a_aize">S</label>
 
-                                                                    <input type="radio" class="btn-check" name="btnradio"
-                                                                        id="m_size" autocomplete="off">
+                                                                    <input type="radio" class="btn-check"
+                                                                        name="btnradio" id="m_size"
+                                                                        autocomplete="off">
                                                                     <label class="btn product__size_btn"
                                                                         title="&nbsp; M &nbsp;" for="m_size">M</label>
 
@@ -448,7 +444,7 @@
                                                 class="w-100" alt="">
                                         </div>
                                         <div class="back-image">
-                                            <img src="{{ asset('frontend') }}/img/vintage/vintage1.jpg" class="w-100"
+                                            <img src="{{ asset('storage/back_thumbnail/' . $product->back_thumbnail) }}" class="w-100"
                                                 alt="">
                                         </div>
                                     </a>

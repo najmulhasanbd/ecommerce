@@ -39,6 +39,7 @@ return new class extends Migration
             $table->longText('long_description')->nullable();
 
             $table->string('thumbnail')->nullable();
+            $table->string('back_thumbnail')->nullable();
             $table->json('gallery')->nullable();
 
             $table->string('hot_deals')->default(0);

@@ -66,6 +66,14 @@ class ProductController extends Controller
             $image->storeAs('thumbnail', $imageName, 'public');
             $imagePath = $imageName;
         }
+        $imageBackPath = null;
+
+        if ($request->hasFile('back_thumbnail')) {
+            $image = $request->file('back_thumbnail');
+            $imageName = Str::slug($request->name) . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('back_thumbnail', $imageName, 'public');
+            $imageBackPath = $imageName;
+        }
 
         $galleryPaths = [];
 
@@ -124,6 +132,7 @@ class ProductController extends Controller
             'hot_deals' => $request->has('hot_deals'),
 
             'thumbnail' => $imagePath,
+            'back_thumbnail' => $imageBackPath,
             'gallery' => json_encode($galleryPaths),
 
             'meta_keywords' => $request->name,
@@ -155,17 +164,27 @@ class ProductController extends Controller
     {
         $data = $this->product::findOrFail($id);
 
-        // Unlink previous thumbnail if a new one is uploaded
-        $imagePath = $data->thumbnail; // Keep existing thumbnail path
+        $imagePath = $data->thumbnail;
         if ($request->hasFile('thumbnail')) {
             if ($data->thumbnail && Storage::disk('public')->exists('thumbnail/' . $data->thumbnail)) {
-                \Storage::disk('public')->delete('thumbnail/' . $data->thumbnail); // Delete the old thumbnail
+                \Storage::disk('public')->delete('thumbnail/' . $data->thumbnail);
             }
 
             $image = $request->file('thumbnail');
             $imageName = Str::slug($request->name) . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('thumbnail', $imageName, 'public'); // Store the new thumbnail
-            $imagePath = $imageName; // Set new thumbnail path
+            $image->storeAs('thumbnail', $imageName, 'public');
+            $imagePath = $imageName;
+        }
+        $imageBackPath = $data->back_thumbnail;
+        if ($request->hasFile('back_thumbnail')) {
+            if ($data->thumbnail && Storage::disk('public')->exists('back_thumbnail/' . $data->back_thumbnail)) {
+                \Storage::disk('public')->delete('back_thumbnail/' . $data->back_thumbnail);
+            }
+
+            $image = $request->file('back_thumbnail');
+            $imageName = Str::slug($request->name) . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('back_thumbnail', $imageName, 'public');
+            $imageBackPath = $imageName;
         }
 
         // Unlink previous gallery images if new ones are uploaded
@@ -218,6 +237,7 @@ class ProductController extends Controller
             'hot_deals' => $request->has('hot_deals'),
 
             'thumbnail' => $imagePath,
+            'back_thumbnail' => $imageBackPath,
             'gallery' => json_encode($galleryPaths),
 
             'meta_keywords' => $request->meta_keywords,
@@ -237,13 +257,15 @@ class ProductController extends Controller
     {
         $data = $this->product::findOrFail($id);
 
-        // Check if the thumbnail is a file and delete it
         $thumbnailPath = public_path('storage/thumbnail/' . $data->thumbnail);
         if (file_exists($thumbnailPath) && is_file($thumbnailPath)) {
             unlink($thumbnailPath);
         }
+        $thumbnaiBacklPath = public_path('storage/back_thumbnail/' . $data->back_thumbnail);
+        if (file_exists($thumbnaiBacklPath) && is_file($thumbnaiBacklPath)) {
+            unlink($thumbnaiBacklPath);
+        }
 
-        // Check if the gallery exists and delete the images
         if ($data->gallery) {
             $galleryImages = json_decode($data->gallery, true);
 
@@ -258,7 +280,6 @@ class ProductController extends Controller
             }
         }
 
-        // Delete the product record
         $data->delete();
 
         // Return a success notification
