@@ -121,8 +121,15 @@ class ProductController extends Controller
 
     public function edit($id)
     {
+        $categories = $this->category::where('status', 1)->latest()->get();
+        $brands = $this->brand::where('status', 1)->latest()->get();
+        $suppliers = $this->supplier::latest()->get();
+        $attributes = $this->attribute::latest()->get();
+        $attributes_value = $this->attributes_value::latest()->get();
+        $units = $this->unit::latest()->get();
+
         $data = $this->product::findOrFail($id);
-        return view('admin.product.edit', compact('data'));
+        return view('admin.product.edit', compact('data', 'categories', 'brands', 'suppliers', 'attributes', 'attributes_value', 'units'));
     }
 
     public function update() {}
