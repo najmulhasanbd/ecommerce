@@ -1,11 +1,8 @@
 <?php
 
+use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('frontend.layouts.master_frontend');
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -19,3 +16,8 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin_auth.php';
+
+
+
+
+Route::get('/',[FrontendController::class,'index'])->name('frontend');
