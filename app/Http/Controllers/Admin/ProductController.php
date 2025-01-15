@@ -264,4 +264,77 @@ class ProductController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+
+    public function featured($id)
+    {
+        $data = $this->product::where('id', $id)->update(['featured' => 1]);
+        $notification = array(
+            'message' => 'Product Featured Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    public function infeatured($id)
+    {
+        $data = $this->product::where('id', $id)->update(['featured' => 2]);
+        $notification = array(
+            'message' => 'Product Inactive Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    public function hot_deals($id)
+    {
+        $data = $this->product::where('id', $id)->update(['hot_deals' => 1]);
+        $notification = array(
+            'message' => 'Product Tot Deals Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    public function inhot_deals($id)
+    {
+        $data = $this->product::where('id', $id)->update(['hot_deals' => 2]);
+        $notification = array(
+            'message' => 'Product Hot Deals Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    public function special_offer($id)
+    {
+        $data = $this->product::where('id', $id)->update(['special_offer' => 1]);
+        $notification = array(
+            'message' => 'Product Special Offer Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    public function inspecial_offer($id)
+    {
+        $data = $this->product::where('id', $id)->update(['special_offer' => 2]);
+        $notification = array(
+            'message' => 'Product Special Offer Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    public function special_deals($id)
+    {
+        $data = $this->product::where('id', $id)->update(['special_deals' => 1]);
+        $notification = array(
+            'message' => 'Product Special Deals Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    public function inspecial_deals($id)
+    {
+        $data = $this->product::where('id', $id)->update(['special_deals' => 2]);
+        $notification = array(
+            'message' => 'Product Special Deals Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

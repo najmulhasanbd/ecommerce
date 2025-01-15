@@ -388,7 +388,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn-success btn mb-3">Submit</button>
+                <button type="submit" class="btn-success btn mb-3">Update</button>
             </form>
         </div>
     </div>

@@ -160,6 +160,18 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
         Route::get('active/{id}', 'active')->name('active');
         Route::get('inactive/{id}', 'inactive')->name('inactive');
+
+        Route::get('featured/{id}', 'featured')->name('featured');
+        Route::get('infeatured/{id}', 'infeatured')->name('infeatured');
+
+        Route::get('hot_deals/{id}', 'hot_deals')->name('hot_deals');
+        Route::get('inhot_deals/{id}', 'inhot_deals')->name('inhot_deals');
+
+        Route::get('special_offer/{id}', 'special_offer')->name('special_offer');
+        Route::get('inspecial_offer/{id}', 'inspecial_offer')->name('inspecial_offer');
+
+        Route::get('special_deals/{id}', 'special_deals')->name('special_deals');
+        Route::get('inspecial_deals/{id}', 'inspecial_deals')->name('inspecial_deals');
     });
 
     //subscriber controller

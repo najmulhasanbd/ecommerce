@@ -25,13 +25,13 @@
                                 <thead>
                                     <tr>
                                         <th>SL</th>
-                                        <th>Image</th>
                                         <th>Name</th>
                                         <th>Price</th>
-                                        <th>Category</th>
-                                        <th>SubCategory</th>
-                                        <th>Brand</th>
-                                        <th>Status</th>
+                                        <th>Published</th>
+                                        <th>Featured</th>
+                                        <th>Hot Deals</th>
+                                        <th>Special Offer</th>
+                                        <th>Special Deal</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -43,12 +43,9 @@
                                             <td>
                                                 <img src="{{ asset('storage/thumbnail/' . $item->thumbnail) }}"
                                                     alt="{{ $item->name }}" width="50px" height="30px">
+                                                {{ ucwords($item->name) }}
                                             </td>
-                                            <td>{{ ucwords($item->name) }}</td>
                                             <td>{{ $item->selling_price }}</td>
-                                            <td>{{ ucwords($item->category->name) }}</td>
-                                            <td>{{ ucwords($item->subcategory->name) }}</td>
-                                            <td>{{ ucwords($item->brand->name) }}</td>
                                             <td>
                                                 @if ($item->status == 1)
                                                     <a href="{{ route('product.inactive', $item->id) }}" id="inactive"
@@ -56,6 +53,42 @@
                                                 @else
                                                     <a href="{{ route('product.active', $item->id) }}" id="active"
                                                         class="btn btn-sm btn-danger">Inactive</a>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($item->featured == 1)
+                                                    <a href="{{ route('product.infeatured', $item->id) }}" id="inactive"
+                                                        class="btn btn-sm btn-success">Active</a>
+                                                @else
+                                                    <a href="{{ route('product.featured', $item->id) }}" id="active"
+                                                        class="btn btn-sm btn-danger">Inactive</a>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($item->hot_deals == 1)
+                                                    <a href="{{ route('product.inhot_deals', $item->id) }}" id="inactive"
+                                                        class="btn btn-sm btn-success">Active</a>
+                                                @else
+                                                    <a href="{{ route('product.hot_deals', $item->id) }}" id="active"
+                                                        class="btn btn-sm btn-danger">Inactive</a>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($item->special_offer == 1)
+                                                    <a href="{{ route('product.inspecial_offer', $item->id) }}"
+                                                        id="inactive" class="btn btn-sm btn-success">Active</a>
+                                                @else
+                                                    <a href="{{ route('product.special_offer', $item->id) }}"
+                                                        id="active" class="btn btn-sm btn-danger">Inactive</a>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($item->special_deals == 1)
+                                                    <a href="{{ route('product.inspecial_deals', $item->id) }}"
+                                                        id="inactive" class="btn btn-sm btn-success">Active</a>
+                                                @else
+                                                    <a href="{{ route('product.special_deals', $item->id) }}"
+                                                        id="active" class="btn btn-sm btn-danger">Inactive</a>
                                                 @endif
                                             </td>
                                             <td>
@@ -141,65 +174,7 @@
                                                                     <h4><strong>Stock Quantity :
                                                                         </strong>{{ $item->stock_quantity }}</h4>
                                                                 </div>
-                                                                <div class="col-md-6 col-12 mb-2">
-                                                                    <h4><strong>Hot Deals :
-                                                                        </strong>
-                                                                        @if ($item->hot_deals === 1)
-                                                                            <button
-                                                                                class="btn btn-sm btn-success">Actaive</button>
-                                                                        @else
-                                                                            <button
-                                                                                class="btn btn-sm btn-danger">Inactive</button>
-                                                                        @endif
-                                                                    </h4>
-                                                                </div>
-                                                                <div class="col-md-6 col-12 mb-2">
-                                                                    <h4><strong>Featured :
-                                                                        </strong>
-                                                                        @if ($item->featured === 1)
-                                                                            <button
-                                                                                class="btn btn-sm btn-success">Actaive</button>
-                                                                        @else
-                                                                            <button
-                                                                                class="btn btn-sm btn-danger">Inactive</button>
-                                                                        @endif
-                                                                </div>
-                                                                <div class="col-md-6 col-12 mb-2">
-                                                                    <h4><strong>Special Offer :
-                                                                        </strong>
-                                                                        @if ($item->special_offer === 1)
-                                                                            <button
-                                                                                class="btn btn-sm btn-success">Actaive</button>
-                                                                        @else
-                                                                            <button
-                                                                                class="btn btn-sm btn-danger">Inactive</button>
-                                                                        @endif
-                                                                    </h4>
-                                                                </div>
-                                                                <div class="col-md-6 col-12 mb-2">
-                                                                    <h4><strong>Special Deals :
-                                                                        </strong>
-                                                                        @if ($item->special_deals === 1)
-                                                                            <button
-                                                                                class="btn btn-sm btn-success">Actaive</button>
-                                                                        @else
-                                                                            <button
-                                                                                class="btn btn-sm btn-danger">Inactive</button>
-                                                                        @endif
-                                                                    </h4>
-                                                                </div>
-                                                                <div class="col-md-6 col-12 mb-2">
-                                                                    <h4><strong>Status :
-                                                                        </strong>
-                                                                        @if ($item->status === 1)
-                                                                            <button
-                                                                                class="btn btn-sm btn-success">Actaive</button>
-                                                                        @else
-                                                                            <button
-                                                                                class="btn btn-sm btn-danger">Inactive</button>
-                                                                        @endif
-                                                                    </h4>
-                                                                </div>
+
                                                                 <div class="col-md-6 col-12 mb-2">
                                                                     <h4><strong>Meta Keywords :
                                                                         </strong>{{ $item->meta_keywords }}</h4>
@@ -245,7 +220,6 @@
                                             </div>
                                         </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
                         </div> <!-- end card body-->
