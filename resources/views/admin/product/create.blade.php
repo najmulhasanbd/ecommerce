@@ -97,6 +97,20 @@
                         </div>
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
+                                <label for="color"><b>Color</b></label>
+                                <input class="form-control" name="colors[]" id="choices-colors" data-choices
+                                    data-choices-text-unique-true type="text" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
+                                <label for="size"><b>Size</b></label>
+                                <input class="form-control" name="sizes[]" id="choices-sizes" data-choices
+                                    data-choices-text-unique-true type="text" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-12">
+                            <div class="form-group mb-2">
                                 <label for="unit_id"><b>Unit</b></label>
                                 <select class="form-control" name="unit_id" data-choices data-choices-sorting-false>
                                     <option value="">Select Unit</option>
@@ -283,46 +297,51 @@
                                         <div class="d-flex gap-1 align-items-center">
                                             <h5 style="width: 100px"><b>Status</b></h5>
                                             <input type="hidden" name="status" value="0" />
-                                            <input type="checkbox" name="status" id="status" data-switch="bool" value="1" />
+                                            <input type="checkbox" name="status" id="status" data-switch="bool"
+                                                value="1" />
                                             <label for="status" data-on-label="On" data-off-label="Off"></label>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-12 col-sm-2 mb-2">
                                         <div class="d-flex gap-1 align-items-center">
                                             <h5 style="width: 100px"><b>Special Deals</b></h5>
                                             <input type="hidden" name="special_deals" value="0" />
-                                            <input type="checkbox" id="special_deals" name="special_deals" data-switch="bool" value="1" />
+                                            <input type="checkbox" id="special_deals" name="special_deals"
+                                                data-switch="bool" value="1" />
                                             <label for="special_deals" data-on-label="On" data-off-label="Off"></label>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-12 col-sm-2 mb-2">
                                         <div class="d-flex gap-1 align-items-center">
                                             <h5 style="width: 100px"><b>Special Offer</b></h5>
                                             <input type="hidden" name="special_offer" value="0" />
-                                            <input type="checkbox" id="special_offer" name="special_offer" data-switch="bool" value="1" />
+                                            <input type="checkbox" id="special_offer" name="special_offer"
+                                                data-switch="bool" value="1" />
                                             <label for="special_offer" data-on-label="On" data-off-label="Off"></label>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-12 col-sm-2 mb-2">
                                         <div class="d-flex gap-1 align-items-center">
                                             <h5 style="width: 100px"><b>Featured</b></h5>
                                             <input type="hidden" name="featured" value="0" />
-                                            <input type="checkbox" id="featured" name="featured" data-switch="bool" value="1" />
+                                            <input type="checkbox" id="featured" name="featured" data-switch="bool"
+                                                value="1" />
                                             <label for="featured" data-on-label="On" data-off-label="Off"></label>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-12 col-sm-2">
                                         <div class="d-flex gap-1 align-items-center">
                                             <h5 style="width: 100px"><b>Hot Deals</b></h5>
                                             <input type="hidden" name="hot_deals" value="0" />
-                                            <input type="checkbox" id="hot_deals" name="hot_deals" data-switch="bool" value="1" />
+                                            <input type="checkbox" id="hot_deals" name="hot_deals" data-switch="bool"
+                                                value="1" />
                                             <label for="hot_deals" data-on-label="On" data-off-label="Off"></label>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
                         </div>

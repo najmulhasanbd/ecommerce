@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Storage;
 use App\Models\Unit;
 use App\Models\Brand;
 use App\Models\Product;
@@ -57,7 +58,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-
         $imagePath = null;
 
         if ($request->hasFile('thumbnail')) {
@@ -67,10 +67,6 @@ class ProductController extends Controller
             $imagePath = $imageName;
         }
 
-        $tags = [];
-        if ($request->has('tags')) {
-            $tags = is_array($request->tags) ? $request->tags : explode(',', $request->tags);
-        }
         $galleryPaths = [];
 
         if ($request->hasFile('gallery')) {
@@ -79,6 +75,23 @@ class ProductController extends Controller
                 $image->storeAs('gallery', $imageName, 'public');  // Store the image
                 $galleryPaths[] = $imageName;  // Add the image path to the array
             }
+        }
+
+        $tags = [];
+        if ($request->has('tags')) {
+            $tags = is_array($request->tags) ? $request->tags : explode(',', $request->tags);
+        }
+
+        $colors = [];
+        if ($request->has('colors')) {
+            // Check if 'colors' is an array or a string
+            $colors = is_array($request->colors) ? $request->colors : explode(',', $request->colors);
+        }
+
+        $sizes = [];
+        if ($request->has('sizes')) {
+            // Check if 'sizes' is an array or a string
+            $sizes = is_array($request->sizes) ? $request->sizes : explode(',', $request->sizes);
         }
 
         $this->product::create([
@@ -91,6 +104,8 @@ class ProductController extends Controller
             'code' => $request->code,
 
             'tags' => json_encode($tags),
+            'colors' => json_encode($colors),
+            'sizes' => json_encode($sizes),
 
             'unit_id' => $request->unit_id,
             'selling_price' => $request->selling_price,
@@ -115,8 +130,12 @@ class ProductController extends Controller
             'meta_title' => $request->name,
             'meta_description' => $request->name,
         ]);
+        $notification = array(
+            'message' => 'Product Insert Successfully!',
+            'alert-type' => 'success'
+        );
 
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->with($notification);
     }
 
     public function edit($id)
@@ -139,7 +158,7 @@ class ProductController extends Controller
         // Unlink previous thumbnail if a new one is uploaded
         $imagePath = $data->thumbnail; // Keep existing thumbnail path
         if ($request->hasFile('thumbnail')) {
-            if ($data->thumbnail && \Storage::disk('public')->exists('thumbnail/' . $data->thumbnail)) {
+            if ($data->thumbnail && Storage::disk('public')->exists('thumbnail/' . $data->thumbnail)) {
                 \Storage::disk('public')->delete('thumbnail/' . $data->thumbnail); // Delete the old thumbnail
             }
 
@@ -218,10 +237,13 @@ class ProductController extends Controller
     {
         $data = $this->product::findOrFail($id);
 
-        if (file_exists(public_path('storage/thumbnail/' . $data->thumbnail))) {
-            unlink(public_path('storage/thumbnail/' . $data->thumbnail));
+        // Check if the thumbnail is a file and delete it
+        $thumbnailPath = public_path('storage/thumbnail/' . $data->thumbnail);
+        if (file_exists($thumbnailPath) && is_file($thumbnailPath)) {
+            unlink($thumbnailPath);
         }
 
+        // Check if the gallery exists and delete the images
         if ($data->gallery) {
             $galleryImages = json_decode($data->gallery, true);
 
@@ -229,15 +251,17 @@ class ProductController extends Controller
                 foreach ($galleryImages as $image) {
                     $imagePath = public_path('storage/gallery/' . $image);
 
-                    if (file_exists($imagePath)) {
+                    if (file_exists($imagePath) && is_file($imagePath)) {
                         unlink($imagePath);
                     }
                 }
             }
         }
 
+        // Delete the product record
         $data->delete();
 
+        // Return a success notification
         $notification = array(
             'message' => 'Product Deleted Successfully!',
             'alert-type' => 'success'
@@ -245,6 +269,8 @@ class ProductController extends Controller
 
         return redirect()->back()->with($notification);
     }
+
+
 
     public function active($id)
     {

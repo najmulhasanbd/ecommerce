@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->string('code', 100)->nullable();
             $table->json('tags')->nullable();
+            $table->json('colors')->nullable();
+            $table->json('sizes')->nullable();
             $table->string('sku')->nullable();
 
             $table->string('selling_price')->nullable();

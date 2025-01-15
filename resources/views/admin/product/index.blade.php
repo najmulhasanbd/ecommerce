@@ -151,6 +151,22 @@
                                                                     </h4>
                                                                 </div>
                                                                 <div class="col-md-6 col-12 mb-2">
+                                                                    <h4><strong>Colors :
+                                                                        </strong>
+                                                                        @foreach (json_decode($item->colors) as $color)
+                                                                            <span>{{ $color }}</span>
+                                                                        @endforeach
+                                                                    </h4>
+                                                                </div>
+                                                                <div class="col-md-6 col-12 mb-2">
+                                                                    <h4><strong>Sizes :
+                                                                        </strong>
+                                                                        @foreach (json_decode($item->sizes) as $size)
+                                                                            <span>{{ $size }}</span>
+                                                                        @endforeach
+                                                                    </h4>
+                                                                </div>
+                                                                <div class="col-md-6 col-12 mb-2">
                                                                     <h4><strong>SKU :
                                                                         </strong>{{ $item->sku }}</h4>
                                                                 </div>
