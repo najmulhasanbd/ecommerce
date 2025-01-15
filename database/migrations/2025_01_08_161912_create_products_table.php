@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('subcategory_id')->nullable();
             $table->integer('brand_id')->nullable();
             $table->integer('supplier_id')->nullable();
-            $table->integer('unit')->nullable();
+            $table->integer('unit_id')->nullable();
 
             $table->string('name')->nullable();
             $table->string('slug')->nullable();

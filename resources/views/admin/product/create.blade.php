@@ -97,8 +97,8 @@
                         </div>
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
-                                <label for="unit"><b>Unit</b></label>
-                                <select class="form-control" name="unit" data-choices data-choices-sorting-false>
+                                <label for="unit_id"><b>Unit</b></label>
+                                <select class="form-control" name="unit_id" data-choices data-choices-sorting-false>
                                     <option value="">Select Unit</option>
                                     @foreach ($units as $item)
                                         <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>

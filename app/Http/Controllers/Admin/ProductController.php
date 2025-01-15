@@ -22,8 +22,8 @@ class ProductController extends Controller
     protected $brand;
     protected $supplier;
     protected $attribute;
-    protected $attributes_value;
     protected $unit;
+    protected $attributes_value;
 
     public function __construct(Product $product, Category $category, SubCategory $subcategory, Brand $brand, Supplier $supplier, Attribute $attribute, AttributeValue $attributes_value, Unit $unit)
     {
@@ -31,15 +31,16 @@ class ProductController extends Controller
         $this->category = $category;
         $this->subcategory = $subcategory;
         $this->brand = $brand;
+        $this->unit = $unit;
         $this->supplier = $supplier;
         $this->attribute = $attribute;
         $this->attributes_value = $attributes_value;
-        $this->unit = $unit;
     }
 
     public function index()
     {
-        $data = $this->product::with(['category', 'subcategory', 'brand'])->with('brand')->latest()->get();
+        $data = $this->product::with(['category', 'subcategory', 'brand', 'unit'])->latest()->get();
+
         return view('admin.product.index', compact('data'));
     }
 
@@ -82,16 +83,16 @@ class ProductController extends Controller
 
         $this->product::create([
             'name' => $request->name,
-            'slug' => Str::slug($request->name,'-'),
+            'slug' => Str::slug($request->name, '-'),
             'category_id' => $request->category_id,
             'subcategory_id' => $request->subcategory_id,
             'brand_id' => $request->brand_id,
             'supplier_id' => $request->supplier_id,
             'code' => $request->code,
 
-            'tags' => json_encode($tags), 
+            'tags' => json_encode($tags),
 
-            'unit' => $request->unit,
+            'unit_id' => $request->unit_id,
             'selling_price' => $request->selling_price,
             'discount_price' => $request->discount_price,
             'buying_price' => $request->buying_price,
@@ -101,14 +102,14 @@ class ProductController extends Controller
             'short_description' => $request->short_description,
             'long_description' => $request->name,
 
-            'status' => $request->has('status'), // Ensure it's a boolean (true or false)
-            'special_deals' => $request->has('special_deals'), // Ensure it's a boolean (true or false)
-            'special_offer' => $request->has('special_offer'), // Ensure it's a boolean (true or false)
-            'featured' => $request->has('featured'), // Ensure it's a boolean (true or false)
-            'hot_deals' => $request->has('hot_deals'), // Ensure it's a boolean (true or false)
+            'status' => $request->has('status'),
+            'special_deals' => $request->has('special_deals'),
+            'special_offer' => $request->has('special_offer'),
+            'featured' => $request->has('featured'),
+            'hot_deals' => $request->has('hot_deals'),
 
             'thumbnail' => $imagePath,
-            'gallery' => json_encode($galleryPaths),  
+            'gallery' => json_encode($galleryPaths),
 
             'meta_keywords' => $request->name,
             'meta_title' => $request->name,
@@ -118,47 +119,45 @@ class ProductController extends Controller
         return redirect()->route('product.index');
     }
 
-    public function edit() {}
+    public function edit($id)
+    {
+        $data = $this->product::findOrFail($id);
+        return view('admin.product.edit', compact('data'));
+    }
 
     public function update() {}
 
     public function destroy($id)
-{
-    // Find the product by ID
-    $data = $this->product::findOrFail($id);
+    {
+        $data = $this->product::findOrFail($id);
 
-    // Check and delete the thumbnail if it exists
-    if (file_exists(public_path('storage/thumbnail/' . $data->thumbnail))) {
-        unlink(public_path('storage/thumbnail/' . $data->thumbnail));
-    }
+        if (file_exists(public_path('storage/thumbnail/' . $data->thumbnail))) {
+            unlink(public_path('storage/thumbnail/' . $data->thumbnail));
+        }
 
-    // Check and delete the gallery images if they exist
-    if ($data->gallery) {
-        $galleryImages = json_decode($data->gallery, true); // Decode the gallery JSON to get an array of image paths
-        
-        if (is_array($galleryImages)) {
-            foreach ($galleryImages as $image) {
-                $imagePath = public_path('storage/gallery/' . $image);
+        if ($data->gallery) {
+            $galleryImages = json_decode($data->gallery, true);
 
-                if (file_exists($imagePath)) {
-                    unlink($imagePath); // Delete each gallery image
+            if (is_array($galleryImages)) {
+                foreach ($galleryImages as $image) {
+                    $imagePath = public_path('storage/gallery/' . $image);
+
+                    if (file_exists($imagePath)) {
+                        unlink($imagePath);
+                    }
                 }
             }
         }
+
+        $data->delete();
+
+        $notification = array(
+            'message' => 'Product Deleted Successfully!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
     }
-
-    // Delete the product record
-    $data->delete();
-
-    // Prepare success notification
-    $notification = array(
-        'message' => 'Product Deleted Successfully!',
-        'alert-type' => 'success'
-    );
-
-    // Redirect back with the success message
-    return redirect()->back()->with($notification);
-}
 
     public function active($id)
     {

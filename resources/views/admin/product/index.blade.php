@@ -98,11 +98,12 @@
                                                                 </div>
                                                                 <div class="col-md-6 col-12 mb-2">
                                                                     <h4><strong>Brand :
-                                                                        </strong>{{ ucwords($item->unit) }}</h4>
+                                                                        </strong>{{ ucwords($item->brand->name) }}</h4>
                                                                 </div>
                                                                 <div class="col-md-6 col-12 mb-2">
                                                                     <h4><strong>Unit :
-                                                                        </strong>{{ ucwords($item->unit) }}</h4>
+                                                                        </strong>{{ ucwords($item->unit->name ?? '') }}
+                                                                    </h4>
                                                                 </div>
                                                                 <div class="col-md-6 col-12 mb-2">
                                                                     <h4><strong>Code :
