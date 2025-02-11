@@ -6,10 +6,6 @@
             <div class="flex-grow-1">
                 <h4 class="fs-18 fw-bold mb-0">Attribute Value</h4>
             </div>
-
-            <div class="text-end">
-
-            </div>
         </div>
         <div class="page-container">
             <div class="row-2">
@@ -65,10 +61,6 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                {{-- <a href="{{ route('attribute-value.edit', $item->id) }}"
-                                                    class="btn btn-sm btn-success">
-                                                    <i class="ri-pencil-line"></i>
-                                                </a> --}}
                                                 <a href="javascript:void(0)" data-bs-toggle="modal"
                                                     data-bs-target="#updateValue{{ $item->id }}"
                                                     class="btn btn-sm btn-success">
