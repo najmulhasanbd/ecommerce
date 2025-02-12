@@ -6,10 +6,6 @@
             <div class="flex-grow-1">
                 <h4 class="fs-18 fw-bold mb-0">Brand</h4>
             </div>
-
-            <div class="text-end">
-
-            </div>
         </div>
         <div class="page-container">
             <div class="row">
