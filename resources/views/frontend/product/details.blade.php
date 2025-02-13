@@ -34,7 +34,6 @@
                                         @endforeach                                       
                                 </div> --}}
                             </div>
-                            <!-- End Gallery -->
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <div class="detail-info pr-30 pl-30">
@@ -80,22 +79,18 @@
                                     <p class="font-lg">{{ $product->short_description }}</p>
                                 </div>
                                 <div class="attr-detail attr-size mb-30">
-                                    {{-- Size Dropdown --}}
                                     <select class="form-control unicase-form-control" id="size">
                                         <option selected disabled>-- Choose Size --</option>
                                         @foreach (explode(',', $product_size_string) as $size)
                                             <option value="{{ trim($size) }}">{{ ucwords(trim($size)) }}</option>
                                         @endforeach
                                     </select>
-
-                                    {{-- Color Dropdown --}}
                                     <select class="form-control unicase-form-control" id="color">
                                         <option selected disabled>-- Choose Color --</option>
                                         @foreach (explode(',', $product_color_string) as $color)
                                             <option value="{{ trim($color) }}">{{ ucwords(trim($color)) }}</option>
                                         @endforeach
                                     </select>
-
                                 </div>
                                 <div class="detail-extralink mb-50">
                                     <div class="detail-qty border radius">
@@ -131,7 +126,6 @@
                                     </ul>
                                 </div>
                             </div>
-                            <!-- Detail Info -->
                         </div>
                     </div>
                     <div class="product-info">
@@ -427,7 +421,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--comment form-->
                                     <div class="comment-form">
                                         <h4 class="mb-15">Add a review</h4>
                                         <div class="product-rate d-inline-block mb-30"></div>
@@ -542,7 +535,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
     </div>
 @endsection
