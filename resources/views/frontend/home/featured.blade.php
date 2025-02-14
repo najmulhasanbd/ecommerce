@@ -2,7 +2,6 @@
     <div class="container">
         <div class="section-title wow animate__animated animate__fadeIn">
             <h3 class=""> Featured Products </h3>
-
         </div>
         <div class="row">
             <div class="col-lg-3 d-none d-lg-flex wow animate__animated animate__fadeIn">
@@ -86,13 +85,8 @@
                             </div>
                         </div>
                     </div>
-                    <!--End tab-pane-->
-
-
                 </div>
-                <!--End tab-content-->
             </div>
-            <!--End Col-lg-9-->
         </div>
     </div>
 </section>
