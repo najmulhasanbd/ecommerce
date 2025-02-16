@@ -86,11 +86,8 @@
                             </div>
                         </div>
                     @endforeach
-                    <!--end product card-->
                 </div>
-                <!--End product-grid-4-->
             </div>
-            <!--En tab one-->
             @foreach ($categories as $category)
                 <div class="tab-pane fade" id="categor{{ $category->id }}" role="tabpanel" aria-labelledby="tab-two">
                     <div class="row product-grid-4">
@@ -158,8 +155,6 @@
                     </div>
                 </div>
             @endforeach
-            <!--En tab two-->
         </div>
-        <!--End tab-content-->
     </div>
 </section>
