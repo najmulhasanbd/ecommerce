@@ -27,8 +27,6 @@ class FrontendController extends Controller
         $data['banners'] = $this->banner::where('status', 1)->latest()->get();
         $data['categories'] = $this->category::where('status', 1)->latest()->get();
         $data['products'] = $this->product::with('category')->where('status', 1)->latest()->limit(10)->get();
-        // $data['featured_products'] = Product::where('status', 1)->where('featured', 1)->latest()->limit(6)->get();
-        // $data['hot_deals_products'] = Product::where('status', 1)->where('hot_deals', 1)->latest()->limit(6)->get();
 
         $data['featuredProduct'] = $this->product::with('category')->where('featured', 1)->orderby('id', 'desc')->limit(6)->get();
 
