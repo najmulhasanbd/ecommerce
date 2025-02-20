@@ -12,13 +12,12 @@ class FrontendController extends Controller
 
     public function index()
     {
-        return view('frontend.index');
-        // $data['banners'] = Banner::where('status', 1)->latest()->get();
-        // $data['categories'] = Category::where('status', 1)->latest()->get();
-        // $data['products'] = Product::where('status', 1)->latest()->limit(8)->get();
+        $data['banners'] = Banner::where('status', 1)->latest()->get();
+        $data['categories'] = Category::where('status', 1)->latest()->get();
+        $data['products'] = Product::where('status', 1)->latest()->limit(10)->get();
         // $data['featured_products'] = Product::where('status', 1)->where('featured', 1)->latest()->limit(6)->get();
         // $data['hot_deals_products'] = Product::where('status', 1)->where('hot_deals', 1)->latest()->limit(6)->get();
 
-        // return view('frontend.index', $data);
+        return view('frontend.index', $data);
     }
 }
