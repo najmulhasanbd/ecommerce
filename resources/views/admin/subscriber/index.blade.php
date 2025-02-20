@@ -18,7 +18,7 @@
 
         <div class="page-container">
             <div class="row">
-                <div class="col-12 mx-auto col-lg-6 col-md-8">
+                <div class="col-12 mx-auto col-lg-8">
                     <div class="card">
                         <div class="card-body">
                             <table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">

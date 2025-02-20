@@ -41,10 +41,14 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
-                                                <img src="{{ asset('storage/thumbnail/' . $item->thumbnail) }}"
-                                                    alt="{{ $item->name }}" width="50px" height="30px">
+                                                @if ($item->thumbnail)
+                                                    <img src="{{ asset('storage/thumbnail/' . $item->thumbnail) }}"
+                                                        alt="{{ $item->name }}" width="50px" height="30px">
+                                                @else
+                                                    <img src="{{ asset('no-image.jpg') }}" alt="" width="50px" height="30px">
+                                                @endif
                                                 {{ ucwords($item->name) }}
-                                            </td>
+                                            </td>                                            
                                             <td>{{ $item->selling_price }}</td>
                                             <td>
                                                 @if ($item->status == 1)
@@ -122,20 +126,17 @@
                                                             <div class="row">
                                                                 <div class="col-md-6 col-12 mb-2">
                                                                     <h4><strong>Category :
-                                                                        </strong>{{ ucwords($item->category->name) }}</h4>
+                                                                        </strong>{{ ucwords($item->category->name ?? '') }}
+                                                                    </h4>
                                                                 </div>
                                                                 <div class="col-md-6 col-12 mb-2">
                                                                     <h4><strong>SubCategory :
-                                                                        </strong>{{ ucwords($item->subcategory->name) }}
+                                                                        </strong>{{ ucwords($item->subcategory->name ?? '') }}
                                                                     </h4>
                                                                 </div>
                                                                 <div class="col-md-6 col-12 mb-2">
                                                                     <h4><strong>Brand :
-                                                                        </strong>{{ ucwords($item->brand->name) }}</h4>
-                                                                </div>
-                                                                <div class="col-md-6 col-12 mb-2">
-                                                                    <h4><strong>Unit :
-                                                                        </strong>{{ ucwords($item->unit->name ?? '') }}
+                                                                        </strong>{{ ucwords($item->brand->name ?? '') }}
                                                                     </h4>
                                                                 </div>
                                                                 <div class="col-md-6 col-12 mb-2">
@@ -167,41 +168,16 @@
                                                                     </h4>
                                                                 </div>
                                                                 <div class="col-md-6 col-12 mb-2">
-                                                                    <h4><strong>SKU :
-                                                                        </strong>{{ $item->sku }}</h4>
-                                                                </div>
-                                                                <div class="col-md-6 col-12 mb-2">
                                                                     <h4><strong>Selling Price :
                                                                         </strong>{{ $item->selling_price }}</h4>
                                                                 </div>
                                                                 <div class="col-md-6 col-12 mb-2">
                                                                     <h4><strong>Discount Price :
-                                                                        </strong>{{ $item->discount_price }}</h4>
+                                                                        </strong>{{ $item->discount_price ?? 'no discount' }}</h4>
                                                                 </div>
                                                                 <div class="col-md-6 col-12 mb-2">
-                                                                    <h4><strong>Buying Price :
-                                                                        </strong>{{ $item->buying_price }}</h4>
-                                                                </div>
-                                                                <div class="col-md-6 col-12 mb-2">
-                                                                    <h4><strong>Alert Quantity :
-                                                                        </strong>{{ $item->alert_quantity }}</h4>
-                                                                </div>
-                                                                <div class="col-md-6 col-12 mb-2">
-                                                                    <h4><strong>Stock Quantity :
-                                                                        </strong>{{ $item->stock_quantity }}</h4>
-                                                                </div>
-
-                                                                <div class="col-md-6 col-12 mb-2">
-                                                                    <h4><strong>Meta Keywords :
-                                                                        </strong>{{ $item->meta_keywords }}</h4>
-                                                                </div>
-                                                                <div class="col-md-6 col-12 mb-2">
-                                                                    <h4><strong>Meta Title :
-                                                                        </strong>{{ $item->meta_title }}</h4>
-                                                                </div>
-                                                                <div class="col-md-6 col-12 mb-2">
-                                                                    <h4><strong>Meta Description :
-                                                                        </strong>{{ $item->meta_description }}</h4>
+                                                                    <h4><strong> Quantity :
+                                                                        </strong>{{ $item->quantity }}</h4>
                                                                 </div>
                                                                 <div class="col-md-6 col-12 mb-2">
                                                                     <h4><strong>Thumbnail :

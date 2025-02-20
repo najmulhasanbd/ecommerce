@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Banner;
-use Illuminate\Support\Str;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -28,13 +29,13 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         $imagePath = null;
-
-        if ($request->hasFile('banner')) {
+      if ($request->hasFile('banner')) {
             $image = $request->file('banner');
             $imageName = 'banner_' . time() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('banner', $imageName, 'public');
             $imagePath = $imageName;
         }
+
         $banner = $this->banner::create([
             'banner' => $imagePath,
             'status' => 1
@@ -45,6 +46,7 @@ class BannerController extends Controller
         );
         return redirect()->route('banner.index')->with($notification);
     }
+    
     public function edit($id)
     {
         $data = $this->banner::findOrFail($id);

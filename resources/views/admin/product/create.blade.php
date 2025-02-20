@@ -32,7 +32,7 @@
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
                                 <label for="name"><strong>Name</strong></label>
-                                <input type="text" name="name" id="name" class="form-control"
+                                <input type="text" name="name" id="name" class="form-control" value="{{old('name')}}"
                                     placeholder="enter product name">
                                 @error('name')
                                     <span class="text-danger">{{ $message }}</span>
@@ -72,19 +72,8 @@
                         </div>
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
-                                <label for="name"><b>Supplier</b></label>
-                                <select class="form-control" name="supplier_id" data-choices data-choices-sorting-false>
-                                    <option value="">Select Supplier</option>
-                                    @foreach ($suppliers as $item)
-                                        <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-12">
-                            <div class="form-group mb-2">
                                 <label for="code"><b>Code</b></label>
-                                <input type="text" name="code" id="code" class="form-control"
+                                <input type="text" name="code" id="code" class="form-control" value="{{old('code')}}"
                                     placeholder="enter product code">
                             </div>
                         </div>
@@ -109,77 +98,9 @@
                                     data-choices-text-unique-true type="text" />
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-4 col-12">
-                            <div class="form-group mb-2">
-                                <label for="unit_id"><b>Unit</b></label>
-                                <select class="form-control" name="unit_id" data-choices data-choices-sorting-false>
-                                    <option value="">Select Unit</option>
-                                    @foreach ($units as $item)
-                                        <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
                     </div>
                 </div>
-
-                <div class="col-12 col-sm-2">
-                    <div class="d-flex gap-1 align-items-center">
-                        <h5><b>Product Variation</b></h5>
-                        <input type="checkbox" id="isVariant" name="isVariant" data-switch="bool" />
-                        {{-- <input type="checkbox" id="isVariant" name="isVariant" value="1" /> --}}
-                        <label for="isVariant" data-on-label="On" data-off-label="Off"></label>
-                    </div>
-                </div>
-                <br>
-                <div class="card d-none" id="productVariation">
-                    <h3 class="card-header bg-success text-white">
-                        Product Variation
-                    </h3>
-                    <div class="row p-3">
-                        <div class="col-12" id="attributeList">
-                            <p class="mb-1 fw-bold text-muted">Attributes</p>
-                            <select class="select2 form-control select2-multiple" id="attributes" name="attributes[]"
-                                data-toggle="select2" multiple="multiple" data-placeholder="Choose attributes">
-                                <optgroup label="Choose attributes">
-                                    @foreach ($attributes as $item)
-                                        <option value="{{ $item->id }}" data-name="{{ $item->name }}">
-                                            {{ $item->name }}
-                                        </option>
-                                    @endforeach
-                                </optgroup>
-                            </select>
-                        </div>
-
-                        <div class="col-12 mt-2 d-none" id="valueOfAttribute">
-                            <p class="mb-1 fw-bold text-muted">Attribute Values</p>
-                            <div id="attributeValuesContainer"></div>
-                        </div>
-
-                        <div class="col-12 mt-2 d-none" id="priceVariation">
-                            <h4>Price Variation</h4>
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-hover table-success">
-                                    <thead>
-                                        <tr>
-                                            <th>Variant</th>
-                                            <th>Selling Price</th>
-                                            <th>Discount Price</th>
-                                            <th>Buying Price</th>
-                                            <th>Stock Quantity</th>
-                                            <th>Alert Quantity</th>
-                                            <th>SKU</th>
-                                            <th>Thumbnail</th>
-                                            <th>Gallery</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="priceVariationBody"></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card" id="productPriceStock">
+                <div class="card">
                     <h3 class="card-header bg-success text-white">
                         Pricing & Stock
                     </h3>
@@ -200,29 +121,8 @@
                         </div>
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
-                                <label for="buying_price"><b>Buying Price</b></label>
-                                <input type="number" name="buying_price" id="buying_price" class="form-control"
-                                    placeholder="enter selling price">
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-12">
-                            <div class="form-group mb-2">
-                                <label for="alert_quantity"><b>Alert Quantity</b></label>
-                                <input type="number" name="alert_quantity" id="alert_quantity" class="form-control"
-                                    placeholder="enter selling price">
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-12">
-                            <div class="form-group mb-2">
-                                <label for="sku"><b>SKU</b></label>
-                                <input type="text" name="sku" id="sku" class="form-control"
-                                    placeholder="enter product sku">
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-12">
-                            <div class="form-group mb-2">
-                                <label for="stock_quantity"><b>Stock Quantity</b></label>
-                                <input type="text" name="stock_quantity" id="stock_quantity" class="form-control"
+                                <label for="quantity"><b>Quantity</b></label>
+                                <input type="text" name="quantity" id="quantity" class="form-control"
                                     placeholder="enter stock quantity">
                             </div>
                         </div>
@@ -365,27 +265,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-12">
-                            <div class="form-group mb-2">
-                                <label for="meta_keywords"><b>Meta Keywords</b></label>
-                                <input type="text" name="meta_keywords" id="meta_keywords" class="form-control"
-                                    placeholder="enter meta Keywords">
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-12">
-                            <div class="form-group mb-2">
-                                <label for="meta_title"><b>Meta Title</b></label>
-                                <input type="text" name="meta_title" id="meta_title" class="form-control"
-                                    placeholder="enter meta Title">
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-12">
-                            <div class="form-group mb-2">
-                                <label for="meta_description"><b>Meta Description</b></label>
-                                <input type="text" name="meta_description" id="meta_title" class="form-control"
-                                    placeholder="enter meta description">
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <button type="submit" class="btn-success btn mb-3">Submit</button>
@@ -406,144 +285,6 @@
                     $('#productVariation').addClass('d-none');
                     $('#productPriceStock').removeClass('d-none');
                     $('#singleImage').removeClass('d-none');
-                }
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('.select2').select2();
-
-            const attributeValuesMap = @json($attributes_value->groupBy('attribute_id'));
-
-            $('#attributes').on('change', function() {
-                const selectedAttributes = $(this).val();
-                const $valueOfAttribute = $('#valueOfAttribute');
-                const $attributeValuesContainer = $('#attributeValuesContainer');
-                const $priceVariation = $('#priceVariation');
-                const $priceVariationBody = $('#priceVariationBody');
-
-                if (selectedAttributes && selectedAttributes.length > 0) {
-                    $valueOfAttribute.removeClass('d-none');
-                    $attributeValuesContainer.empty(); // Reset attributes
-
-                    // Create attribute-value dropdowns
-                    selectedAttributes.forEach(attributeId => {
-                        const attributeName = $(`#attributes option[value="${attributeId}"]`).data(
-                            'name');
-                        const values = attributeValuesMap[attributeId] || [];
-
-                        const attributeRow = `
-                        <div class="mb-3" id="attribute-row-${attributeId}">
-                            <label class="fw-bold">${attributeName} Values:</label>
-                            <select class="select2 form-control select2-multiple attribute-values" 
-                                name="attributes[${attributeId}][]" data-attribute-id="${attributeId}" 
-                                multiple="multiple">
-                                ${values.map(value => `<option value="${value.id}" data-name="${value.name}">${value.name}</option>`).join('')}
-                            </select>
-                        </div>
-                    `;
-                        $attributeValuesContainer.append(attributeRow);
-                    });
-
-                    $('.attribute-values').off('change').on('change', function() {
-                        const selectedValuesByAttribute = {}; // Store selected values per attribute
-
-                        // Gather selected values
-                        $('.attribute-values').each(function() {
-                            const attributeId = $(this).data('attribute-id');
-                            selectedValuesByAttribute[attributeId] = $(this).val() || [];
-                        });
-
-                        // Generate all combinations of attributes
-                        const combinations = generateCombinations(selectedValuesByAttribute);
-
-                        $priceVariation.removeClass('d-none');
-                        $priceVariationBody.empty(); // Reset price rows
-
-                        // Add rows for each combination
-                        combinations.forEach(combination => {
-                            const combinationName = combination.map(item => item.name).join(
-                                ' + ');
-                            const rowId = combination.map(item =>
-                                `${item.attributeId}-${item.valueId}`).join('-');
-
-                            const priceRow = `
-                            <tr id="price-row-${rowId}">
-                                <td><input type="text" name="variant_name[]" value="${combinationName}" readonly /></td>
-                                <td><input type="text" name="selling_price[${rowId}][]" class="form-control" placeholder="Selling Price" /></td>
-                                <td><input type="text" name="discount_price[${rowId}][]" class="form-control" placeholder="Discount Price" /></td>
-                                <td><input type="text" name="buying_price[${rowId}][]" class="form-control" placeholder="Buying Price" /></td>
-                                <td><input type="text" name="stock_quantity[${rowId}][]" class="form-control" placeholder="Stock Quantity" /></td>
-                                <td><input type="text" name="alert_quantity[${rowId}][]" class="form-control" placeholder="Alert Quantity" /></td>
-                                <td><input type="text" name="sku[${rowId}][]" class="form-control" placeholder="SKU" /></td>
-                                <td><input type="file" name="thumbnail[${rowId}][]" class="form-control" /></td>
-                                <td><input type="file" name="gallery[${rowId}][]" multiple class="form-control" /></td>
-                            </tr>
-                        `;
-                            $priceVariationBody.append(priceRow);
-                        });
-                    });
-
-                    $('.select2').select2();
-                } else {
-                    $valueOfAttribute.addClass('d-none');
-                    $priceVariation.addClass('d-none');
-                    $attributeValuesContainer.empty();
-                    $priceVariationBody.empty();
-                }
-            });
-
-            // Function to generate all combinations of selected attributes
-            function generateCombinations(selectedValuesByAttribute) {
-                const attributes = Object.keys(selectedValuesByAttribute);
-                if (attributes.length === 0) return [];
-
-                const combinations = [];
-
-                function combine(current, depth) {
-                    if (depth === attributes.length) {
-                        combinations.push(current);
-                        return;
-                    }
-
-                    const attributeId = attributes[depth];
-                    selectedValuesByAttribute[attributeId].forEach(valueId => {
-                        combine([...current, {
-                            attributeId,
-                            valueId,
-                            name: $(`#attribute-row-${attributeId} option[value="${valueId}"]`)
-                                .data('name')
-                        }], depth + 1);
-                    });
-                }
-
-                combine([], 0);
-                return combinations;
-            }
-
-            // Handle enabling/disabling variants dynamically
-            document.getElementById('isVariant').addEventListener('change', function() {
-                if (this.checked) {
-                    const rowId = Date.now(); // Dynamic ID
-                    const combinationName = "Example Variant"; // Example value
-                    const rowHTML = `
-                    <tr id="price-row-${rowId}">
-                        <td><input type="text" name="variant_name[]" value="${combinationName}" readonly /></td>
-                        <td><input type="text" name="selling_price[${rowId}][]" class="form-control" placeholder="Selling Price" /></td>
-                        <td><input type="text" name="discount_price[${rowId}][]" class="form-control" placeholder="Discount Price" /></td>
-                        <td><input type="text" name="buying_price[${rowId}][]" class="form-control" placeholder="Buying Price" /></td>
-                        <td><input type="text" name="stock_quantity[${rowId}][]" class="form-control" placeholder="Stock Quantity" /></td>
-                        <td><input type="text" name="alert_quantity[${rowId}][]" class="form-control" placeholder="Alert Quantity" /></td>
-                        <td><input type="text" name="sku[${rowId}][]" class="form-control" placeholder="SKU" /></td>
-                        <td><input type="file" name="thumbnail[${rowId}][]" class="form-control" /></td>
-                        <td><input type="file" name="gallery[${rowId}][]" multiple class="form-control" /></td>
-                    </tr>
-                `;
-                    document.querySelector('#variantTable').insertAdjacentHTML('beforeend', rowHTML);
-                } else {
-                    document.querySelector('#variantTable').innerHTML = ''; // Reset table
                 }
             });
         });

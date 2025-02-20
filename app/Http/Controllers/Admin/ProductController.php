@@ -21,21 +21,13 @@ class ProductController extends Controller
     protected $category;
     protected $subcategory;
     protected $brand;
-    protected $supplier;
-    protected $attribute;
-    protected $unit;
-    protected $attributes_value;
 
-    public function __construct(Product $product, Category $category, SubCategory $subcategory, Brand $brand, Supplier $supplier, Attribute $attribute, AttributeValue $attributes_value, Unit $unit)
+    public function __construct(Product $product, Category $category, SubCategory $subcategory, Brand $brand)
     {
         $this->product = $product;
         $this->category = $category;
         $this->subcategory = $subcategory;
         $this->brand = $brand;
-        $this->unit = $unit;
-        $this->supplier = $supplier;
-        $this->attribute = $attribute;
-        $this->attributes_value = $attributes_value;
     }
 
     public function index()
@@ -49,11 +41,7 @@ class ProductController extends Controller
     {
         $categories = $this->category::where('status', 1)->latest()->get();
         $brands = $this->brand::where('status', 1)->latest()->get();
-        $suppliers = $this->supplier::latest()->get();
-        $attributes = $this->attribute::latest()->get();
-        $attributes_value = $this->attributes_value::latest()->get();
-        $units = $this->unit::latest()->get();
-        return view('admin.product.create', compact('categories',  'brands', 'suppliers', 'attributes', 'attributes_value', 'units'));
+        return view('admin.product.create', compact('categories',  'brands'));
     }
 
     public function store(Request $request)
@@ -92,13 +80,11 @@ class ProductController extends Controller
 
         $colors = [];
         if ($request->has('colors')) {
-            // Check if 'colors' is an array or a string
             $colors = is_array($request->colors) ? $request->colors : explode(',', $request->colors);
         }
 
         $sizes = [];
         if ($request->has('sizes')) {
-            // Check if 'sizes' is an array or a string
             $sizes = is_array($request->sizes) ? $request->sizes : explode(',', $request->sizes);
         }
 
@@ -108,20 +94,14 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
             'subcategory_id' => $request->subcategory_id,
             'brand_id' => $request->brand_id,
-            'supplier_id' => $request->supplier_id,
             'code' => $request->code,
-
             'tags' => json_encode($tags),
             'colors' => json_encode($colors),
             'sizes' => json_encode($sizes),
 
-            'unit_id' => $request->unit_id,
             'selling_price' => $request->selling_price,
             'discount_price' => $request->discount_price,
-            'buying_price' => $request->buying_price,
-            'alert_quantity' => $request->alert_quantity,
-            'sku' => $request->sku,
-            'stock_quantity' => $request->stock_quantity,
+            'quantity' => $request->quantity,
             'short_description' => $request->short_description,
             'long_description' => $request->name,
 
@@ -134,10 +114,6 @@ class ProductController extends Controller
             'thumbnail' => $imagePath,
             'back_thumbnail' => $imageBackPath,
             'gallery' => json_encode($galleryPaths),
-
-            'meta_keywords' => $request->name,
-            'meta_title' => $request->name,
-            'meta_description' => $request->name,
         ]);
         $notification = array(
             'message' => 'Product Insert Successfully!',
@@ -151,13 +127,9 @@ class ProductController extends Controller
     {
         $categories = $this->category::where('status', 1)->latest()->get();
         $brands = $this->brand::where('status', 1)->latest()->get();
-        $suppliers = $this->supplier::latest()->get();
-        $attributes = $this->attribute::latest()->get();
-        $attributes_value = $this->attributes_value::latest()->get();
-        $units = $this->unit::latest()->get();
 
         $data = $this->product::findOrFail($id);
-        return view('admin.product.edit', compact('data', 'categories', 'brands', 'suppliers', 'attributes', 'attributes_value', 'units'));
+        return view('admin.product.edit', compact('data', 'categories', 'brands'));
     }
 
     public function update(Request $request, $id)
@@ -215,18 +187,15 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
             'subcategory_id' => $request->subcategory_id,
             'brand_id' => $request->brand_id,
-            'supplier_id' => $request->supplier_id,
             'code' => $request->code,
-
+            
             'tags' => json_encode(is_array($request->tags) ? $request->tags : explode(',', $request->tags)),
+            'colors' => json_encode(is_array($request->colors) ? $request->colors : explode(',', $request->colors)),
+            'sizes' => json_encode(is_array($request->sizes) ? $request->sizes : explode(',', $request->sizes)),
 
-            'unit_id' => $request->unit_id,
-            'selling_price' => $request->selling_price,
             'discount_price' => $request->discount_price,
-            'buying_price' => $request->buying_price,
-            'alert_quantity' => $request->alert_quantity,
-            'sku' => $request->sku,
-            'stock_quantity' => $request->stock_quantity,
+            'selling_price' => $request->selling_price,
+            'quantity' => $request->quantity,
             'short_description' => $request->short_description,
             'long_description' => $request->long_description,
 
@@ -239,10 +208,6 @@ class ProductController extends Controller
             'thumbnail' => $imagePath,
             'back_thumbnail' => $imageBackPath,
             'gallery' => json_encode($galleryPaths),
-
-            'meta_keywords' => $request->meta_keywords,
-            'meta_title' => $request->meta_title,
-            'meta_description' => $request->meta_description,
         ]);
 
         $notification = array(
