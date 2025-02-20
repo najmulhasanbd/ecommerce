@@ -21,5 +21,3 @@ require __DIR__.'/admin_auth.php';
 
 
 Route::get('/',[FrontendController::class,'index'])->name('frontend');
-
-Route::get('/product',[FrontendController::class,'productpage'])->name('product.page');
