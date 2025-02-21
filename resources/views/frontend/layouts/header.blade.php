@@ -288,7 +288,7 @@
                                             <ul class="sub-menu">
                                                 @foreach ($subcategories as $subcategory)
                                                     <li><a
-                                                            href="vendors-grid.html">{{ ucwords($subcategory->name) }}</a>
+                                                            href="{{ route('subcategory.product', $subcategory->id) }}">{{ ucwords($subcategory->name) }}</a>
                                                     </li>
                                                 @endforeach
                                             </ul>

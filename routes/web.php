@@ -25,3 +25,4 @@ Route::get('/',[FrontendController::class,'index'])->name('frontend');
 Route::get('product/details/{id}',[FrontendController::class,'ProductDetails'])->name('product.details');
 
 Route::get('category/product/{id}',[FrontendController::class,'categoryproduct'])->name('category.product');
+Route::get('subcategory/product/{id}',[FrontendController::class,'subcategoryproduct'])->name('subcategory.product');

@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\SubCategory;
 
 class FrontendController extends Controller
 {
@@ -14,12 +15,14 @@ class FrontendController extends Controller
     protected $product;
     protected $banner;
     protected $category;
+    protected $subcategory;
 
-    function __construct(Product $product, Banner $banner, Category $category)
+    function __construct(Product $product, Banner $banner, Category $category, SubCategory $subcategory)
     {
         $this->product = $product;
         $this->banner = $banner;
         $this->category = $category;
+        $this->subcategory = $subcategory;
     }
 
     public function index()
@@ -75,5 +78,17 @@ class FrontendController extends Controller
         $categories=$this->category::where('status',1)->get();
         $category=$this->category::where('id',$request->id)->first();
         return view('frontend.product.category_view',compact('categoryproduct','categories','category'));
+    }
+
+    public function subcategoryproduct(Request $request, $id)
+    {
+        $subcategoryproduct = $this->product::where('status', 1)
+        ->with('subcategory')
+        ->where('subcategory_id', $id)
+        ->orderby('id', 'desc')
+        ->get();
+        $categories=$this->category::where('status',1)->get();
+        $subcategory=$this->subcategory::where('id',$request->id)->first();
+        return view('frontend.product.subcategory_view',compact('subcategoryproduct','categories','subcategory'));
     }
 }
