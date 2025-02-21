@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Banner;
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class FrontendController extends Controller
 {
@@ -38,10 +39,10 @@ class FrontendController extends Controller
             ->limit(5)
             ->get();
 
-        $data['hot_deals']=$this->product::where('hot_deals',1)->where('status', 1)->where('discount_price','!=',null)->orderby('id','desc')->limit(3)->get();
-        $data['special_offer']=$this->product::where('special_offer',1)->where('status', 1)->where('discount_price','!=',null)->orderby('id','desc')->limit(3)->get();
-        $data['special_deals']=$this->product::where('special_deals',1)->where('status', 1)->where('discount_price','!=',null)->orderby('id','desc')->limit(3)->get();
-        $data['new']=$this->product::where('status',1)->orderby('id','desc')->limit(3)->get();
+        $data['hot_deals'] = $this->product::where('hot_deals', 1)->where('status', 1)->where('discount_price', '!=', null)->orderby('id', 'desc')->limit(3)->get();
+        $data['special_offer'] = $this->product::where('special_offer', 1)->where('status', 1)->where('discount_price', '!=', null)->orderby('id', 'desc')->limit(3)->get();
+        $data['special_deals'] = $this->product::where('special_deals', 1)->where('status', 1)->where('discount_price', '!=', null)->orderby('id', 'desc')->limit(3)->get();
+        $data['new'] = $this->product::where('status', 1)->orderby('id', 'desc')->limit(3)->get();
 
         return view('frontend.index', $data);
     }
@@ -62,5 +63,17 @@ class FrontendController extends Controller
         $relatedProduct = $this->product::where('category_id', $cat_id)->where('id', '!=', $id)->orderBy('id', 'DESC')->limit(4)->get();
 
         return view('frontend.product.details', compact('product', 'product_color_string', 'product_size_string', 'gallery_images', 'product_tags', 'relatedProduct'));
+    }
+
+    public function categoryproduct(Request $request, $id)
+    {
+        $categoryproduct = $this->product::where('status', 1)
+        ->with('category')
+        ->where('category_id', $id)
+        ->orderby('id', 'desc')
+        ->get();
+        $categories=$this->category::where('status',1)->get();
+        $category=$this->category::where('id',$request->id)->first();
+        return view('frontend.product.category_view',compact('categoryproduct','categories','category'));
     }
 }

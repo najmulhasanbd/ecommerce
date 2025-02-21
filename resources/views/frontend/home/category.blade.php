@@ -14,7 +14,7 @@
                 <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
                     <figure class="img-hover-scale overflow-hidden">
                         <a href="shop-grid-right.html"><img src="{{ asset("storage/categories/{$category->image}") }}"
-                                alt="" /></a>
+                                alt="{{ucfirst($category->name)}}" /></a>
                     </figure>
                     <h6><a href="shop-grid-right.html">{{ucfirst($category->name)}}</a></h6>
                     <span>26 items</span>
