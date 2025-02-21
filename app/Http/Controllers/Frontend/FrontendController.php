@@ -25,17 +25,18 @@ class FrontendController extends Controller
     {
         $product = Product::findOrFail($id);
     
-        // JSON to Array Conversion
         $product_colors = json_decode($product->colors, true);
         $product_sizes = json_decode($product->sizes, true);
         $gallery_images = json_decode($product->gallery, true);
         $product_tags = json_decode($product->tags, true);
     
-        // Convert Array to String
         $product_color_string = is_array($product_colors) ? implode(',', $product_colors) : $product->colors;
         $product_size_string = is_array($product_sizes) ? implode(',', $product_sizes) : $product->sizes;
-    
-        return view('frontend.product.details', compact('product', 'product_color_string', 'product_size_string','gallery_images','product_tags'));
+
+        $cat_id = $product->category_id;
+        $relatedProduct = Product::where('category_id',$cat_id)->where('id','!=',$id)->orderBy('id','DESC')->limit(4)->get();
+
+        return view('frontend.product.details', compact('product', 'product_color_string', 'product_size_string','gallery_images','product_tags','relatedProduct'));
     }
     
 }

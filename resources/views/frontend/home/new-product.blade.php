@@ -55,7 +55,6 @@
                                         @else
                                             <span class="hot">{{ round($discount) }} %</span>
                                         @endif
-
                                     </div>
                                 </div>
                                 <div class="product-content-wrap">
