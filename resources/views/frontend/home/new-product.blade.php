@@ -42,8 +42,6 @@
                                         <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal"
                                             data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
                                     </div>
-
-
                                     @php
                                         $amount = $product->selling_price - $product->discount_price;
                                         $discount = ($amount / $product->selling_price) * 100;
