@@ -20,15 +20,20 @@
                                 <!-- MAIN SLIDES -->
                                 <div class="product-image-slider">
                                     <figure class="border-radius-10">
-                                        <img src="{{ asset('frontend') }}/assets/imgs/shop/product-16-2.jpg"
+                                        <img 
+                                                src="{{ asset("storage/thumbnail/{$product->thumbnail}") }}"
                                             alt="product image" />
                                     </figure>
                                 </div>
                                 <!-- THUMBNAILS -->
-                                <div class="slider-nav-thumbnails">
-                                    <div><img src="{{ asset('frontend') }}/assets/imgs/shop/thumbnail-3.jpg"
-                                            alt="product image" /></div>
-                                </div>
+                                {{-- <div class="slider-nav-thumbnails">
+                                    <div>
+                                        @foreach ($gallery_images as $img)
+                                        <img 
+                                        src="{{ asset("storage/gallery/{$product->gallery}") }}"
+                                    alt="product image" /></div>
+                                        @endforeach                                       
+                                </div> --}}
                             </div>
                             <!-- End Gallery -->
                         </div>
@@ -76,31 +81,22 @@
                                     <p class="font-lg">{{ $product->short_description }}</p>
                                 </div>
                                 <div class="attr-detail attr-size mb-30">
-                                    <strong class="mr-10">Size / Weight: </strong>
-                                    @if ($product->product_size == null)
-                                    @else
-                                        <div class="attr-detail attr-size mb-30">
-                                            <strong class="mr-10" style="width:50px;">Size : </strong>
-                                            <select class="form-control unicase-form-control" id="size">
-                                                <option selected="" disabled="">--Choose Size--</option>
-                                                @foreach ($product_size as $size)
-                                                    <option value="{{ $size }}">{{ ucwords($size) }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    @endif
-                                    @if ($product->product_color == null)
-                                    @else
-                                        <div class="attr-detail attr-size mb-30">
-                                            <strong class="mr-10" style="width:50px;">Color : </strong>
-                                            <select class="form-control unicase-form-control" id="size">
-                                                <option selected="" disabled="">--Choose Color--</option>
-                                                @foreach ($product_color as $color)
-                                                    <option value="{{ $color }}">{{ ucwords($color) }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    @endif
+                                    {{-- Size Dropdown --}}
+                                    <select class="form-control unicase-form-control" id="size">
+                                        <option selected disabled>-- Choose Size --</option>
+                                        @foreach (explode(',', $product_size_string) as $size)
+                                            <option value="{{ trim($size) }}">{{ ucwords(trim($size)) }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    {{-- Color Dropdown --}}
+                                    <select class="form-control unicase-form-control" id="color">
+                                        <option selected disabled>-- Choose Color --</option>
+                                        @foreach (explode(',', $product_color_string) as $color)
+                                            <option value="{{ trim($color) }}">{{ ucwords(trim($color)) }}</option>
+                                        @endforeach
+                                    </select>
+
                                 </div>
                                 <div class="detail-extralink mb-50">
                                     <div class="detail-qty border radius">
@@ -119,16 +115,17 @@
                                 </div>
                                 <div class="font-xs">
                                     <ul class="mr-50 float-start">
-                                        <li class="mb-5">Type: <span class="text-brand">Organic</span></li>
-                                        <li class="mb-5">MFG:<span class="text-brand"> Jun 4.2022</span></li>
-                                        <li>LIFE: <span class="text-brand">70 days</span></li>
+                                        <li class="mb-5">Category: <span class="text-brand">{{ucfirst($product->category->name)}}</span></li>
+                                        <li class="mb-5">Subcategory:<span class="text-brand"> {{ucfirst($product->subcategory->name)}}</span></li>
+                                        <li>Brand: <span class="text-brand">{{ucfirst($product->brand->name)}}</span></li>
                                     </ul>
                                     <ul class="float-start">
-                                        <li class="mb-5">SKU: <a href="#">FWM15VKT</a></li>
-                                        <li class="mb-5">Tags: <a href="#" rel="tag">Snack</a>, <a
-                                                href="#" rel="tag">Organic</a>, <a href="#"
-                                                rel="tag">Brown</a></li>
-                                        <li>Stock:<span class="in-stock text-brand ml-5">8 Items In Stock</span></li>
+                                        <li class="mb-5">Code: <a href="#">{{$product->code}}</a></li>
+                                        <li class="mb-5">Tags: 
+                                            @foreach ($product_tags as $item)
+                                            <span>{{$item}}</span>                                                
+                                            @endforeach
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
