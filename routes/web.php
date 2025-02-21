@@ -21,3 +21,5 @@ require __DIR__.'/admin_auth.php';
 
 
 Route::get('/',[FrontendController::class,'index'])->name('frontend');
+
+Route::get('product/details/{id}',[FrontendController::class,'ProductDetails'])->name('product.details');
