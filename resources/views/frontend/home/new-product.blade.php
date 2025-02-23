@@ -26,7 +26,7 @@
                                 data-wow-delay=".1s">
                                 <div class="product-img-action-wrap">
                                     <div class="product-img product-img-zoom">
-                                        <a href="{{route('product.details',$product->id)}}">
+                                        <a href="{{ route('product.details', $product->id) }}">
                                             <img class="default-img"
                                                 src="{{ asset("storage/thumbnail/{$product->thumbnail}") }}"
                                                 alt="" />
@@ -40,7 +40,8 @@
                                         <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i
                                                 class="fi-rs-shuffle"></i></a>
                                         <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal"
-                                            data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
+                                            data-bs-target="#quickViewModal" id="{{ $product->id }}"
+                                            onclick="productView(this.id)"><i class="fi-rs-eye"></i></a>
                                     </div>
                                     @php
                                         $amount = $product->selling_price - $product->discount_price;
@@ -59,7 +60,9 @@
                                     <div class="product-category">
                                         <a href="shop-grid-right.html">{{ ucwords($product->category->name) }}</a>
                                     </div>
-                                    <h2><a href="{{route('product.details',$product->id)}}">{{ ucwords($product->name) }}</a></h2>
+                                    <h2><a
+                                            href="{{ route('product.details', $product->id) }}">{{ ucwords($product->name) }}</a>
+                                    </h2>
                                     <div class="product-rate-cover">
                                         <div class="product-rate d-inline-block">
                                             <div class="product-rating" style="width: 90%"></div>

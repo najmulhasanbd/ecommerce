@@ -14,15 +14,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
-require __DIR__.'/admin_auth.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/admin_auth.php';
 
 
 
 //frontend
-Route::get('/',[FrontendController::class,'index'])->name('frontend');
+Route::get('/', [FrontendController::class, 'index'])->name('frontend');
 
-Route::get('product/details/{id}',[FrontendController::class,'ProductDetails'])->name('product.details');
+Route::get('product/details/{id}', [FrontendController::class, 'ProductDetails'])->name('product.details');
 
-Route::get('category/product/{id}',[FrontendController::class,'categoryproduct'])->name('category.product');
-Route::get('subcategory/product/{id}',[FrontendController::class,'subcategoryproduct'])->name('subcategory.product');
+Route::get('category/product/{id}', [FrontendController::class, 'categoryproduct'])->name('category.product');
+Route::get('subcategory/product/{id}', [FrontendController::class, 'subcategoryproduct'])->name('subcategory.product');
+
+//modal
+Route::get('/product/view/model/{id}', [FrontendController::class, 'productViewModal']);
+

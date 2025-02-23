@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <title>Nest - Multipurpose eCommerce HTML Template</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:title" content="" />
@@ -12,58 +13,81 @@
     <meta property="og:url" content="" />
     <meta property="og:image" content="" />
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('frontend')}}/assets/imgs/theme/favicon.svg" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend') }}/assets/imgs/theme/favicon.svg" />
     <!-- Template CSS -->
-    <link rel="stylesheet" href="{{asset('frontend')}}/assets/css/plugins/animate.min.css" />
-    <link rel="stylesheet" href="{{asset('frontend')}}/assets/css/main.css?v=5.3" />
+    <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/plugins/animate.min.css" />
+    <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/main.css?v=5.3" />
 </head>
 
 <body>
     <!-- Modal -->
- 
+
     <!-- Quick view -->
-@include('frontend.layouts.modal')
-<!-- Header  -->
+    @include('frontend.layouts.modal')
+    <!-- Header  -->
 
-@include('frontend.layouts.header')
+    @include('frontend.layouts.header')
 
-<!-- End Header  -->
+    <!-- End Header  -->
 
-@include('frontend.layouts.mobile-nav')
+    @include('frontend.layouts.mobile-nav')
 
 
 
     <!--End header-->
 
     <main class="main">
-    @yield('content')
+        @yield('content')
     </main>
 
     @include('frontend.layouts.footer')
 
     <!-- Vendor JS-->
-    <script src="{{asset('frontend')}}/assets/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/vendor/jquery-3.6.0.min.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/vendor/bootstrap.bundle.min.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/plugins/slick.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/plugins/jquery.syotimer.min.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/plugins/waypoints.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/plugins/wow.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/plugins/perfect-scrollbar.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/plugins/magnific-popup.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/plugins/select2.min.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/plugins/counterup.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/plugins/jquery.countdown.min.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/plugins/images-loaded.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/plugins/isotope.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/plugins/scrollup.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/plugins/jquery.vticker-min.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/plugins/jquery.theia.sticky.js"></script>
-    <script src="{{asset('frontend')}}/assets/js/plugins/jquery.elevatezoom.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/plugins/slick.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/plugins/jquery.syotimer.min.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/plugins/waypoints.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/plugins/wow.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/plugins/perfect-scrollbar.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/plugins/magnific-popup.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/plugins/select2.min.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/plugins/counterup.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/plugins/jquery.countdown.min.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/plugins/images-loaded.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/plugins/isotope.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/plugins/scrollup.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/plugins/jquery.vticker-min.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/plugins/jquery.theia.sticky.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/plugins/jquery.elevatezoom.js"></script>
     <!-- Template  JS -->
-    <script src="{{asset('frontend')}}/assets/js/main.js?v=5.3"></script>
-    <script src="{{asset('frontend')}}/assets/js/shop.js?v=5.3"></script>
+    <script src="{{ asset('frontend') }}/assets/js/main.js?v=5.3"></script>
+    <script src="{{ asset('frontend') }}/assets/js/shop.js?v=5.3"></script>
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        })
+
+        function productView(id) { // এখানে $id -> id
+            $.ajax({
+                type: 'GET',
+                url: '/product/view/model/' + id, // এখানে $id -> id
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data); // ডাটা কনসোল এ প্রিন্ট হবে
+                },
+                error: function(xhr, status, error) {
+                    console.log("Error:", error); // যদি কোনো সমস্যা হয়, কনসোল এ দেখাবে
+                }
+            });
+        }
+    </script>
+
 </body>
 
 </html>

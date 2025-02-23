@@ -71,24 +71,43 @@ class FrontendController extends Controller
     public function categoryproduct(Request $request, $id)
     {
         $categoryproduct = $this->product::where('status', 1)
-        ->with('category')
-        ->where('category_id', $id)
-        ->orderby('id', 'desc')
-        ->get();
-        $categories=$this->category::where('status',1)->get();
-        $category=$this->category::where('id',$request->id)->first();
-        return view('frontend.product.category_view',compact('categoryproduct','categories','category'));
+            ->with('category')
+            ->where('category_id', $id)
+            ->orderby('id', 'desc')
+            ->get();
+        $categories = $this->category::where('status', 1)->get();
+        $category = $this->category::where('id', $request->id)->first();
+        return view('frontend.product.category_view', compact('categoryproduct', 'categories', 'category'));
     }
 
     public function subcategoryproduct(Request $request, $id)
     {
         $subcategoryproduct = $this->product::where('status', 1)
-        ->with('subcategory')
-        ->where('subcategory_id', $id)
-        ->orderby('id', 'desc')
-        ->get();
-        $categories=$this->category::where('status',1)->get();
-        $subcategory=$this->subcategory::where('id',$request->id)->first();
-        return view('frontend.product.subcategory_view',compact('subcategoryproduct','categories','subcategory'));
+            ->with('subcategory')
+            ->where('subcategory_id', $id)
+            ->orderby('id', 'desc')
+            ->get();
+        $categories = $this->category::where('status', 1)->get();
+        $subcategory = $this->subcategory::where('id', $request->id)->first();
+        return view('frontend.product.subcategory_view', compact('subcategoryproduct', 'categories', 'subcategory'));
     }
+
+    //modal
+    public function productViewModal($id)
+    {
+        $product = Product::with('category', 'brand')->findOrFail($id); // এখানে $this->product পরিবর্তন করা হলো
+    
+        $product_colors = json_decode($product->colors, true);
+        $product_sizes = json_decode($product->sizes, true);
+    
+        $product_color_string = is_array($product_colors) ? implode(',', $product_colors) : $product->colors;
+        $product_size_string = is_array($product_sizes) ? implode(',', $product_sizes) : $product->sizes;
+    
+        return response()->json([
+            'product' => $product,
+            'color' => $product_color_string,
+            'size' => $product_size_string,
+        ]);
+    }
+    
 }
