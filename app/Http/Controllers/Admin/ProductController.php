@@ -54,14 +54,7 @@ class ProductController extends Controller
             $image->storeAs('thumbnail', $imageName, 'public');
             $imagePath = $imageName;
         }
-        $imageBackPath = null;
 
-        if ($request->hasFile('back_thumbnail')) {
-            $image = $request->file('back_thumbnail');
-            $imageName = Str::slug($request->name) . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('back_thumbnail', $imageName, 'public');
-            $imageBackPath = $imageName;
-        }
 
         $galleryPaths = [];
 
@@ -95,9 +88,10 @@ class ProductController extends Controller
             'subcategory_id' => $request->subcategory_id,
             'brand_id' => $request->brand_id,
             'code' => $request->code,
-            'tags' => json_encode($tags),
-            'colors' => json_encode($colors),
-            'sizes' => json_encode($sizes),
+
+            'tags' => $request->tags,
+            'colors' => $request->colors,
+            'sizes' => $request->sizes,
 
             'selling_price' => $request->selling_price,
             'discount_price' => $request->discount_price,
@@ -112,7 +106,6 @@ class ProductController extends Controller
             'hot_deals' => $request->has('hot_deals'),
 
             'thumbnail' => $imagePath,
-            'back_thumbnail' => $imageBackPath,
             'gallery' => json_encode($galleryPaths),
         ]);
         $notification = array(
@@ -147,17 +140,6 @@ class ProductController extends Controller
             $image->storeAs('thumbnail', $imageName, 'public');
             $imagePath = $imageName;
         }
-        $imageBackPath = $data->back_thumbnail;
-        if ($request->hasFile('back_thumbnail')) {
-            if ($data->thumbnail && Storage::disk('public')->exists('back_thumbnail/' . $data->back_thumbnail)) {
-                \Storage::disk('public')->delete('back_thumbnail/' . $data->back_thumbnail);
-            }
-
-            $image = $request->file('back_thumbnail');
-            $imageName = Str::slug($request->name) . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('back_thumbnail', $imageName, 'public');
-            $imageBackPath = $imageName;
-        }
 
         // Unlink previous gallery images if new ones are uploaded
         $galleryPaths = json_decode($data->gallery, true) ?? []; // Keep existing gallery paths
@@ -188,7 +170,7 @@ class ProductController extends Controller
             'subcategory_id' => $request->subcategory_id,
             'brand_id' => $request->brand_id,
             'code' => $request->code,
-            
+
             'tags' => json_encode(is_array($request->tags) ? $request->tags : explode(',', $request->tags)),
             'colors' => json_encode(is_array($request->colors) ? $request->colors : explode(',', $request->colors)),
             'sizes' => json_encode(is_array($request->sizes) ? $request->sizes : explode(',', $request->sizes)),
@@ -206,7 +188,6 @@ class ProductController extends Controller
             'hot_deals' => $request->has('hot_deals'),
 
             'thumbnail' => $imagePath,
-            'back_thumbnail' => $imageBackPath,
             'gallery' => json_encode($galleryPaths),
         ]);
 

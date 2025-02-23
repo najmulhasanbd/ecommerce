@@ -10,7 +10,7 @@
                             <!-- MAIN SLIDES -->
                             <div class="product-image-slider">
                                 <figure class="border-radius-10">
-                                    <img src=" " alt="product image" id="pimage" />
+                                    <img src="" alt="product image" id="pimage" />
                                 </figure>
                             </div>
                         </div>
@@ -24,10 +24,12 @@
 
                                 </select>
                             </div>
-                            <div id="sizeArea">
+                            <div id="sizeArea" >
                                 <select class="form-control unicase-form-control" id="size" name="size">
+                                    
                                 </select>
                             </div>
+
                             <div class="clearfix product-price-cover">
                                 <div class="product-price primary-color float-left">
                                     <span class="current-price text-brand" id="pprice">$</span>
@@ -39,7 +41,8 @@
                             <div class="detail-extralink mb-30">
                                 <div class="detail-qty border radius">
                                     <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                    <input type="text" name="quantity" id="quantity" class="qty-val" value="1" min="1">
+                                    <input type="text" name="quantity" id="quantity" class="qty-val" value="1"
+                                        min="1">
                                     <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                 </div>
                                 <div class="product-extra-link2">
@@ -51,9 +54,11 @@
                                 <ul>
                                     <li class="mb-5">Brand: <span class="text-brand" id="pbrand"></span></li>
                                     <li class="mb-5">Code:<span class="text-brand" id="pcode"> </span></li>
-                                    <li class="mb-5">Category:<span class="text-brand" id="pcategory"> </span></li>
+                                    <li class="mb-5">Category:<span class="text-brand" id="pcategory"
+                                            class="badge badge-green"> </span></li>
                                     <li class="mb-5">Stock:<span class="text-brand" id="avaliable"></span><span
-                                            id="stockOut" class="text-brand"></span></li>
+                                            id="stockOut" class="text-brand"></span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

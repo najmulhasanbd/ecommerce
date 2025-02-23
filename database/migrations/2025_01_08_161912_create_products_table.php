@@ -21,15 +21,14 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->string('code', 100)->nullable();
             $table->string('quantity')->nullable();
-            $table->json('tags')->nullable();
-            $table->json('sizes')->nullable();
-            $table->json('colors')->nullable();
+            $table->string('tags')->nullable();
+            $table->string('sizes')->nullable();
+            $table->string('colors')->nullable();
             $table->string('selling_price')->nullable();
             $table->string('discount_price')->nullable();
             $table->text('short_description')->nullable();
             $table->longText('long_description')->nullable();
             $table->string('thumbnail')->nullable();
-            $table->string('back_thumbnail')->nullable();
             $table->json('gallery')->nullable();
 
             $table->string('hot_deals')->default(0);

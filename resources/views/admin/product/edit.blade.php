@@ -85,25 +85,22 @@
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
                                 <label for="tags"><b>Tags</b></label>
-                                <input class="form-control" name="tags[]" id="choices-text-unique-values" data-choices
-                                    data-choices-text-unique-true type="text"
-                                    value="{{ implode(',', json_decode($data->tags)) }}" />
+                                <input class="form-control" name="tags" id="choices-text-unique-values" data-choices
+                                    data-choices-text-unique-true type="text" value="{{ $data->tags }}" />
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
                                 <label for="color"><b>Color</b></label>
-                                <input class="form-control" name="colors[]" id="choices-colors" data-choices
-                                    data-choices-text-unique-true type="text"
-                                    value="{{ implode(',', json_decode($data->colors)) }}" />
+                                <input class="form-control" name="colors" id="choices-colors" data-choices
+                                    data-choices-text-unique-true type="text" value="{{ $data->colors }}" />
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
                                 <label for="size"><b>Size</b></label>
-                                <input class="form-control" name="sizes[]" id="choices-sizes" data-choices
-                                    data-choices-text-unique-true type="text"
-                                    value="{{ implode(',', json_decode($data->sizes)) }}" />
+                                <input class="form-control" name="sizes" id="choices-sizes" data-choices
+                                    data-choices-text-unique-true type="text" value="{{ $data->sizes }}" />
                             </div>
                         </div>
                     </div>
@@ -179,28 +176,6 @@
                                 </div>
 
                                 @error('thumbnail')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <div class="form-group py-1">
-                                <label for="back_thumbnail"
-                                    style="width: 100%; text-align: start;"><b>Thumbnail</b></label>
-                                <input type="file" name="back_thumbnail" class="form-control" id="back_thumbnail"
-                                    onchange="previewImage(event)">
-
-                                <div id="imagePreviewContainer" style="margin-top: 10px;">
-                                    <img id="imagePreview" src="#" alt="New Image Preview"
-                                        style="max-width: 100px; display: none;" />
-
-                                    @if ($data->back_thumbnail)
-                                        <img src="{{ asset('storage/back_thumbnail/' . $data->back_thumbnail) }}"
-                                            alt="Existing back_thumbnail" style="max-width: 100px; margin-top: 10px;" />
-                                    @endif
-                                </div>
-
-                                @error('back_thumbnail')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>

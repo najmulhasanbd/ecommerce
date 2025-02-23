@@ -73,16 +73,82 @@
             }
         })
 
-        function productView(id) { // এখানে $id -> id
+        function productView(id) {
             $.ajax({
                 type: 'GET',
-                url: '/product/view/model/' + id, // এখানে $id -> id
+                url: '/product/view/model/' + id,
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data); // ডাটা কনসোল এ প্রিন্ট হবে
+                    console.log(data);
+
+                    $('#pname').text(data.product.name);
+                    $('#pimage').attr('src', data.product.thumbnail.startsWith('http') ? data.product
+                        .thumbnail : '/storage/thumbnail/' + data.product.thumbnail);
+                    $('#pbrand').text(data.product.brand.name);
+                    $('#pcategory').text(data.product.category.name);
+                    $('#pcode').text(data.product.code);
+                    $('#pprice').text(data.product.selling_price);
+
+                    if (data.product.discount_price == null) {
+                        $('#pprice').text('');
+                        $('#oldprice').text('');
+                        $('#pprice').text(data.product.selling_price);
+                    } else {
+                        $('#pprice').text(data.product.discount_price);
+                        $('#oldprice').text(data.product.selling_price);
+                    }
+
+                    if (data.product.quantity > 0) {
+                        $('#avaliable').text('Available').show();
+                        $('#stockOut').hide();
+                    } else {
+                        $('#avaliable').hide();
+                        $('#stockOut').text('Stock Out').show();
+                    }
+
+
+                    /** ✅ Color Dropdown Fix */
+                    let colorDropdown = $('select[name="color"]');
+                    colorDropdown.empty();
+                    colorDropdown.append('<option value="">-- Select Color --</option>'); // Default option
+
+                    let filteredColors = Array.isArray(data.color) ?
+                        data.color.map(color => color.replace(/["[\]]/g, '').trim()).filter(color => color !==
+                            "") : [];
+
+                    if (filteredColors.length > 0) { // যদি কালার থাকে
+                        $('#colorArea').show(); // ✅ Show color area
+
+                        $.each(filteredColors, function(key, value) {
+                            colorDropdown.append('<option value="' + value + '">' + value +
+                            '</option>');
+                        });
+                    } else {
+                        $('#colorArea').hide(); // ✅ No color, so hide
+                    }
+
+                    /** ✅ Size Dropdown Fix */
+                    let sizeDropdown = $('select[name="size"]');
+                    sizeDropdown.empty();
+                    sizeDropdown.append('<option value="">-- Select Size --</option>'); // Default option
+
+                    let filteredSizes = Array.isArray(data.size) ?
+                        data.size.map(size => size.replace(/["[\]]/g, '').trim()).filter(size => size !== "") :
+                        [];
+
+                    if (filteredSizes.length > 0) { // যদি সাইজ থাকে
+                        $('#sizeArea').show(); // ✅ Show size area
+
+                        $.each(filteredSizes, function(key, value) {
+                            sizeDropdown.append('<option value="' + value + '">' + value + '</option>');
+                        });
+                    } else {
+                        $('#sizeArea').hide(); // ✅ No size, so hide
+                    }
+
                 },
                 error: function(xhr, status, error) {
-                    console.log("Error:", error); // যদি কোনো সমস্যা হয়, কনসোল এ দেখাবে
+                    console.error("Error:", error);
                 }
             });
         }

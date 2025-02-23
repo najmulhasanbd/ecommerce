@@ -78,20 +78,30 @@
                                 <div class="short-desc mb-30">
                                     <p class="font-lg">{{ $product->short_description }}</p>
                                 </div>
-                                <div class="attr-detail attr-size mb-30">
-                                    <select class="form-control unicase-form-control" id="size">
-                                        <option selected disabled>-- Choose Size --</option>
-                                        @foreach (explode(',', $product_size_string) as $size)
-                                            <option value="{{ trim($size) }}">{{ ucwords(trim($size)) }}</option>
-                                        @endforeach
-                                    </select>
-                                    <select class="form-control unicase-form-control" id="color">
-                                        <option selected disabled>-- Choose Color --</option>
-                                        @foreach (explode(',', $product_color_string) as $color)
-                                            <option value="{{ trim($color) }}">{{ ucwords(trim($color)) }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                @if (!empty($sizes))
+                                    <div class="attr-detail attr-size mb-30">
+                                        <strong class="mr-10" style="width:50px;">Size : </strong>
+                                        <select class="form-control unicase-form-control" id="size">
+                                            <option selected="" disabled="">--Choose Size--</option>
+                                            @foreach ($sizes as $size)
+                                                <option value="{{ $size }}">{{ ucwords($size) }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
+
+                                @if (!empty($colors))
+                                    <div class="attr-detail attr-size mb-30">
+                                        <strong class="mr-10" style="width:50px;">Color : </strong>
+                                        <select class="form-control unicase-form-control" id="color">
+                                            <option selected="" disabled="">--Choose Color--</option>
+                                            @foreach ($colors as $color)
+                                                <option value="{{ $color }}">{{ ucwords($color) }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
+
                                 <div class="detail-extralink mb-50">
                                     <div class="detail-qty border radius">
                                         <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
@@ -118,11 +128,12 @@
                                     </ul>
                                     <ul class="float-start">
                                         <li class="mb-5">Code: <a href="#">{{ $product->code }}</a></li>
-                                        <li class="mb-5">Tags:
-                                            @foreach ($product_tags as $item)
-                                                <span>{{ $item }}</span>
+                                        @if (!empty($tags))
+                                            <li>Tags:</li>
+                                            @foreach ($tags as $tag)
+                                                {{ ucwords($tag) }}
                                             @endforeach
-                                        </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>

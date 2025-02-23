@@ -54,18 +54,23 @@ class FrontendController extends Controller
     {
         $product = $this->product::findOrFail($id);
 
-        $product_colors = json_decode($product->colors, true);
-        $product_sizes = json_decode($product->sizes, true);
         $gallery_images = json_decode($product->gallery, true);
-        $product_tags = json_decode($product->tags, true);
 
-        $product_color_string = is_array($product_colors) ? implode(',', $product_colors) : $product->colors;
-        $product_size_string = is_array($product_sizes) ? implode(',', $product_sizes) : $product->sizes;
+        $colors = !empty($product->colors)
+            ? array_filter(array_map('trim', explode(',', str_replace(['[', ']', '"', "'"], '', $product->colors))))
+            : [];
+
+        $sizes = !empty($product->sizes)
+            ? array_filter(array_map('trim', explode(',', str_replace(['[', ']', '"', "'"], '', $product->sizes))))
+            : [];
+
+        $tags = !empty($product->tags)
+            ? array_filter(array_map('trim', explode(',', str_replace(['[', ']', '"', "'"], '', $product->tags))))
+            : [];
 
         $cat_id = $product->category_id;
         $relatedProduct = $this->product::where('category_id', $cat_id)->where('id', '!=', $id)->orderBy('id', 'DESC')->limit(4)->get();
-
-        return view('frontend.product.details', compact('product', 'product_color_string', 'product_size_string', 'gallery_images', 'product_tags', 'relatedProduct'));
+        return view('frontend.product.details', compact('product',  'gallery_images',  'relatedProduct', 'colors', 'sizes', 'tags'));
     }
 
     public function categoryproduct(Request $request, $id)
@@ -92,22 +97,20 @@ class FrontendController extends Controller
         return view('frontend.product.subcategory_view', compact('subcategoryproduct', 'categories', 'subcategory'));
     }
 
-    //modal
     public function productViewModal($id)
     {
-        $product = Product::with('category', 'brand')->findOrFail($id); // এখানে $this->product পরিবর্তন করা হলো
-    
-        $product_colors = json_decode($product->colors, true);
-        $product_sizes = json_decode($product->sizes, true);
-    
-        $product_color_string = is_array($product_colors) ? implode(',', $product_colors) : $product->colors;
-        $product_size_string = is_array($product_sizes) ? implode(',', $product_sizes) : $product->sizes;
-    
+        $product = Product::with('category', 'brand')->findOrFail($id);
+
+        $color = $product->colors;
+        $colors = explode(',', $color);
+
+        $size = $product->sizes;
+        $sizes = explode(',', $size);
+
         return response()->json([
             'product' => $product,
-            'color' => $product_color_string,
-            'size' => $product_size_string,
+            'color' => $colors,
+            'size' => $sizes,
         ]);
     }
-    
 }

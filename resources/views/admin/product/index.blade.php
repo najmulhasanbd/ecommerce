@@ -145,26 +145,17 @@
                                                                 </div>
                                                                 <div class="col-md-6 col-12 mb-2">
                                                                     <h4><strong>Tags :
-                                                                        </strong>
-                                                                        @foreach (json_decode($item->tags) as $tag)
-                                                                            <span>{{ $tag }}</span>
-                                                                        @endforeach
+                                                                        </strong>{{$item->tags}}
                                                                     </h4>
                                                                 </div>
                                                                 <div class="col-md-6 col-12 mb-2">
                                                                     <h4><strong>Colors :
-                                                                        </strong>
-                                                                        @foreach (json_decode($item->colors) as $color)
-                                                                            <span>{{ $color }}</span>
-                                                                        @endforeach
+                                                                        </strong>{{$item->colors}}
                                                                     </h4>
                                                                 </div>
                                                                 <div class="col-md-6 col-12 mb-2">
                                                                     <h4><strong>Sizes :
-                                                                        </strong>
-                                                                        @foreach (json_decode($item->sizes) as $size)
-                                                                            <span>{{ $size }}</span>
-                                                                        @endforeach
+                                                                        </strong>{{$item->sizes}}
                                                                     </h4>
                                                                 </div>
                                                                 <div class="col-md-6 col-12 mb-2">

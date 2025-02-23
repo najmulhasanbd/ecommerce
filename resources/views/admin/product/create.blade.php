@@ -80,21 +80,21 @@
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
                                 <label for="tags"><b>Tags</b></label>
-                                <input class="form-control" name="tags[]" id="choices-text-unique-values" data-choices
+                                <input class="form-control" name="tags" id="choices-text-unique-values" data-choices
                                     data-choices-text-unique-true type="text" />
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
                                 <label for="color"><b>Color</b></label>
-                                <input class="form-control" name="colors[]" id="choices-colors" data-choices
+                                <input class="form-control" name="colors" id="choices-colors" data-choices
                                     data-choices-text-unique-true type="text" />
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="form-group mb-2">
                                 <label for="size"><b>Size</b></label>
-                                <input class="form-control" name="sizes[]" id="choices-sizes" data-choices
+                                <input class="form-control" name="sizes" id="choices-sizes" data-choices
                                     data-choices-text-unique-true type="text" />
                             </div>
                         </div>
@@ -166,24 +166,6 @@
                                 </div>
 
                                 @error('thumbnail')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-12">
-                            <div class="form-group py-1">
-                                <label for="back_thumbnail" style="width: 100%; text-align: start;"><b>Thumbnail
-                                        Back</b></label>
-                                <input type="file" name="back_thumbnail" class="form-control" id="back_thumbnail"
-                                    onchange="previewImage(event)">
-
-                                <div id="imagePreviewContainer" style="margin-top: 10px;">
-                                    <img id="imageBackPreview" src="#" alt="Image Preview"
-                                        style="max-width: 100px; display: none;" />
-                                </div>
-
-                                @error('back_thumbnail')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
