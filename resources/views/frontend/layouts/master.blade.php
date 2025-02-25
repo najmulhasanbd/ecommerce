@@ -75,6 +75,7 @@
             }
         })
 
+        //product modal
         function productView(id) {
             $.ajax({
                 type: 'GET',
@@ -158,6 +159,7 @@
             });
         }
 
+        //add to cart
         function addToCart() {
             var id = $('#product_id').val();
             var name = $('#pname').text().trim();
@@ -166,54 +168,90 @@
             var quantity = $('#quantity').val();
 
             $.ajax({
-    url: "/cart/data/store/" + id,
-    method: "POST",
-    dataType: "json",
-    data: {
-        name: name,
-        colors: color,
-        sizes: size,
-        quantity: quantity,
-        _token: $('meta[name="csrf-token"]').attr('content')
-    },
-    success: function(response) {
-        // ✅ Close modal if needed
-        $('#closeModel').click();
+                url: "/cart/data/store/" + id,
+                method: "POST",
+                dataType: "json",
+                data: {
+                    name: name,
+                    colors: color,
+                    sizes: size,
+                    quantity: quantity,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // ✅ Close modal if needed
+                    $('#closeModel').click();
 
-        // ✅ Toast notification
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            icon: "success",
-            showConfirmButton: false,
-            timer: 3000
-        });
+                    // ✅ Toast notification
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
 
-        if (response.success) {
-            Toast.fire({
-                icon: "success",
-                title: " Product has been added to cart successfully!"
+                    if (response.success) {
+                        Toast.fire({
+                            icon: "success",
+                            title: " Product has been added to cart successfully!"
+                        });
+                    } else if (response.error) {
+                        Toast.fire({
+                            icon: "error",
+                            title: "❌ " + response.error
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("❌ Error:", xhr.responseText);
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error!",
+                        text: "কিছু সমস্যা হয়েছে, দয়া করে আবার চেষ্টা করুন।"
+                    });
+                }
             });
-        } else if (response.error) {
-            Toast.fire({
-                icon: "error",
-                title: "❌ " + response.error
+
+
+        }
+
+        //mini cart
+        function miniCart() {
+            $.ajax({
+                type: 'GET',
+                url: '/product/mini/cart',
+                dataType: 'json',
+                success: function(response) {
+
+                    $('#cartQty').text(response.cartsQty);
+                    var miniCart = "";
+                    $.each(response.carts, function(key, value) {
+                        miniCart += `
+                    <ul>
+                        <li>
+                            <div class="shopping-cart-img">
+                                <a href="shop-product-right.html">
+                                    <img alt="Nest" src="/${value.attributes.image}" style="width:50px" />
+                                </a>
+                            </div>
+                            <div class="shopping-cart-title">
+                                <h4><a href="shop-product-right.html">${value.name}</a></h4>
+                                <h4><span>${value.quantity} × </span>${value.price}</h4>
+                            </div>
+                            <div class="shopping-cart-delete">
+                                <a href="#"><i class="fi-rs-cross-small"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                `;
+                    });
+                    $('#miniCart').html(miniCart);
+                }
             });
         }
-    },
-    error: function(xhr, status, error) {
-        console.error("❌ Error:", xhr.responseText);
-
-        Swal.fire({
-            icon: "error",
-            title: "Error!",
-            text: "কিছু সমস্যা হয়েছে, দয়া করে আবার চেষ্টা করুন।"
-        });
-    }
-});
-
-
-        }
+        miniCart();
     </script>
 
 </body>

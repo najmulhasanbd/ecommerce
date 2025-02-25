@@ -33,3 +33,7 @@ Route::get('/product/view/model/{id}', [FrontendController::class, 'productViewM
 
 //cart
 Route::post('/cart/data/store/{id}', [CartController::class, 'addToCart'])->name('cart.store');
+
+//mini cart
+Route::get('product/mini/cart', [CartController::class, 'addMiniCart']);
+

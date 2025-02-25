@@ -27,17 +27,28 @@ class CartController extends Controller
             'name' => $request->name,
             'price' => $price,
             'quantity' => $request->quantity,
-            'options' => [
+            'attributes' => [
                 'image' => $product->thumbnail,
                 'color' => $request->color,
                 'size' => $request->size
             ]
         ]);
-
         return response()->json([
             'success' => true,
-            'message' => '✅ পণ্য সফলভাবে কার্টে যোগ হয়েছে!',
             'cart_count' => Cart::getTotalQuantity()
+        ]);
+    }
+
+    public function addMiniCart()
+    {
+        $carts = Cart::getContent();   // ✅ Darryldecode\Cart-এর জন্য getContent() ব্যবহার করুন
+        $cartsQty = Cart::getTotalQuantity();  // ✅ মোট আইটেম সংখ্যা
+        $cartsTotal = Cart::getTotal(); // ✅ মোট মূল্য
+    
+        return response()->json([
+            'carts' => $carts,
+            'cartsQty' => $cartsQty,
+            'cartsTotal' => $cartsTotal
         ]);
     }
 }
