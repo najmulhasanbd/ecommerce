@@ -66,6 +66,8 @@
     <script src="{{ asset('frontend') }}/assets/js/main.js?v=5.3"></script>
     <script src="{{ asset('frontend') }}/assets/js/shop.js?v=5.3"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         $.ajaxSetup({
             headers: {
@@ -164,25 +166,53 @@
             var quantity = $('#quantity').val();
 
             $.ajax({
-                url: "/cart/data/store/" + id,
-                method: "POST",
-                dataType: "json",
-                data: {
-                    name: name, // ✅ Ensure 'name' is sent properly
-                    colors: color,
-                    sizes: size,
-                    quantity: quantity,
-                    _token: $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    console.log("✅ Success:", response);
-                    $('#closeModel').click();
-                    // alert(response.message);
-                },
-                error: function(xhr, status, error) {
-                    console.error("❌ Error:", xhr.responseText);
-                }
+    url: "/cart/data/store/" + id,
+    method: "POST",
+    dataType: "json",
+    data: {
+        name: name,
+        colors: color,
+        sizes: size,
+        quantity: quantity,
+        _token: $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function(response) {
+        // ✅ Close modal if needed
+        $('#closeModel').click();
+
+        // ✅ Toast notification
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 3000
+        });
+
+        if (response.success) {
+            Toast.fire({
+                icon: "success",
+                title: " Product has been added to cart successfully!"
             });
+        } else if (response.error) {
+            Toast.fire({
+                icon: "error",
+                title: "❌ " + response.error
+            });
+        }
+    },
+    error: function(xhr, status, error) {
+        console.error("❌ Error:", xhr.responseText);
+
+        Swal.fire({
+            icon: "error",
+            title: "Error!",
+            text: "কিছু সমস্যা হয়েছে, দয়া করে আবার চেষ্টা করুন।"
+        });
+    }
+});
+
+
         }
     </script>
 
