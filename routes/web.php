@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -30,3 +31,5 @@ Route::get('subcategory/product/{id}', [FrontendController::class, 'subcategoryp
 //modal
 Route::get('/product/view/model/{id}', [FrontendController::class, 'productViewModal']);
 
+//cart
+Route::post('/cart/data/store/{id}', [CartController::class, 'addToCart'])->name('cart.store');

@@ -89,6 +89,9 @@
                     $('#pcode').text(data.product.code);
                     $('#pprice').text(data.product.selling_price);
 
+                    $("#product_id").val(id);
+                    $("#quantity").val(1);
+
                     if (data.product.discount_price == null) {
                         $('#pprice').text('');
                         $('#oldprice').text('');
@@ -121,10 +124,10 @@
 
                         $.each(filteredColors, function(key, value) {
                             colorDropdown.append('<option value="' + value + '">' + value +
-                            '</option>');
+                                '</option>');
                         });
                     } else {
-                        $('#colorArea').hide(); // ✅ No color, so hide
+                        $('#colorArea').hide();
                     }
 
                     /** ✅ Size Dropdown Fix */
@@ -136,19 +139,48 @@
                         data.size.map(size => size.replace(/["[\]]/g, '').trim()).filter(size => size !== "") :
                         [];
 
-                    if (filteredSizes.length > 0) { // যদি সাইজ থাকে
-                        $('#sizeArea').show(); // ✅ Show size area
+                    if (filteredSizes.length > 0) {
+                        $('#sizeArea').show();
 
                         $.each(filteredSizes, function(key, value) {
                             sizeDropdown.append('<option value="' + value + '">' + value + '</option>');
                         });
                     } else {
-                        $('#sizeArea').hide(); // ✅ No size, so hide
+                        $('#sizeArea').hide();
                     }
 
                 },
                 error: function(xhr, status, error) {
                     console.error("Error:", error);
+                }
+            });
+        }
+
+        function addToCart() {
+            var id = $('#product_id').val();
+            var name = $('#pname').text().trim();
+            var color = $('#color option:selected').val();
+            var size = $('#size option:selected').val();
+            var quantity = $('#quantity').val();
+
+            $.ajax({
+                url: "/cart/data/store/" + id,
+                method: "POST",
+                dataType: "json",
+                data: {
+                    name: name, // ✅ Ensure 'name' is sent properly
+                    colors: color,
+                    sizes: size,
+                    quantity: quantity,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    console.log("✅ Success:", response);
+                    $('#closeModel').click();
+                    // alert(response.message);
+                },
+                error: function(xhr, status, error) {
+                    console.error("❌ Error:", xhr.responseText);
                 }
             });
         }
