@@ -44,7 +44,7 @@
                                         <span class="stock-status out-stock">Stock Out </span>
                                     @endif
                                 </span>
-                                <h2 class="title-detail">{{ $product->name }}</h2>
+                                <h2 class="title-detail" id="dpname">{{ $product->name }}</h2>
                                 <div class="product-detail-rating">
                                     <div class="product-rate-cover text-end">
                                         <div class="product-rate d-inline-block">
@@ -81,7 +81,7 @@
                                 @if (!empty($sizes))
                                     <div class="attr-detail attr-size mb-30">
                                         <strong class="mr-10" style="width:50px;">Size : </strong>
-                                        <select class="form-control unicase-form-control" id="size">
+                                        <select class="form-control unicase-form-control" id="dsize">
                                             <option selected="" disabled="">--Choose Size--</option>
                                             @foreach ($sizes as $size)
                                                 <option value="{{ $size }}">{{ ucwords($size) }}</option>
@@ -93,7 +93,7 @@
                                 @if (!empty($colors))
                                     <div class="attr-detail attr-size mb-30">
                                         <strong class="mr-10" style="width:50px;">Color : </strong>
-                                        <select class="form-control unicase-form-control" id="color">
+                                        <select class="form-control unicase-form-control" id="dcolor">
                                             <option selected="" disabled="">--Choose Color--</option>
                                             @foreach ($colors as $color)
                                                 <option value="{{ $color }}">{{ ucwords($color) }}</option>
@@ -105,12 +105,16 @@
                                 <div class="detail-extralink mb-50">
                                     <div class="detail-qty border radius">
                                         <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                        <input type="text" name="quantity" class="qty-val" value="1" min="1">
+                                        <input type="text" id="dquantity" name="quantity" class="qty-val" value="1" min="1">
                                         <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                     </div>
                                     <div class="product-extra-link2">
-                                        <button type="submit" class="button button-add-to-cart"><i
-                                                class="fi-rs-shopping-cart"></i>Add to cart</button>
+
+                                        <input type="hidden" id="dproduct_id" value="{{ $product->id }}">
+                                        <button type="submit" class="button button-add-to-cart"
+                                            onclick="addToCartDetails()"><i class="fi-rs-shopping-cart"></i>Add to
+                                            cart</button>
+
                                         <a aria-label="Add To Wishlist" class="action-btn hover-up"
                                             href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
                                         <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i

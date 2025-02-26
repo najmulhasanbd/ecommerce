@@ -218,6 +218,62 @@
 
         }
 
+        //add to cart details
+        function addToCartDetails() {
+            var id = $('#dproduct_id').val();
+            var name = $('#dpname').text().trim();
+            var color = $('#dcolor option:selected').val();
+            var size = $('#dsize option:selected').val();
+            var quantity = $('#dquantity').val();
+
+            $.ajax({
+                url: "/dcart/data/store/" + id,
+                method: "POST",
+                dataType: "json",
+                data: {
+                    name: name,
+                    colors: color,
+                    sizes: size,
+                    quantity: quantity,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    miniCart();
+
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+                    if (response.success) {
+                        Toast.fire({
+                            icon: "success",
+                            title: " Product has been added to cart successfully!"
+                        });
+                    } else if (response.error) {
+                        Toast.fire({
+                            icon: "error",
+                            title: "❌ " + response.error
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("❌ Error:", xhr.responseText);
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error!",
+                        text: "কিছু সমস্যা হয়েছে, দয়া করে আবার চেষ্টা করুন।"
+                    });
+                }
+            });
+
+
+        }
+
         //mini cart
         function miniCart() {
             $.ajax({

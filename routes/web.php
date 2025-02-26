@@ -34,10 +34,11 @@ Route::get('/product/view/model/{id}', [FrontendController::class, 'productViewM
 //cart
 Route::post('/cart/data/store/{id}', [CartController::class, 'addToCart'])->name('cart.store');
 
+//cart details page
+Route::post('/dcart/data/store/{id}', [CartController::class, 'addToCartDetailsP'])->name('cart.store.details');
+
 //mini cart
 Route::get('product/mini/cart', [CartController::class, 'addMiniCart']);
 
 //cart remove
 Route::get('minicart/product/remove/{id}', [CartController::class, 'removeMiniCart']);
-
-
