@@ -179,6 +179,7 @@
                     _token: $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
+                    miniCart();
                     // ✅ Close modal if needed
                     $('#closeModel').click();
 
@@ -224,7 +225,8 @@
                 url: '/product/mini/cart',
                 dataType: 'json',
                 success: function(response) {
-
+            
+                    $("#cartSubtotal").text(response.cartsTotal);
                     $('#cartQty').text(response.cartsQty);
                     var miniCart = "";
                     $.each(response.carts, function(key, value) {
@@ -232,19 +234,19 @@
                     <ul>
                         <li>
                             <div class="shopping-cart-img">
-                                <a href="shop-product-right.html">
-                                    <img alt="Nest" src="/${value.attributes.image}" style="width:50px" />
+                                <a href="#">
+                                    <img alt="Nest" src="/storage/thumbnail/${value.attributes.image}" style="width:50px;" />
                                 </a>
                             </div>
-                            <div class="shopping-cart-title">
-                                <h4><a href="shop-product-right.html">${value.name}</a></h4>
+                            <div class="shopping-cart-title" style="margin:-50px 74px 14px;width:146px">
+                                <h4><a href="#">${value.name}</a></h4>
                                 <h4><span>${value.quantity} × </span>${value.price}</h4>
                             </div>
-                            <div class="shopping-cart-delete">
+                            <div class="shopping-cart-delete" style="margin:-65px 1px 0px">
                                 <a href="#"><i class="fi-rs-cross-small"></i></a>
                             </div>
                         </li>
-                    </ul>
+                    </ul> <hr />
                 `;
                     });
                     $('#miniCart').html(miniCart);
