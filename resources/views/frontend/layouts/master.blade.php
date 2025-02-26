@@ -225,7 +225,7 @@
                 url: '/product/mini/cart',
                 dataType: 'json',
                 success: function(response) {
-            
+
                     $("#cartSubtotal").text(response.cartsTotal);
                     $('#cartQty').text(response.cartsQty);
                     var miniCart = "";
@@ -243,7 +243,7 @@
                                 <h4><span>${value.quantity} × </span>${value.price}</h4>
                             </div>
                             <div class="shopping-cart-delete" style="margin:-65px 1px 0px">
-                                <a href="#"><i class="fi-rs-cross-small"></i></a>
+                                <a type="submit" id="${value.id}" onclick="miniCartRemove(this.id)"><i class="fi-rs-cross-small"></i></a>
                             </div>
                         </li>
                     </ul> <hr />
@@ -254,6 +254,41 @@
             });
         }
         miniCart();
+
+        //remove cart
+        function miniCartRemove(id) {
+            // alert(id);
+            $.ajax({
+                type: 'GET',
+                url: 'minicart/product/remove/' + id,
+                dataType: 'json',
+                success: function(data) {
+                    miniCart();
+
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+                    if (data.success) {
+                        Toast.fire({
+                            icon: "success",
+                            title: "🛒 Product has been removed from cart!"
+                        });
+                    } else if (data.error) {
+                        Toast.fire({
+                            icon: "error",
+                            title: "❌ " + data.error
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log("Error:", error);
+                }
+            });
+        }
     </script>
 
 </body>

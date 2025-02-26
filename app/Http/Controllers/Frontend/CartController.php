@@ -44,11 +44,21 @@ class CartController extends Controller
         $carts = Cart::getContent();   // ✅ Darryldecode\Cart-এর জন্য getContent() ব্যবহার করুন
         $cartsQty = Cart::getTotalQuantity();  // ✅ মোট আইটেম সংখ্যা
         $cartsTotal = Cart::getTotal(); // ✅ মোট মূল্য
-    
+
         return response()->json([
             'carts' => $carts,
             'cartsQty' => $cartsQty,
             'cartsTotal' => $cartsTotal
+        ]);
+    }
+
+    //remove mnicart
+    public function removeMiniCart($rowId)
+    {
+        Cart::remove($rowId);
+
+        return response()->json([
+            'success' => 'Product removed successfully!'
         ]);
     }
 }
