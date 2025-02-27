@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Frontend\CartController;
-use App\Http\Controllers\Frontend\FrontendController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\User\WishlistController;
+use App\Http\Controllers\Frontend\FrontendController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -42,3 +43,6 @@ Route::get('product/mini/cart', [CartController::class, 'addMiniCart']);
 
 //cart remove
 Route::get('minicart/product/remove/{id}', [CartController::class, 'removeMiniCart']);
+
+//wishlist
+Route::post('/add-to-wishlist/{id}', [WishlistController::class, 'addToWishList'])->name('wishlist.add');

@@ -345,6 +345,40 @@
                 }
             });
         }
+
+        //wishlist
+        function addToWishList(product_id) {
+    $.ajax({
+        type: "POST",
+        url: "/add-to-wishlist/" + product_id,
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") // ✅ CSRF টোকেন সংযুক্ত
+        },
+        success: function(response) {
+            console.log(response); // ✅ রেসপন্স JSON আসছে কিনা চেক করুন
+            if (response.success) {
+                Swal.fire({
+                    icon: "success",
+                    title: "🛒 Product Added to Wishlist!"
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "❌ " + response.error
+                });
+            }
+        },
+        error: function(xhr) {
+            console.log(xhr.responseText); // ✅ Laravel error মেসেজ কনসোলে দেখুন
+            Swal.fire({
+                icon: "error",
+                title: "Something went wrong!",
+                text: xhr.responseText
+            });
+        }
+    });
+}
+
     </script>
 
 </body>
