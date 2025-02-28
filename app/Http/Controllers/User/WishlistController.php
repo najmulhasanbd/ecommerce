@@ -49,4 +49,17 @@ class WishlistController extends Controller
             'wishQty' => $wishQty,
         ]);
     }    
+    //remove wishlist
+    public function wishlistRemove($id) {
+        $wishlist = Wishlist::where('user_id', Auth::id())->where('id', $id)->first();
+        
+        if ($wishlist) {
+            $wishlist->delete();
+            return response()->json(['success' => 'Successfully Removed Product']);
+        } else {
+            return response()->json(['error' => 'Product Not Found or Unauthorized'], 404);
+        }
+    }
+    
+    
 }

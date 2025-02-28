@@ -407,7 +407,7 @@
                         <td class="price" data-title="Price">
                             ${value.product.discount_price != null 
                                 ? `<h3 class="text-brand">$${value.product.discount_price}</h3> 
-                                    <h5 class="text-muted"><del>$${value.product.selling_price}</del></h5>` 
+                                                <h5 class="text-muted"><del>$${value.product.selling_price}</del></h5>` 
                                 : `<h3 class="text-brand">$${value.product.selling_price}</h3>`
                             }
                         </td>
@@ -418,7 +418,7 @@
                             }
                         </td>
                         <td class="action text-center" data-title="Remove">
-                            <a href="#" class="text-body"><i class="fi-rs-trash"></i></a>
+                            <a type="submit" id="${value.id}" onclick="wishlistRemove(this.id)" class="text-body"><i class="fi-rs-trash"></i></a>
                         </td>
                     </tr>`;
                     });
@@ -430,6 +430,47 @@
             });
         }
         wishlist();
+
+        //remove withlist
+        function wishlistRemove(product_id) {
+            if (!product_id) {
+                Swal.fire({
+                    icon: "error",
+                    title: "❌ Invalid Product ID!"
+                });
+                return;
+            }
+
+            $.ajax({
+                type: "GET",
+                url: "/remove-wishlist/" + encodeURIComponent(product_id), // ✅ ID ঠিকমতো পাঠানো হচ্ছে
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") // ✅ CSRF টোকেন সংযুক্ত
+                },
+                success: function(response) {
+                    wishlist();
+                    if (response.success) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "✅ Product Removed from Wishlist!"
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "❌ " + response.error
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Something went wrong!",
+                        text: xhr.responseText
+                    });
+                }
+            });
+        }
     </script>
 
 </body>
