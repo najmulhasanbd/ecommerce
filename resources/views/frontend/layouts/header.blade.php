@@ -110,9 +110,9 @@
                             </div>
 
                             <div class="header-action-icon-2">
-                                <a href="shop-wishlist.html">
+                                <a href="{{ route('wishlist') }}">
                                     <img class="svgInject" alt="Nest" src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-heart.svg" />
-                                    <span class="pro-count blue">{{ \App\Models\Wishlist::where('user_id', Auth::id())->count() }}</span>
+                                    <span class="pro-count blue" id="wishQty"></span>
                                 </a>
                                 <a href="{{ route('wishlist') }}"><span class="lable">Wishlist</span></a>
                             </div>
@@ -125,11 +125,8 @@
                                 </a>
                                 <a href="shop-cart.html"><span class="lable">Cart</span></a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
-
                                    <div id="miniCart">
-
                                    </div>
-
                                     <div class="shopping-cart-footer">
                                         <div class="shopping-cart-total">
                                             <h4>Total <span id="cartSubtotal">$ </span></h4>

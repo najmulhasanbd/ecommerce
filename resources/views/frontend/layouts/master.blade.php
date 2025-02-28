@@ -388,6 +388,7 @@
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
                 },
                 success: function(response) {
+                    $('#wishQty').text(response.wishQty);
                     let rows = "";
                     $.each(response.wishlist, function(key, value) {
                         rows += `
@@ -407,7 +408,7 @@
                         <td class="price" data-title="Price">
                             ${value.product.discount_price != null 
                                 ? `<h3 class="text-brand">$${value.product.discount_price}</h3> 
-                                                <h5 class="text-muted"><del>$${value.product.selling_price}</del></h5>` 
+                                                    <h5 class="text-muted"><del>$${value.product.selling_price}</del></h5>` 
                                 : `<h3 class="text-brand">$${value.product.selling_price}</h3>`
                             }
                         </td>
