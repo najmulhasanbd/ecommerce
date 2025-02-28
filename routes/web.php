@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\User\CompareController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -51,3 +52,8 @@ Route::get('wishlist', [WishlistController::class, 'allWishList'])->name('wishli
 Route::get('/wishlist-product', [WishlistController::class, 'getWishlistProduct']);
 Route::get('/remove-wishlist/{id}', [WishlistController::class, 'wishlistRemove']);
 
+//compare
+Route::post('/add-to-compare/{id}', [CompareController::class, 'addToCompare'])->name('compare.add');
+Route::get('compare', [CompareController::class, 'allcompare'])->name('compare');
+Route::get('/compare-product', [CompareController::class, 'getcompareProduct']);
+Route::get('/remove-compare/{id}', [CompareController::class, 'compareRemove']);
