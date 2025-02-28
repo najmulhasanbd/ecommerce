@@ -42,24 +42,32 @@ class WishlistController extends Controller
     public function getWishlistProduct()
     {
         $wishlist = Wishlist::with('product')->where('user_id', Auth::id())->latest()->get();
-        $wishQty = Wishlist::where('user_id', Auth::id())->count(); 
-    
+        $wishQty = Wishlist::where('user_id', Auth::id())->count();
+
         return response()->json([
             'wishlist' => $wishlist,
             'wishQty' => $wishQty,
         ]);
-    }    
+    }
     //remove wishlist
-    public function wishlistRemove($id) {
+    public function wishlistRemove($id)
+    {
         $wishlist = Wishlist::where('user_id', Auth::id())->where('id', $id)->first();
-        
+
         if ($wishlist) {
             $wishlist->delete();
-            return response()->json(['success' => 'Successfully Removed Product']);
+
+            // ✅ ইউজারের বর্তমান Wishlist পণ্যের সংখ্যা বের করুন
+            $wishQty = Wishlist::where('user_id', Auth::id())->count();
+
+            return response()->json([
+                'success' => 'Successfully Removed Product',
+                'wishQty' => $wishQty // ✅ Wishlist কাউন্ট পাঠানো হচ্ছে
+            ]);
         } else {
-            return response()->json(['error' => 'Product Not Found or Unauthorized'], 404);
+            return response()->json([
+                'error' => 'Product Not Found or Unauthorized'
+            ], 404);
         }
     }
-    
-    
 }

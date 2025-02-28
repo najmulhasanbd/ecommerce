@@ -52,8 +52,8 @@ Route::get('wishlist', [WishlistController::class, 'allWishList'])->name('wishli
 Route::get('/wishlist-product', [WishlistController::class, 'getWishlistProduct']);
 Route::get('/remove-wishlist/{id}', [WishlistController::class, 'wishlistRemove']);
 
-//compare
-Route::post('/add-to-compare/{id}', [CompareController::class, 'addToCompare'])->name('compare.add');
-Route::get('compare', [CompareController::class, 'allcompare'])->name('compare');
-Route::get('/compare-product', [CompareController::class, 'getcompareProduct']);
-Route::get('/remove-compare/{id}', [CompareController::class, 'compareRemove']);
+
+//mycart
+Route::get('/mycart', [CartController::class, 'mycart'])->name('mycart');
+Route::get('/get-cart-product',[CartController::class,'getCartProduct'])->name('get.cart.product');
+Route::get('/cart/remove/{id}',[CartController::class,'cartremove'])->name('cart.remove');

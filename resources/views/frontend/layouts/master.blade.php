@@ -283,7 +283,7 @@
                 success: function(response) {
 
                     $("#cartSubtotal").text(response.cartsTotal);
-                    $('#cartQty').text(response.cartsQty);
+                    $('#cartQuantity').text(response.cartsQty);
                     var miniCart = "";
                     $.each(response.carts, function(key, value) {
                         miniCart += `
@@ -311,7 +311,7 @@
         }
         miniCart();
 
-        //remove cart
+        //remove mini cart
         function miniCartRemove(id) {
             // alert(id);
             $.ajax({
@@ -408,7 +408,7 @@
                         <td class="price" data-title="Price">
                             ${value.product.discount_price != null 
                                 ? `<h3 class="text-brand">$${value.product.discount_price}</h3> 
-                                                            <h5 class="text-muted"><del>$${value.product.selling_price}</del></h5>` 
+                                                                                        <h5 class="text-muted"><del>$${value.product.selling_price}</del></h5>` 
                                 : `<h3 class="text-brand">$${value.product.selling_price}</h3>`
                             }
                         </td>
@@ -473,36 +473,90 @@
             });
         }
 
-        //add to compare
-        //add to wishlist
-        function addToCompare(product_id) {
+        function cart() {
             $.ajax({
-                type: "POST",
-                url: "/add-to-compare/" + product_id,
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") // ✅ CSRF টোকেন সংযুক্ত
-                },
+                type: 'GET',
+                url: '/get-cart-product',
+                dataType: 'json',
                 success: function(response) {
-                    console.log(response); // ✅ রেসপন্স JSON আসছে কিনা চেক করুন
-                    if (response.success) {
-                        Swal.fire({
+
+                    var rows = "";
+                    $.each(response.carts, function(key, value) {
+                        rows += `
+                        <tr class="pt-30">
+                        <td class="image product-thumbnail pt-40">
+                            <img src="/storage/thumbnail/${value.attributes.image}" alt="#">
+                        </td>
+                        <td class="product-des product-name">
+                            <h6 class="mb-5">
+                                <a class="product-name mb-10 text-heading" href="#">${value.name}</a>
+                            </h6>
+                        </td>
+                        <td class="price" data-title="Price">
+                            <h4 class="text-body">$${value.price}</h4>
+                        </td>
+
+                        <td class="text-center detail-info" data-title="Stock">
+                            <div class="detail-extralink mr-15">
+                                <div class="detail-qty border radius">
+                                    <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
+                                    <input type="text" name="quantity" class="qty-val" value="${value.quantity}" min="1">
+                                    <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- ✅ Total Price Calculation -->
+                        <td class="price" data-title="Total Price">
+                            <h4 class="text-brand">$${(value.price * value.quantity).toFixed(2)}</h4>
+                        </td>
+
+                        <td class="action text-center" data-title="Remove">
+                            <a type="submit" id="${value.id}" onclick="cartRemove(this.id)" class="text-body">
+                                <i class="fi-rs-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                `;
+                    });
+                    $('#cartPage').html(rows);
+                }
+            });
+        }
+        cart();
+
+         //remove cart
+         function cartRemove(id) {
+            // alert(id);
+            $.ajax({
+                type: 'GET',
+                url: 'cart/remove/' + id,
+                dataType: 'json',
+                success: function(data) {
+                    cart();
+                    miniCart();
+
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+                    if (data.success) {
+                        Toast.fire({
                             icon: "success",
-                            title: "🛒 Product Added to Compare!"
+                            title: "🛒 Product has been removed from cart!"
                         });
-                    } else {
-                        Swal.fire({
+                    } else if (data.error) {
+                        Toast.fire({
                             icon: "error",
-                            title: "❌ " + response.error
+                            title: "❌ " + data.error
                         });
                     }
                 },
-                error: function(xhr) {
-                    console.log(xhr.responseText); // ✅ Laravel error মেসেজ কনসোলে দেখুন
-                    Swal.fire({
-                        icon: "error",
-                        title: "Something went wrong!",
-                        text: xhr.responseText
-                    });
+                error: function(xhr, status, error) {
+                    console.log("Error:", error);
                 }
             });
         }

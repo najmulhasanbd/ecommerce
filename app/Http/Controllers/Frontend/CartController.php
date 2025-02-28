@@ -92,4 +92,27 @@ class CartController extends Controller
             'success' => 'Product removed successfully!'
         ]);
     }
+
+    public function mycart(){
+        return view('frontend.cart.index');
+    }
+
+    public function getCartProduct(){
+        $carts = Cart::getContent();   // ✅ Darryldecode\Cart-এর জন্য getContent() ব্যবহার করুন
+        $cartsQty = Cart::getTotalQuantity();  // ✅ মোট আইটেম সংখ্যা
+        $cartsTotal = Cart::getTotal(); // ✅ মোট মূল্য
+
+        return response()->json([
+            'carts' => $carts,
+            'cartsQty' => $cartsQty,
+            'cartsTotal' => $cartsTotal
+        ]);
+    }
+
+    public function cartremove($id){
+        Cart::remove($id);
+        return response()->json([
+            'success'=>'Successfully remove cart product'
+        ]);
+    }
 }
