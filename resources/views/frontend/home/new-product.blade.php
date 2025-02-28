@@ -35,7 +35,6 @@
                                         </a>
                                     </div>
                                     <div class="product-action-1">
-
                                         <a aria-label="Add To Wishlist" class="action-btn"
                                             id="wishlist-{{ $product->id }}"
                                             onclick="addToWishList({{ $product->id }})">

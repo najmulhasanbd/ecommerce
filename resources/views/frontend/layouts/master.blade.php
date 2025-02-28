@@ -346,39 +346,90 @@
             });
         }
 
-        //wishlist
+        //add to wishlist
         function addToWishList(product_id) {
-    $.ajax({
-        type: "POST",
-        url: "/add-to-wishlist/" + product_id,
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") // ✅ CSRF টোকেন সংযুক্ত
-        },
-        success: function(response) {
-            console.log(response); // ✅ রেসপন্স JSON আসছে কিনা চেক করুন
-            if (response.success) {
-                Swal.fire({
-                    icon: "success",
-                    title: "🛒 Product Added to Wishlist!"
-                });
-            } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "❌ " + response.error
-                });
-            }
-        },
-        error: function(xhr) {
-            console.log(xhr.responseText); // ✅ Laravel error মেসেজ কনসোলে দেখুন
-            Swal.fire({
-                icon: "error",
-                title: "Something went wrong!",
-                text: xhr.responseText
+            $.ajax({
+                type: "POST",
+                url: "/add-to-wishlist/" + product_id,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") // ✅ CSRF টোকেন সংযুক্ত
+                },
+                success: function(response) {
+                    console.log(response); // ✅ রেসপন্স JSON আসছে কিনা চেক করুন
+                    if (response.success) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "🛒 Product Added to Wishlist!"
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "❌ " + response.error
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText); // ✅ Laravel error মেসেজ কনসোলে দেখুন
+                    Swal.fire({
+                        icon: "error",
+                        title: "Something went wrong!",
+                        text: xhr.responseText
+                    });
+                }
             });
         }
-    });
-}
 
+        //load wishlist
+        function wishlist() {
+            $.ajax({
+                type: "GET",
+                url: "/wishlist-product/", // সঠিক Route
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                },
+                success: function(response) {
+                    let rows = "";
+                    $.each(response.wishlist, function(key, value) {
+                        rows += `
+                    <tr class="pt-30">
+                        <td class="image product-thumbnail pt-40">
+                            <img src="/storage/thumbnail/${value.product.thumbnail}" alt="#" />
+                        </td>
+                        <td class="product-des product-name">
+                            <h6><a class="product-name mb-10" href="shop-product-right.html">${value.product.name}</a></h6>
+                            <div class="product-rate-cover">
+                                <div class="product-rate d-inline-block">
+                                    <div class="product-rating" style="width: 90%"></div>
+                                </div>
+                                <span class="font-small ml-5 text-muted"> (4.0)</span>
+                            </div>
+                        </td>
+                        <td class="price" data-title="Price">
+                            ${value.product.discount_price != null 
+                                ? `<h3 class="text-brand">$${value.product.discount_price}</h3> 
+                                    <h5 class="text-muted"><del>$${value.product.selling_price}</del></h5>` 
+                                : `<h3 class="text-brand">$${value.product.selling_price}</h3>`
+                            }
+                        </td>
+                        <td class="text-center detail-info" data-title="Stock">
+                            ${value.product.quantity > 0 
+                                ? `<span class="stock-status in-stock mb-0"> In Stock </span>` 
+                                : `<span class="stock-status out-stock mb-0"> Stock Out</span>`
+                            }
+                        </td>
+                        <td class="action text-center" data-title="Remove">
+                            <a href="#" class="text-body"><i class="fi-rs-trash"></i></a>
+                        </td>
+                    </tr>`;
+                    });
+                    $("#wishlist").html(rows);
+
+                    // Wishlist count update
+                    $(".pro-count").text(response.wishQty);
+                }
+            });
+        }
+        wishlist();
     </script>
 
 </body>

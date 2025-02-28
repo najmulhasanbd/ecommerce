@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Wishlist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // ✅ Auth ফ্যাসেড যুক্ত করুন
+use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
 {
@@ -33,8 +33,20 @@ class WishlistController extends Controller
         }
     }
 
-    public function allWishList(){
-        $wishlist=Wishlist::latest()->get();
-        return view('frontend.wishlist.index',compact('wishlist'));
+    public function allWishList()
+    {
+        // $wishlist=Wishlist::latest()->get();
+        return view('frontend.wishlist.index');
     }
+
+    public function getWishlistProduct()
+    {
+        $wishlist = Wishlist::with('product')->where('user_id', Auth::id())->latest()->get();
+        $wishQty = Wishlist::where('user_id', Auth::id())->count(); 
+    
+        return response()->json([
+            'wishlist' => $wishlist,
+            'wishQty' => $wishQty,
+        ]);
+    }    
 }
