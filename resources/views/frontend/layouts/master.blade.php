@@ -408,7 +408,7 @@
                         <td class="price" data-title="Price">
                             ${value.product.discount_price != null 
                                 ? `<h3 class="text-brand">$${value.product.discount_price}</h3> 
-                                                                                        <h5 class="text-muted"><del>$${value.product.selling_price}</del></h5>` 
+                                                                                                        <h5 class="text-muted"><del>$${value.product.selling_price}</del></h5>` 
                                 : `<h3 class="text-brand">$${value.product.selling_price}</h3>`
                             }
                         </td>
@@ -499,9 +499,11 @@
                         <td class="text-center detail-info" data-title="Stock">
                             <div class="detail-extralink mr-15">
                                 <div class="detail-qty border radius">
-                                    <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
+                                   <a type="submit" class="qty-down" id="${value.id}" onclick="cartDecrement(this.id)" >
+                                        <i class="fi-rs-angle-small-down"></i>
+                                    </a>
                                     <input type="text" name="quantity" class="qty-val" value="${value.quantity}" min="1">
-                                    <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+                                 <a type="submit" class="qty-up" id="${value.id}" onclick="cartIncrement(this.id)"><i class="fi-rs-angle-small-up"></i></a>
                                 </div>
                             </div>
                         </td>
@@ -525,8 +527,8 @@
         }
         cart();
 
-         //remove cart
-         function cartRemove(id) {
+        //remove cart
+        function cartRemove(id) {
             // alert(id);
             $.ajax({
                 type: 'GET',
@@ -557,6 +559,80 @@
                 },
                 error: function(xhr, status, error) {
                     console.log("Error:", error);
+                }
+            });
+        }
+
+        //decrement
+        function cartDecrement(id) {
+            $.ajax({
+                type: 'GET',
+                url: 'cart-decrement/' + id,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        cart();
+                        miniCart();
+
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+
+                        if (response.success) {
+                            Toast.fire({
+                                icon: "success",
+                                title: " Product Decrement successfully!"
+                            });
+                        } else if (response.error) {
+                            Toast.fire({
+                                icon: "error",
+                                title: "❌ " + response.error
+                            });
+                        }
+                    } else {
+                        alert(response.message);
+                    }
+                }
+            });
+        }
+
+        //decrement
+        function cartIncrement(id) {
+            $.ajax({
+                type: 'GET',
+                url: 'cart-increment/' + id,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        cart();
+                        miniCart();
+
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+
+                        if (response.success) {
+                            Toast.fire({
+                                icon: "success",
+                                title: " Product Increment successfully!"
+                            });
+                        } else if (response.error) {
+                            Toast.fire({
+                                icon: "error",
+                                title: "❌ " + response.error
+                            });
+                        }
+                    } else {
+                        alert(response.message);
+                    }
                 }
             });
         }

@@ -93,11 +93,13 @@ class CartController extends Controller
         ]);
     }
 
-    public function mycart(){
+    public function mycart()
+    {
         return view('frontend.cart.index');
     }
 
-    public function getCartProduct(){
+    public function getCartProduct()
+    {
         $carts = Cart::getContent();   // ✅ Darryldecode\Cart-এর জন্য getContent() ব্যবহার করুন
         $cartsQty = Cart::getTotalQuantity();  // ✅ মোট আইটেম সংখ্যা
         $cartsTotal = Cart::getTotal(); // ✅ মোট মূল্য
@@ -109,10 +111,40 @@ class CartController extends Controller
         ]);
     }
 
-    public function cartremove($id){
+    //cart remove
+    public function cartremove($id)
+    {
         Cart::remove($id);
         return response()->json([
-            'success'=>'Successfully remove cart product'
+            'success' => 'Successfully remove cart product'
         ]);
+    }
+
+    //decrement
+    public function carrDecrement($id)
+    {
+        $row = Cart::get($id);
+
+        if ($row && $row->quantity > 1) {
+            Cart::update($id, ['quantity' => -1]);
+
+            return response()->json(['success' => true, 'message' => 'Decrement']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Minimum quantity reached']);
+    }
+
+    //carIncrement
+    public function carIncrement($id)
+    {
+        $row = Cart::get($id);
+
+        if ($row && $row->quantity > 1) {
+            Cart::update($id, ['quantity' => +1]);
+
+            return response()->json(['success' => true, 'message' => 'Decrement']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Minimum quantity reached']);
     }
 }

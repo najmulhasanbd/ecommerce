@@ -57,3 +57,8 @@ Route::get('/remove-wishlist/{id}', [WishlistController::class, 'wishlistRemove'
 Route::get('/mycart', [CartController::class, 'mycart'])->name('mycart');
 Route::get('/get-cart-product',[CartController::class,'getCartProduct'])->name('get.cart.product');
 Route::get('/cart/remove/{id}',[CartController::class,'cartremove'])->name('cart.remove');
+Route::get('cart-decrement/{id}', [CartController::class, 'carrDecrement'])->name('cart.decrement');
+Route::get('cart-increment/{id}', [CartController::class, 'carIncrement'])->name('cart.increment');
+
+
+
