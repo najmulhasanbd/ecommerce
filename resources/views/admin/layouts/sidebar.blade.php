@@ -206,6 +206,34 @@
                     </ul>
                 </div>
             </li>
+            </li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#ship" aria-expanded="false" aria-controls="ship"
+                    class="side-nav-link">
+                    <span class="menu-icon"><i data-lucide="file-text"></i></span>
+                    <span class="menu-text"> Shipping</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="ship">
+                    <ul class="sub-menu">
+                        <li class="side-nav-item">
+                            <a href="#" class="side-nav-link">
+                                <span class="menu-text">All Division</span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="#" class="side-nav-link">
+                                <span class="menu-text">All District</span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="#" class="side-nav-link">
+                                <span class="menu-text">All State</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#product" aria-expanded="false" aria-controls="product"
                     class="side-nav-link">
