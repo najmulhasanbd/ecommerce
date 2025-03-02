@@ -15,7 +15,7 @@ use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\SubscriberController;
-use App\Http\Controllers\Backend\ShippingAreaController;
+use App\Http\Controllers\Admin\ShippingAreaController;
 
 Route::prefix('admin')->middleware('guest:admin')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])

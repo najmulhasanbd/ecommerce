@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\ShipState;
 use App\Models\ShipDistrict;
 use App\Models\ShipDivision;
-use App\Models\ShipState;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\DivisionRequest;
 
 class ShippingAreaController extends Controller
 {
@@ -21,9 +22,22 @@ class ShippingAreaController extends Controller
         $this->state = $state;
     }
 
-    public function divisionindex() {}
-    public function divisioncreate() {}
-    public function divisionstore(Request $request) {}
+    public function divisionindex()
+    {
+        $divisions = $this->division::latest()->get();
+        return view('admin.shipping.divisions.index', compact('divisions'));
+    }
+    public function divisionstore(DivisionRequest $request) {
+        $this->division::insert([
+            'division_name'=>$request->name
+        ]);
+
+        $notification = array(
+            'message' => 'Division Insert  Success!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
     public function divisionedit($id) {}
     public function divisionupdate(Request $request, $id) {}
     public function divisiondestroy($id) {}
