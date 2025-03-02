@@ -23,30 +23,7 @@
                         <a type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addDivision">Add
                             Division</a>
                     </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="addDivision" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Division</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{route('division.store')}}" method="post">
-                                        @csrf
 
-                                        <div class="form-group">
-                                            <label for="name">Division</label>
-                                            <input type="text" name="name" class="form-control" placeholder="enter name" required>
-                                        </div>
-                                        <button type="submit" class="btn btn-success mt-2">Submit</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-12">
                     <div class="card">
@@ -66,7 +43,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ ucwords($item->division_name) }}</td>
                                             <td>
-                                                <a href="{{ route('division.edit', $item->id) }}"
+                                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#division{{$item->id}}"
                                                     class="btn btn-sm btn-success">
                                                     <i class="ri-pencil-line"></i>
                                                 </a>
@@ -76,6 +53,34 @@
                                                 </a>
                                             </td>
                                         </tr>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="division{{$item->id}}" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Division
+                                                        </h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="{{ route('division.update', $item->id) }}" method="post">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="form-group">
+                                                                <label for="name">Division</label>
+                                                                <input type="text" name="name" class="form-control"
+                                                                    value="{{$item->division_name}}" required>
+                                                            </div>
+                                                            <button type="submit"
+                                                                class="btn btn-success mt-2">Update</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -84,5 +89,28 @@
                 </div><!-- end col-->
             </div> <!-- end row-->
         </div> <!-- container -->
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addDivision" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Division</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('division.store') }}" method="post">
+                        @csrf
+
+                        <div class="form-group">
+                            <label for="name">Division</label>
+                            <input type="text" name="name" class="form-control" placeholder="enter name" required>
+                        </div>
+                        <button type="submit" class="btn btn-success mt-2">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

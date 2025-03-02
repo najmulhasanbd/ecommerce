@@ -38,9 +38,34 @@ class ShippingAreaController extends Controller
         );
         return redirect()->back()->with($notification);
     }
-    public function divisionedit($id) {}
-    public function divisionupdate(Request $request, $id) {}
-    public function divisiondestroy($id) {}
+    public function divisionedit($id) {
+        $division=$this->division::findOrFail($id);
+    }
+    public function divisionupdate(DivisionRequest $request, $id) {
+        $division = $this->division::findOrFail($id); 
+        $division->update([
+            'division_name' => $request->name
+        ]);
+    
+        $notification = array(
+            'message' => 'Division Updated Successfully!',
+            'alert-type' => 'success'
+        );
+    
+        return redirect()->back()->with($notification);
+    }
+    
+
+    public function divisiondestroy($id) {
+        $division=$this->division::findOrFail($id);
+        $division->delete();
+
+        $notification = array(
+            'message' => 'Division Delete  Success!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 
     public function districtindex() {}
     public function districtcreate() {}
