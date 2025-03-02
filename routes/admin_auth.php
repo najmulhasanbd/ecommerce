@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\SubscriberController;
+use App\Http\Controllers\Backend\ShippingAreaController;
 
 Route::prefix('admin')->middleware('guest:admin')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -97,6 +98,36 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::get('/edit/{id}', 'edit')->name('edit');
         Route::put('/update/{id}', 'update')->name('update');
         Route::get('/delete/{id}', 'destroy')->name('delete');
+    });
+
+     //shipping controller
+     Route::prefix('division')->controller(ShippingAreaController::class)->name('division.')->group(function () {
+        Route::get('/', 'divisionindex')->name('index');
+        Route::get('/create', 'divisioncreate')->name('create');
+        Route::post('/store', 'divisionstore')->name('store');
+        Route::get('/edit/{id}', 'divisionedit')->name('edit');
+        Route::put('/update/{id}', 'divisionupdate')->name('update');
+        Route::get('/delete/{id}', 'divisiondestroy')->name('delete');
+    });
+
+     //shipping controller
+     Route::prefix('district')->controller(ShippingAreaController::class)->name('district.')->group(function () {
+        Route::get('/', 'districtindex')->name('index');
+        Route::get('/create', 'districtcreate')->name('create');
+        Route::post('/store', 'districtstore')->name('store');
+        Route::get('/edit/{id}', 'districtedit')->name('edit');
+        Route::put('/update/{id}', 'districtupdate')->name('update');
+        Route::get('/delete/{id}', 'districtdestroy')->name('delete');
+    });
+
+     //shipping controller
+     Route::prefix('state')->controller(ShippingAreaController::class)->name('state.')->group(function () {
+        Route::get('/', 'stateindex')->name('index');
+        Route::get('/create', 'statecreate')->name('create');
+        Route::post('/store', 'statestore')->name('store');
+        Route::get('/edit/{id}', 'stateedit')->name('edit');
+        Route::put('/update/{id}', 'stateupdate')->name('update');
+        Route::get('/delete/{id}', 'statedestroy')->name('delete');
     });
 
     //unit controller

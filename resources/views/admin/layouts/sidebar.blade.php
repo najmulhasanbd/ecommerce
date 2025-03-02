@@ -217,17 +217,17 @@
                 <div class="collapse" id="ship">
                     <ul class="sub-menu">
                         <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
+                            <a href="{{route('division.index')}}" class="side-nav-link">
                                 <span class="menu-text">All Division</span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
+                            <a href="{{route('district.index')}}" class="side-nav-link">
                                 <span class="menu-text">All District</span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
+                            <a href="{{route('state.index')}}" class="side-nav-link">
                                 <span class="menu-text">All State</span>
                             </a>
                         </li>

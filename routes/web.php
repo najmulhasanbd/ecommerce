@@ -5,7 +5,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\Frontend\FrontendController;
-use App\Http\Controllers\User\CompareController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
