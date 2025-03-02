@@ -129,6 +129,8 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::put('/update/{id}', 'stateupdate')->name('update');
         Route::get('/delete/{id}', 'statedestroy')->name('delete');
     });
+    Route::get('/district/ajax/{division_id}', [ShippingAreaController::class, 'ajaxDistrict'])->name('ajax.district');
+
 
     //unit controller
     Route::prefix('unit')->controller(UnitController::class)->name('unit.')->group(function () {
@@ -178,7 +180,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::get('active/{id}', 'active')->name('active');
         Route::get('inactive/{id}', 'inactive')->name('inactive');
     });
-    Route::get('subcategory/ajax/{category_id}', [SubCategoryController::class, 'subcategoryajax']);
+
 
     //product controller
     Route::prefix('product')->controller(ProductController::class)->name('product.')->group(function () {
@@ -210,17 +212,6 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/delete/{id}', 'destroy')->name('delete');
     });
-
-
-
-
-
-
-
-
-
-
-
 
     //setting controller
     Route::prefix('setting')->controller(SettingController::class)->name('setting.')->group(function () {

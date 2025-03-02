@@ -133,7 +133,6 @@
                                 @endforeach
                             </select>
                         </div>
-                        @csrf
 
                         <div class="form-group mt-2">
                             <label for="district_name">District</label>

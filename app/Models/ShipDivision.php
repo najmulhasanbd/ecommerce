@@ -8,9 +8,13 @@ class ShipDivision extends Model
 {
     protected $guarded = [];
 
-    public function division(){
-        return $this->hasMany(ShipDivision::class);
+    public function districts(): HasMany
+    {
+        return $this->hasMany(ShipDistrict::class, 'division_id', 'id');
     }
 
-
+    public function division(): HasMany
+    {
+        return $this->hasMany(ShipState::class, 'division_id', 'id');
+    }
 }

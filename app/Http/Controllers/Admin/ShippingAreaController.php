@@ -68,7 +68,7 @@ class ShippingAreaController extends Controller
     }
 
 
-
+//district
     public function districtindex() {
         $divisions = $this->division::all();
         $districts = $this->district::with('division')->latest()->get();
@@ -118,10 +118,59 @@ class ShippingAreaController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    public function stateindex() {}
-    public function statecreate() {}
-    public function statestore(Request $request) {}
-    public function stateedit($id) {}
+
+    //state
+    public function ajaxDistrict($division_id)
+    {
+        $districts = ShipDistrict::where('division_id', $division_id)->get();
+
+        return response()->json($districts);
+    }
+
+
+    public function stateindex() {
+        $divisions = ShipDivision::all();
+        $districts = ShipDistrict::all();
+        $states = ShipState::latest()->get();
+        return view('admin.shipping.state.index', compact('districts', 'divisions', 'states'));
+    }
+
+    public function statecreate(){
+        $divisions = ShipDivision::all();
+        $districts = ShipDistrict::all();
+
+        return view('admin.shipping.state.create',compact('divisions','districts'));
+    }
+
+    public function statestore(Request $request) {
+        $this->state::insert([
+            'division_id'=>$request->division_id,
+            'district_id'=>$request->district_id,
+            'state_name'=>$request->state_name
+        ]);
+
+        $notification = array(
+            'message' => 'State Insert  Success!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('state.index')->with($notification);
+    }
+    public function stateedit($id) {
+        $state=$this->state::findOrFail($id);
+        $divisions = ShipDivision::all();
+        $districts = ShipDistrict::all();
+
+        return view('admin.shipping.state.edit',compact('divisions','districts','state'))
+    }
     public function stateupdate(Request $request, $id) {}
-    public function statedestroy($id) {}
+    public function statedestroy($id) {
+        $stats=$this->state::findOrFail($id);
+        $stats->delete();
+
+        $notification = array(
+            'message' => 'State Delete  Success!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }
