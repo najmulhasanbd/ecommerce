@@ -4,12 +4,12 @@
     <div class="page-content">
         <div class="page-title-head d-flex align-items-center ">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-bold mb-0">Division</h4>
+                <h4 class="fs-18 fw-bold mb-0">District</h4>
             </div>
 
             <div class="text-end">
                 <ol class="breadcrumb m-0 py-0 fs-13">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Division</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">District</a></li>
 
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
@@ -20,8 +20,9 @@
             <div class="row">
                 <div class="row">
                     <div class="col-12">
-                        <a type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#addDivision">Add
-                            Division</a>
+                        <a type="button" class="btn btn-success mb-2" data-bs-toggle="modal"
+                            data-bs-target="#addDistrict">Add
+                            District</a>
                     </div>
 
                 </div>
@@ -32,22 +33,25 @@
                                 <thead>
                                     <tr>
                                         <th>SL</th>
-                                        <th>Name</th>
+                                        <th>District</th>
+                                        <th>Division</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($divisions as $item)
+                                    @foreach ($districts as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ ucwords($item->division_name) }}</td>
+                                            <td>{{ ucwords($item->district_name) }}</td>
+                                            <td>{{ ucwords($item->division->division_name) }}</td>
                                             <td>
-                                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#division{{$item->id}}"
+                                                <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                    data-bs-target="#district{{ $item->id }}"
                                                     class="btn btn-sm btn-success">
                                                     <i class="ri-pencil-line"></i>
                                                 </a>
-                                                <a href="{{ route('division.delete', $item->id) }}" id="delete"
+                                                <a href="{{ route('district.delete', $item->id) }}" id="delete"
                                                     class="btn btn-sm btn-danger">
                                                     <i class="ri-delete-bin-line"></i>
                                                 </a>
@@ -55,24 +59,41 @@
                                         </tr>
 
                                         <!-- Modal -->
-                                        <div class="modal fade" id="division{{$item->id}}" tabindex="-1"
+                                        <div class="modal fade" id="district{{ $item->id }}" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Division
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Update District
                                                         </h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="{{ route('division.update', $item->id) }}" method="post">
+                                                        <form action="{{ route('district.update', $item->id) }}"
+                                                            method="post">
                                                             @csrf
                                                             @method('PUT')
                                                             <div class="form-group">
-                                                                <label for="name">Division</label>
-                                                                <input type="text" name="name" class="form-control"
-                                                                    value="{{$item->division_name}}" required>
+                                                                <label for="division_id">Division</label>
+                                                                <select name="division_id" id="division_id"
+                                                                    class="form-select">
+                                                                    <option value="">Select Division</option>
+                                                                    @foreach ($divisions as $division)
+                                                                        <option value="{{ $division->id }}"
+                                                                            {{ $division->id == $item->division_id ? 'selected' : '' }}>
+                                                                            {{ $division->division_name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            @csrf
+
+                                                            <div class="form-group mt-2">
+                                                                <label for="district_name">District</label>
+                                                                <input type="text" name="district_name"
+                                                                    class="form-control" value="{{ $item->district_name }}"
+                                                                    required>
                                                             </div>
                                                             <button type="submit"
                                                                 class="btn btn-success mt-2">Update</button>
@@ -92,20 +113,32 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="addDivision" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addDistrict" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Division</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add District</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('division.store') }}" method="post">
+                    <form action="{{ route('district.store') }}" method="post">
                         @csrf
 
                         <div class="form-group">
-                            <label for="name">Division</label>
-                            <input type="text" name="name" class="form-control" placeholder="enter name" required>
+                            <label for="division_id">Division</label>
+                            <select name="division_id" id="division_id" class="form-select">
+                                <option value="">Select Division</option>
+                                @foreach ($divisions as $item)
+                                    <option value="{{ $item->id }}">{{ $item->division_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @csrf
+
+                        <div class="form-group mt-2">
+                            <label for="district_name">District</label>
+                            <input type="text" name="district_name" class="form-control" placeholder="enter name"
+                                required>
                         </div>
                         <button type="submit" class="btn btn-success mt-2">Submit</button>
                     </form>

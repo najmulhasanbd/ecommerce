@@ -42,19 +42,19 @@ class ShippingAreaController extends Controller
         $division=$this->division::findOrFail($id);
     }
     public function divisionupdate(DivisionRequest $request, $id) {
-        $division = $this->division::findOrFail($id); 
+        $division = $this->division::findOrFail($id);
         $division->update([
             'division_name' => $request->name
         ]);
-    
+
         $notification = array(
             'message' => 'Division Updated Successfully!',
             'alert-type' => 'success'
         );
-    
+
         return redirect()->back()->with($notification);
     }
-    
+
 
     public function divisiondestroy($id) {
         $division=$this->division::findOrFail($id);
@@ -67,12 +67,56 @@ class ShippingAreaController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    public function districtindex() {}
-    public function districtcreate() {}
-    public function districtstore(Request $request) {}
-    public function districtedit($id) {}
-    public function districtupdate(Request $request, $id) {}
-    public function districtdestroy($id) {}
+
+
+    public function districtindex() {
+        $divisions = $this->division::all();
+        $districts = $this->district::with('division')->latest()->get();
+        return view('admin.shipping.districts.index', compact('districts', 'divisions'));
+    }
+
+    public function districtstore(Request $request) {
+        $this->district::insert([
+            'division_id'=>$request->division_id,
+            'district_name'=>$request->district_name
+        ]);
+
+        $notification = array(
+            'message' => 'District Insert  Success!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    public function districtedit($id) {
+        $district = ShipDistrict::findOrFail($id);
+        $divisions = ShipDivision::all();
+
+        return view('admin.shipping.districts.edit', compact('district', 'divisions'));
+    }
+    public function districtupdate(Request $request, $id) {
+        $district = ShipDistrict::findOrFail($id);
+
+        $district->update([
+            'division_id'   => $request->division_id,
+            'district_name' => $request->district_name
+        ]);
+
+        return redirect()->back()->with([
+            'message' => 'District Updated Successfully!',
+            'alert-type' => 'success'
+        ]);
+    }
+
+    public function districtdestroy($id) {
+        $district=$this->district::findOrFail($id);
+        $district->delete();
+
+        $notification = array(
+            'message' => 'District Delete  Success!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 
     public function stateindex() {}
     public function statecreate() {}
