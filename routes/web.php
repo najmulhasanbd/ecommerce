@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\Frontend\FrontendController;
 
@@ -70,3 +71,6 @@ Route::get('/coupon-remove', [CartController::class, 'couponRemove'])->name('cou
 
 //checkout
 Route::get('checkout',[CartController::class,'checkoutCreate'])->name('checkout');
+
+//checkout store
+Route::post('checkout-store',[CheckoutController::class,'checkoutStore'])->name('checkout.store');

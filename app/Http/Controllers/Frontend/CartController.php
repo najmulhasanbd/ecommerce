@@ -8,6 +8,7 @@ use App\Models\Coupon;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ShipDivision;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -206,11 +207,12 @@ class CartController extends Controller
     {
         if (Auth::check()) {
             if (Cart::getTotal() > 0) {
-                $carts = Cart::getContent();   // ✅ Darryldecode\Cart-এর জন্য getContent() ব্যবহার করুন
-                $cartsQty = Cart::getTotalQuantity();  // ✅ মোট আইটেম সংখ্যা
-                $cartsTotal = Cart::getTotal(); // ✅ মোট মূল্য
+                $carts = Cart::getContent();
+                $cartsQty = Cart::getTotalQuantity();
+                $cartsTotal = Cart::getTotal();
+                $divisions = ShipDivision::orderby('division_name', 'asc')->get();
 
-                return view('frontend.checkout.index', compact('carts', 'cartsQty', 'cartsTotal'));
+                return view('frontend.checkout.index', compact('carts', 'cartsQty', 'cartsTotal', 'divisions'));
             } else {
                 $notification = array(
                     'message' => 'At List one Product.',

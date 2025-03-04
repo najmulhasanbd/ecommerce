@@ -160,7 +160,7 @@ class ShippingAreaController extends Controller
         $divisions = ShipDivision::all();
         $districts = ShipDistrict::all();
 
-        return view('admin.shipping.state.edit',compact('divisions','districts','state'))
+        return view('admin.shipping.state.edit',compact('divisions','districts','state'));
     }
     public function stateupdate(Request $request, $id) {}
     public function statedestroy($id) {
