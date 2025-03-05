@@ -25,10 +25,9 @@
                                 <thead>
                                     <tr>
                                         <th>SL</th>
-                                        <th>Code</th>
-                                        <th>Type</th>
-                                        <th>Amount</th>
-                                        <th>Expire Date</th>
+                                        <th>Coupon Name</th>
+                                        <th>Coupon Discount</th>
+                                        <th>Coupon Validity</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -38,16 +37,9 @@
                                     @foreach ($data as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->code }}</td>
-                                            <td>
-                                                @if ($item->status==1)
-                                                <button class="btn btn-success">Fixed</button>
-                                                @else                                                
-                                                <button class="btn btn-success">Percen</button>
-                                                @endif
-                                            </td>
-                                            <td>{{ $item->amount }}</td>
-                                            <td>{{ $item->expireDate }}</td>
+                                            <td>{{ $item->coupon_name  }}</td>
+                                            <td>{{ $item->coupon_discount }}</td>
+                                            <td>{{ Carbon\Carbon::parse($item->coupon_validity)->format('D,d Y') }}</td>
                                             <td>
                                                 @if ($item->status == 1)
                                                     <a href="{{ route('coupon.inactive', $item->id) }}" id="inactive"

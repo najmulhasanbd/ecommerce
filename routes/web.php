@@ -60,4 +60,9 @@ Route::get('cart-decrement/{id}', [CartController::class, 'carrDecrement'])->nam
 Route::get('cart-increment/{id}', [CartController::class, 'carIncrement'])->name('cart.increment');
 
 
+//coupon 
+Route::post('coupon-apply',[CartController::class,'couponApply'])->name('coupon.apply');
+//calculation
+Route::get('coupon-calculation',[CartController::class,'couponCalculation'])->name('coupon.calculation');
 
+Route::get('/coupon-remove', [CartController::class, 'couponRemove'])->name('coupon.remove');

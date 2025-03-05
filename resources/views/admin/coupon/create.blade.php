@@ -19,42 +19,29 @@
                         <div class="row">
                             <div class="col-12 col-lg-6 mb-2">
                                 <div class="form-group">
-                                    <label for="code" style="width: 100%;text-align:start">Code </label>
-                                    <input type="text" name="code" id="code" class="form-control"
-                                        placeholder="enter code" value="{{ old('code') }}">
-                                    @error('code')
+                                    <label for="coupon_name" style="width: 100%;text-align:start">coupon name </label>
+                                    <input type="text" name="coupon_name" id="coupon_name" class="form-control"
+                                        placeholder="enter coupon_name" value="{{ old('coupon_name') }}">
+                                    @error('coupon_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6 mb-2">
                                 <div class="form-group">
-                                    <label for="type" style="width: 100%;text-align:start">Discount Type</label>
-                                    <select name="type" id="type" class="form-select">
-                                        <option value="1">Fixed</option>
-                                        <option value="2">Percent</option>
-                                    </select>
-                                    @error('type')
+                                    <label for="coupon_discount" style="width: 100%;text-align:start">Discount Amount</label>
+                                    <input type="text" name="coupon_discount" id="coupon_discount" class="form-control"
+                                        placeholder="enter coupon_discount" value="{{ old('coupon_discount') }}">
+                                    @error('coupon_discount')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6 mb-2">
                                 <div class="form-group">
-                                    <label for="amount" style="width: 100%;text-align:start">Discount Amount</label>
-                                    <input type="text" name="amount" id="amount" class="form-control"
-                                        placeholder="enter amount" value="{{ old('amount') }}">
-                                    @error('amount')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6 mb-2">
-                                <div class="form-group">
-                                    <label for="expireDate" style="width: 100%;text-align:start">Expire Date</label>
-                                    <input type="date" name="expireDate" id="expireDate" class="form-control"
-                                        value="{{ old('expireDate') }}">
-                                    @error('expireDate')
+                                    <label for="coupon_validity" style="width: 100%;text-align:start">Discount Validity</label>
+                                    <input type="date" name="coupon_validity" id="coupon_validity" class="form-control">
+                                    @error('coupon_validity')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>

@@ -408,7 +408,7 @@
                         <td class="price" data-title="Price">
                             ${value.product.discount_price != null 
                                 ? `<h3 class="text-brand">$${value.product.discount_price}</h3> 
-                                                                                                        <h5 class="text-muted"><del>$${value.product.selling_price}</del></h5>` 
+                                                                                                                            <h5 class="text-muted"><del>$${value.product.selling_price}</del></h5>` 
                                 : `<h3 class="text-brand">$${value.product.selling_price}</h3>`
                             }
                         </td>
@@ -537,6 +537,7 @@
                 success: function(data) {
                     cart();
                     miniCart();
+                    couponCalculation();
 
                     const Toast = Swal.mixin({
                         toast: true,
@@ -573,6 +574,7 @@
                     if (response.success) {
                         cart();
                         miniCart();
+                        couponCalculation();
 
                         const Toast = Swal.mixin({
                             toast: true,
@@ -610,6 +612,7 @@
                     if (response.success) {
                         cart();
                         miniCart();
+                        couponCalculation();
 
                         const Toast = Swal.mixin({
                             toast: true,
@@ -633,6 +636,141 @@
                     } else {
                         alert(response.message);
                     }
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function applyCoupon(id) {
+            let coupon_name = $("#coupon_name").val();
+            $.ajax({
+                type: 'POST',
+                url: 'coupon-apply/',
+                dataType: 'json',
+                data: {
+                    coupon_name: coupon_name
+                },
+                success: function(data) {
+
+                    if (data.validity == true) {
+                        $("#couponField").hide();
+                    }
+
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+                    if (data.success) {
+                        Toast.fire({
+                            icon: "success",
+                            title: "🎉 Coupon applied successfully! Enjoy your discount. 🛍️"
+                        });
+                    } else if (data.error) {
+                        Toast.fire({
+                            icon: "error",
+                            title: "⚠️ Invalid coupon! Please try again or check the expiry date."
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log("Error:", error);
+                }
+            });
+        }
+
+// Coupon Calculation
+function couponCalculation() {
+    $.ajax({
+        type: 'GET',
+        url: '/coupon-calculation',
+        dataType: 'json',
+        success: function (data) {
+            let html = '';
+
+            if (data.coupon_name) { // Coupon Applied
+                html = `
+                    <tr>
+                        <td class="cart_total_label">
+                            <h6 class="text-muted">Subtotal</h6>
+                        </td>
+                        <td class="cart_total_amount">
+                            <h4 class="text-brand text-end">$${data.subtotal.toFixed(2)} 
+                                <a href="#" onclick="removeCoupon()">
+                                    <i class="fi-rs-trash"></i>
+                                </a>
+                            </h4>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td class="cart_total_label">
+                            <h6 class="text-muted">Discount (${data.coupon_name})</h6>
+                        </td>
+                        <td class="cart_total_amount">
+                            <h4 class="text-danger text-end">- $${data.discount_amount.toFixed(2)}</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cart_total_label">
+                            <h6 class="text-muted">Grand Total</h6>
+                        </td>
+                        <td class="cart_total_amount">
+                            <h4 class="text-brand text-end">$${data.total_amount.toFixed(2)}</h4>
+                        </td>
+                    </tr>
+                `;
+            } else { // No Coupon Applied
+                html = `
+                    <tr>
+                        <td class="cart_total_label">
+                            <h6 class="text-muted">Subtotal</h6>
+                        </td>
+                        <td class="cart_total_amount">
+                            <h4 class="text-brand text-end">$${data.total.toFixed(2)}</h4>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td class="cart_total_label">
+                            <h6 class="text-muted">Total</h6>
+                        </td>
+                        <td class="cart_total_amount">
+                            <h4 class="text-brand text-end">$${data.total.toFixed(2)}</h4>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            $("#couponCalFiled").html(html);
+        },
+        error: function (xhr, status, error) {
+            console.log("Error:", error);
+        }
+    });
+}
+
+couponCalculation();
+
+
+
+        //remove
+        function removeCoupon() {
+            $.ajax({
+                type: 'GET',
+                url: '/coupon-remove',
+                success: function(data) {
+
+                    couponCalculation();
+                    $('#couponCalFiled').show();
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "✅ Coupon Removed Successfully!"
+                    });
+                    couponCalculation(); // Refresh totals
+                    $("#couponField").show(); // Show coupon input field again
                 }
             });
         }

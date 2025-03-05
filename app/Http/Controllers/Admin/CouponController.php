@@ -26,10 +26,9 @@ class CouponController extends Controller
     public function store(Request $request)
     {
         $this->coupon::create([
-            'code' => $request->code,
-            'type' => $request->type,
-            'amount' => $request->amount,
-            'expireDate' => $request->expireDate,
+            'coupon_name' => $request->coupon_name,
+            'coupon_discount' => $request->coupon_discount,
+            'coupon_validity' => $request->coupon_validity,
             'status' => 2
         ]);
 
@@ -49,10 +48,9 @@ class CouponController extends Controller
         $data = $this->coupon::findOrFail($id);
 
         $data->update([
-            'code' => $request->code,
-            'type' => $request->type,
-            'amount' => $request->amount,
-            'expireDate' => $request->expireDate,
+            'coupon_name' => $request->coupon_name,
+            'coupon_discount' => $request->coupon_discount,
+            'coupon_validity' => $request->coupon_validity,
         ]);
 
         $notification = array(
