@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Cart;
+use Carbon\Carbon;
+use App\Models\Coupon;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Coupon;
-use Carbon\Carbon;
-use Cart;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
@@ -196,10 +197,33 @@ class CartController extends Controller
     }
 
     public function couponRemove()
-{
-    Session::forget('coupon');
-    return response()->json(['success' => 'Coupon Removed Successfully']);
-}
+    {
+        Session::forget('coupon');
+        return response()->json(['success' => 'Coupon Removed Successfully']);
+    }
 
-    
+    public function checkoutCreate()
+    {
+        if (Auth::check()) {
+            if (Cart::getTotal() > 0) {
+                $carts = Cart::getContent();   // ✅ Darryldecode\Cart-এর জন্য getContent() ব্যবহার করুন
+                $cartsQty = Cart::getTotalQuantity();  // ✅ মোট আইটেম সংখ্যা
+                $cartsTotal = Cart::getTotal(); // ✅ মোট মূল্য
+
+                return view('frontend.checkout.index', compact('carts', 'cartsQty', 'cartsTotal'));
+            } else {
+                $notification = array(
+                    'message' => 'At List one Product.',
+                    'alert-type' => 'success'
+                );
+                return redirect()->to('/')->with($notification);
+            }
+        } else {
+            $notification = array(
+                'message' => 'You need login First!',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('banner.index')->with($notification);
+        }
+    }
 }
