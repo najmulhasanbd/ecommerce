@@ -17,8 +17,10 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/plugins/animate.min.css" />
     <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/main.css?v=5.3" />
-    
+
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 
 <body>
@@ -437,7 +439,7 @@
                         <td class="price" data-title="Price">
                             ${value.product.discount_price != null 
                                 ? `<h3 class="text-brand">$${value.product.discount_price}</h3> 
-                                                                                                                            <h5 class="text-muted"><del>$${value.product.selling_price}</del></h5>` 
+                                                                                                                                <h5 class="text-muted"><del>$${value.product.selling_price}</del></h5>` 
                                 : `<h3 class="text-brand">$${value.product.selling_price}</h3>`
                             }
                         </td>
@@ -711,17 +713,17 @@
             });
         }
 
-// Coupon Calculation
-function couponCalculation() {
-    $.ajax({
-        type: 'GET',
-        url: '/coupon-calculation',
-        dataType: 'json',
-        success: function (data) {
-            let html = '';
+        // Coupon Calculation
+        function couponCalculation() {
+            $.ajax({
+                type: 'GET',
+                url: '/coupon-calculation',
+                dataType: 'json',
+                success: function(data) {
+                    let html = '';
 
-            if (data.coupon_name) { // Coupon Applied
-                html = `
+                    if (data.coupon_name) { // Coupon Applied
+                        html = `
                     <tr>
                         <td class="cart_total_label">
                             <h6 class="text-muted">Subtotal</h6>
@@ -751,8 +753,8 @@ function couponCalculation() {
                         </td>
                     </tr>
                 `;
-            } else { // No Coupon Applied
-                html = `
+                    } else { // No Coupon Applied
+                        html = `
                     <tr>
                         <td class="cart_total_label">
                             <h6 class="text-muted">Subtotal</h6>
@@ -770,17 +772,17 @@ function couponCalculation() {
                         </td>
                     </tr>
                 `;
-            }
+                    }
 
-            $("#couponCalFiled").html(html);
-        },
-        error: function (xhr, status, error) {
-            console.log("Error:", error);
+                    $("#couponCalFiled").html(html);
+                },
+                error: function(xhr, status, error) {
+                    console.log("Error:", error);
+                }
+            });
         }
-    });
-}
 
-couponCalculation();
+        couponCalculation();
 
 
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\User\StripeController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -55,22 +56,25 @@ Route::get('/remove-wishlist/{id}', [WishlistController::class, 'wishlistRemove'
 
 //mycart
 Route::get('/mycart', [CartController::class, 'mycart'])->name('mycart');
-Route::get('/get-cart-product',[CartController::class,'getCartProduct'])->name('get.cart.product');
-Route::get('/cart/remove/{id}',[CartController::class,'cartremove'])->name('cart.remove');
+Route::get('/get-cart-product', [CartController::class, 'getCartProduct'])->name('get.cart.product');
+Route::get('/cart/remove/{id}', [CartController::class, 'cartremove'])->name('cart.remove');
 Route::get('cart-decrement/{id}', [CartController::class, 'carrDecrement'])->name('cart.decrement');
 Route::get('cart-increment/{id}', [CartController::class, 'carIncrement'])->name('cart.increment');
 
 
 //coupon 
-Route::post('coupon-apply',[CartController::class,'couponApply'])->name('coupon.apply');
+Route::post('coupon-apply', [CartController::class, 'couponApply'])->name('coupon.apply');
 //calculation
-Route::get('coupon-calculation',[CartController::class,'couponCalculation'])->name('coupon.calculation');
+Route::get('coupon-calculation', [CartController::class, 'couponCalculation'])->name('coupon.calculation');
 
 Route::get('/coupon-remove', [CartController::class, 'couponRemove'])->name('coupon.remove');
 
 
 //checkout
-Route::get('checkout',[CartController::class,'checkoutCreate'])->name('checkout');
+Route::get('checkout', [CartController::class, 'checkoutCreate'])->name('checkout');
 
 //checkout store
-Route::post('checkout-store',[CheckoutController::class,'checkoutStore'])->name('checkout.store');
+Route::post('checkout-store', [CheckoutController::class, 'checkoutStore'])->name('checkout.store');
+
+//stripe
+Route::post('stripe/order', [StripeController::class, 'stripeOrder'])->name('stripe.order');
