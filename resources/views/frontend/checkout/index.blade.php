@@ -39,7 +39,7 @@
                                     <select class="form-control" id="division_id" name="division_id">
                                         <option value="">Select an option...</option>
                                         @foreach ($divisions as $item)
-                                            <option value="AX">{{ $item->division_name }}</option>
+                                            <option value="{{ $item->id }}">{{ $item->division_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -55,11 +55,8 @@
                                 <div class="custom_select">
                                     <select class="form-control" id="district_id" name="district_id">
                                         <option value="">Select an option...</option>
-                                        <option value="AX">Aland Islands</option>
-                                        <option value="AF">Afghanistan</option>
-                                        <option value="AL">Albania</option>
-                                        <option value="DZ">Algeria</option>
-                                        <option value="AD">Andorra</option>
+                                        <option value="1">chuadanga</option>
+                                        <option value="2">khulna</option>
 
                                     </select>
                                 </div>
@@ -74,11 +71,8 @@
                                 <div class="custom_select">
                                     <select class="form-control " id="state_id" name="state_id">
                                         <option value="">Select an option...</option>
-                                        <option value="AX">Aland Islands</option>
-                                        <option value="AF">Afghanistan</option>
-                                        <option value="AL">Albania</option>
-                                        <option value="DZ">Algeria</option>
-                                        <option value="AD">Andorra</option>
+                                        <option value="3">alamganga</option>
+                                        <option value="4">chuadanga</option>
                                     </select>
                                 </div>
                             </div>

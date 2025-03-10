@@ -118,6 +118,17 @@
                             @csrf
                             <div class="form-row">
                                 <label for="card-element">
+
+                                    <input type="hidden" name="name" value="{{ $data['shipping_name'] }}">
+                                    <input type="hidden" name="email" value="{{ $data['shipping_email'] }}">
+                                    <input type="hidden" name="phone" value="{{ $data['shipping_phone'] }}">
+                                    <input type="hidden" name="post_code" value="{{ $data['post_code'] }}">
+                                    <input type="hidden" name="division_id" value="{{ $data['division_id'] }}">
+                                    <input type="hidden" name="district_id" value="{{ $data['district_id'] }}">
+                                    <input type="hidden" name="state_id" value="{{ $data['state_id'] }}">
+                                    <input type="hidden" name="address" value="{{ $data['shipping_address'] }}">
+                                    <input type="hidden" name="notes" value="{{ $data['note'] }}">
+
                                     Credit or debit card
                                 </label>
 
@@ -137,7 +148,7 @@
     <script type="text/javascript">
         var stripe = Stripe(
             'pk_test_51QzskFJHWBeYM2ibBIHt3RQmczpQwOUjbCn7adsLMoXPQ9dTgXBJtw78syt5UYes4x1P8Uzl0OBgGElZ1Y35Zfv200FxxZvUsU'
-            );
+        );
 
         var elements = stripe.elements();
 
