@@ -78,3 +78,4 @@ Route::post('checkout-store', [CheckoutController::class, 'checkoutStore'])->nam
 
 //stripe
 Route::post('stripe/order', [StripeController::class, 'stripeOrder'])->name('stripe.order');
+Route::post('cash/order', [StripeController::class, 'cashOrder'])->name('cash.order');
