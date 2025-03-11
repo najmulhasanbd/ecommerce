@@ -5,10 +5,12 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use Cart;
 use App\Http\Controllers\Controller;
+use App\Mail\Ordermail;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class StripeController extends Controller
@@ -74,7 +76,7 @@ class StripeController extends Controller
         if (Session::has('coupon')) {
             Session::forget('coupon');
         }
-        Cart::clear(); 
+        Cart::clear();
 
         $notification = array(
             'message' => 'Your Order Place Successfully',
@@ -109,7 +111,7 @@ class StripeController extends Controller
             'payment_method' => 'Cash on Delivery',
             'currency' => 'USD',
             'amount' => $total_amount,
-            
+
             'invoice_no' => mt_rand(100000000, 999999999),
             'order_date' => Carbon::now()->format('d F Y'),
             'order_year' => Carbon::now()->format('F'),
@@ -130,10 +132,21 @@ class StripeController extends Controller
                 'created_at' => Carbon::now(),
             ]);
         }
+
+        $invoice = Order::findOrFail($order_id);
+        $data = [
+            'invoice_no' => $invoice->invoice_no,
+            'amount' => $total_amount,
+            'name' => $invoice->name,
+            'email' => $invoice->email,
+        ];
+
+        Mail::to($request->email)->send(new Ordermail($data));
+
         if (Session::has('coupon')) {
             Session::forget('coupon');
         }
-        Cart::clear(); 
+        Cart::clear();
 
         $notification = array(
             'message' => 'Your Order Place Successfully',
